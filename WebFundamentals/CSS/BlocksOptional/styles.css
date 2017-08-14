@@ -1,0 +1,91 @@
+*{
+ margin: 0px;
+ padding: 0px;
+}
+
+body{
+    background-color: tan;
+}
+
+#wrapper{
+    margin:2%;
+}
+
+#header{
+    text-align:center;
+    margin-left: auto;
+    margin-right:auto;
+    max-width:50%;
+    max-height:18%;
+    display: block;
+    white-space: nowrap;
+}
+
+.headerItem{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+img{
+    height:100px;
+    width:100px;
+}
+
+#textHeader{
+    font-weight:bold;
+    font-size: 50px;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+.whiteBackground{
+    background-color:white;
+}
+
+.row{
+    display: block;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+.square{
+    max-width: 23%;
+    max-height: 18%;
+    padding: 10px;
+    border: 3px solid black;
+    display: inline-block;
+}
+
+.row .square:nth-child(odd){
+    background-color: lightblue;
+}
+.row .square:nth-child(even){
+    background-color: salmon;
+}
+
+/* how to center box, horiz and vert, inside container
+.container {
+  height: 300px;
+  width: 300px;
+  background: #eee;
+  position: absolute;
+  
+  margin: -150px 0 0 -150px;
+  left: 50%;
+  top: 50%;
+}
+
+.box {
+  height: 100px;
+  width: 100px;
+  background: #222;
+  position: absolute;
+  
+OR:  margin: -50px 0 0 -50px;
+  left: 50%;
+  top: 50%;
+}
+*/

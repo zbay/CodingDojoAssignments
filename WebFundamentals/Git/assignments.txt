@@ -1,0 +1,12 @@
+C:\Users\zlwillia\Desktop\DojoAssignments\iOS                                                                                                                                                                                                
+C:\Users\zlwillia\Desktop\DojoAssignments\MEAN                                                                                                                                                                                               
+C:\Users\zlwillia\Desktop\DojoAssignments\netCore                                                                                                                                                                                            
+C:\Users\zlwillia\Desktop\DojoAssignments\Python                                                                                                                                                                                             
+C:\Users\zlwillia\Desktop\DojoAssignments\Ruby                                                                                                                                                                                               
+C:\Users\zlwillia\Desktop\DojoAssignments\WebFundamentals                                                                                                                                                                                    
+C:\Users\zlwillia\Desktop\DojoAssignments\WebFundamentals\CSS                                                                                                                                                                                
+C:\Users\zlwillia\Desktop\DojoAssignments\WebFundamentals\Git                                                                                                                                                                                
+C:\Users\zlwillia\Desktop\DojoAssignments\WebFundamentals\HTML                                                                                                                                                                               
+C:\Users\zlwillia\Desktop\DojoAssignments\WebFundamentals\Javascript                                                                                                                                                                         
+C:\Users\zlwillia\Desktop\DojoAssignments\WebFundamentals\HTML\indentation.html
+    

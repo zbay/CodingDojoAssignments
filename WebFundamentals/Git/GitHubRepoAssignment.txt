@@ -1,0 +1,7 @@
+1. In Git bash, made folder, initiated Git repo, and made readme.md.
+2. Manually edited readme.md.
+3. Checked status.
+4. Added origin.
+5. Attempted to push but had a SSH error.
+6. Worked around the SSH error by pushing my commit via the Github for Windows GUI. That's not cheating, is it?
+7. https://github.com/zbay/GithubRepoAssignment

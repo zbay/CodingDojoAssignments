@@ -1,0 +1,15 @@
+1. cd gittest
+2. git init
+3. touch styles.css
+4. touch index.html
+5. touch aboutMe.txt
+6. git add .
+7. git commit -m "Made three files"
+8. git add aboutMe.txt
+9. git commit -m "updated aboutMe"
+10. git add .
+11. git commit -m "added favorite movie to aboutMe"
+12. git log
+13. git revert -n HEAD
+14. git add .
+15. git commit -m "added favorite book to aboutMe"

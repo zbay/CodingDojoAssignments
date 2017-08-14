@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Registration Form</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <meta name="description" content="A basic registration form."/>
+    </head>
+    <body>
+        <h1>My Registration Form</h1>
+        <form>
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" id="first_name" />
+            <br />
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" id="last_name" />
+            <br />
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email" />
+            <br />
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" />
+            <br />
+            <label for="pw_confirm">PW Confirm:</label>
+            <input type="text" name="pw_confirm" id="pw_confirm" />
+            <br />
+            <label for="birthday">Birthday:</label>
+            <input type="date" name="birthday" id="birthday"/>
+            <br />
+            <label for="male">Male:</label>
+            <input type="radio" name="gender" value="Male" id="male"/>
+            <label for="female">Female:</label>
+            <input type="radio" name="gender" value="Female" id="female"/>
+            <label for="other">Other:</label>
+            <input type="radio" name="gender" value="Other" id="other"/>
+            <br />
+            <label for="description">A short description about yourself:</label><br />
+            <textarea name="description" id="description"></textarea>
+            <br />
+            <label for="fave_language">Favorite Language:</label>
+            <select name="fave_language" id="fave_language">
+                <option value="js">JavaScript</option>
+                <option value="py">Python</option>
+                <option value="java">Java</option>
+                <option value="php">PHP</option>
+            </select>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
