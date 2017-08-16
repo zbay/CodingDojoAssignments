@@ -1,0 +1,97 @@
+body{
+    width:1000px;
+    background-color:antique-white;
+    color: white;
+    font-family: Courier New, Courier, monospace;
+    padding:10px;
+}
+
+div, p, h1, h2, h3, h4, h5, h6{
+    display:block;
+}
+
+.column{
+    display:inline-block;
+    vertical-align: top;
+}
+
+#header, #footer{
+    color: black;
+    background-color: darkcyan;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding:10px;
+}
+
+#header a{
+    color: white;
+}
+#header img, #header h1{
+    display:inline-block;
+}
+
+#header img{
+    width:50px;
+    position:relative;
+    top:10px;
+}
+
+#footer a{
+    color: purple;
+}
+
+#content{
+    background-color:#ffff4d;
+    padding:10px;
+}
+#content a{
+    color: darkcyan;
+}
+
+.infobox{
+    background-color:#003333;
+    padding:10px;
+    margin-left:10px;
+    margin-right:10px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+ul li{
+    list-style: none;
+    display:inline-block;
+    font-size:14px;
+    padding-left:2px;
+    padding-right:2px;
+    font-weight:bold;
+    position:relative;
+    top:10px;
+}
+
+#footer{
+    text-align:center;
+    padding-top:30px;
+    padding-bottom:30px;
+}
+
+#aside{
+    width:240px;
+}
+
+#row1, #row2{
+    width:650px;
+}
+
+#row1 .column{
+    width: 170px;
+    height:190px;
+}
+
+#row2 .column{
+    width: 280px;
+}
+
+#row3{
+    width:610px;
+    height:182px;
+}

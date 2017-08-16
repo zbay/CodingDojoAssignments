@@ -1,0 +1,190 @@
+body{
+    width:970px;
+    color:black;
+    font-family:Arial, Helvetica, sans-serif;
+    margin-top:-50px;
+    background-color:antiquewhite;
+}
+
+.redText{
+    color:red
+}
+.blueText{
+    color:blue;
+}
+.greyText{
+    color:grey;
+}
+
+.column, .inlineblock{
+    display:inline-block;
+}
+.block{
+    display:block;
+}
+
+#bigNumber{
+    color:darkcyan;
+    font-weight:bold;
+    font-size:40px;
+}
+
+#big3box{
+    border: 3px solid darkcyan;
+}
+
+#www{
+  background: blue; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(blue, grey, blue); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(blue, grey, blue); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(cyan, grey, cyan); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(blue, grey, blue); /* Standard syntax */
+  color:white;
+  padding:15px;
+}
+
+#video{
+    background-color:blue;
+    margin-bottom:5px;
+}
+#more{
+    background-color:darkorange;
+}
+#aside button{
+    color:white;
+    border-radius: 4px;
+    box-shadow: 2px 2px 1px black;
+    display:block;
+    width:200px; 
+    height:40px;
+}
+
+#header{
+    background-color:white;
+}
+
+#aside{
+    width:200px;
+    margin-left:10px;
+    position:relative;
+    top:-30px;
+    font-weight:bold;
+}
+
+#main{
+    width:720px;
+    margin-left:10px;
+    position: relative;
+    top: -20px;
+}
+
+p, h1, h2, h3, h4, h5, h6, div{
+    display:block;
+}
+
+span{
+    display:inline;
+}
+
+img[src="./images/globe.png"]{
+    margin-top:-120px;
+    display:inline-block;
+    width:100px;
+    position:relative;
+    top:80px;
+}
+
+img[src="./images/ad_background.png"]{
+    width:200px;
+    display:block;
+    margin-top:20px;
+}
+img[src="./images/ninja.png"]{
+    width:90px;
+    display:block;
+    position:relative;
+    top:-320px;
+    right:5px;
+    margin-left:auto;
+    margin-right:auto;
+}
+img[src="./images/client_server.jpg"]{
+    width:300px;
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+}
+img[src="./images/html.png"]{
+    margin-left:10px;
+    width:130px;
+}
+img[src="./images/home.png"]{
+    width:20px;
+}
+img[src="./images/phone.png"]{
+    width:50px;
+    position:relative;
+    top:-10px;
+}
+
+#topHeader{
+    font-size:40px;
+    position:relative;
+    top: 40px;
+}
+
+#resources{
+    margin-bottom:20px;
+    border-bottom: 1 px solid grey;
+}
+
+#reinvent{
+    color:white;
+    position:relative;
+    top:-300px;
+    left:20px;
+    text-align:center;
+    width:160px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+#adButton{
+    border-radius:5px;
+    background-color:teal;
+    position:relative;
+    top:-300px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    width: 180px !important;
+    height:40px;
+}
+
+#dns{
+    position:relative;
+    top:-60px;
+}
+#dns a{
+    text-decoration:none;
+}
+
+#numbersAndHours{
+    position:relative;
+    right:-350px;
+}
+
+#numbersAndHours p{
+    margin-top:1px;
+    margin-bottom:1px;
+    text-align:right;
+}
+
+#explanation h3{
+    color:darkcyan;
+}
+
+#big3info{
+    width:470px;
+    margin-left:10px;
+}

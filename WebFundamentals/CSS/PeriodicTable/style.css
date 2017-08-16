@@ -1,0 +1,115 @@
+body{
+    background-color:antiquewhite;
+    width:1000px;    
+}
+#s .element{
+    background-color:lightblue;
+}
+#s, #periods div:nth-child(3){
+    margin-right:10px;
+}
+#p .element{
+    background-color:yellow;
+}
+#d .element{
+    background-color:salmon;
+}
+#d{
+    vertical-align: bottom;
+}
+#f .element{
+    background-color:lightgreen;
+}
+
+.element p:nth-child(2){
+    color:blue;
+    font-weight:bold;
+    font-size:12px;
+}
+
+.element{
+    padding: 2px 5px 2px 5px;
+    border: 1px solid grey;
+    height:35px;
+    width:35px;
+    font-size:9px;
+    margin-top:2px;
+    margin-bottom:2px;
+    color:black;
+    text-align:center;
+}
+
+#periods div{
+    padding: 2px 5px 2px 5px;
+    border: 1px solid antiquewhite;
+    height:35px;
+    width:35px;
+    font-size:12px;
+    margin-top:2px;
+    margin-bottom:2px;
+    text-align: center;
+}
+
+.rowNum{
+    padding: 2px 5px 2px 5px;
+    border: 1px solid antiquewhite;
+    height:35px;
+    width:35px;
+    font-size:9px;
+    margin-top:2px;
+    margin-bottom:2px;
+    text-align:center;   
+    font-size:12px;
+    position:relative;
+    top:8px;
+}
+
+#periods div, #rowNums{
+    vertical-align: top;
+}
+
+#periods, #rowNums, #fdescribe{
+    color:red;
+}
+
+.inlineBlock{
+    display:inline-block;
+}
+
+#lowerElements{
+    margin-top:15px;
+}
+.dummy{
+    background-color:antiquewhite;
+    border: 0;
+    color:white;
+}
+p{
+    margin-top:0;
+    margin-bottom:0;
+}
+
+#fdescribe{
+    vertical-align: top;
+    width: 160px;
+}
+#fdescribe p{
+    margin-top:10px;
+    margin-bottom:10px;
+    position:relative;
+    left:50px;
+}
+#fdescribe p:nth-child(2){
+    position:relative;
+    top:25px;
+}
+#fdescribe p:nth-child(1)::after{
+    position:relative;
+    left:15px;
+    content:"*";
+}
+#fdescribe p:nth-child(2)::after{
+    position:relative;
+    left:15px;
+    content:"**";
+}
