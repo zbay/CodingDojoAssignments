@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <script>
+            "use strict";
+            // default: never satisifed until you run out of quarters
+            function slots(quarters, quitPoint=Infinity){
+                // while you still have quarters and you haven't reached the point where you want to take winnings
+                while(quarters > 0 && quarters <= quitPoint){
+                    var slotResult = Math.random();
+                    // 1% chance of a winning result
+                    if(slotResult < 0.01){
+                        // winnings between 50 and 100
+                        var winnings = Math.trunc(Math.random() * 50) + 50;
+                        quarters += winnings;
+                        return quarters;
+                    }
+                    quarters -= 1;
+                }
+                return quarters;
+            }
+
+            console.log(slots(40));
+            console.log(slots(99, 100));
+            console.log(slots(1, 100));
+            console.log(slots(100, 5));
+        </script>
+    </head>
+</html>

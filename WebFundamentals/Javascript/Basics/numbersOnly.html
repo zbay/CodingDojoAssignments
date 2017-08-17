@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script>
+            "use strict";
+            function numbersOnly(array){
+                var nums = [];
+                for(var i = 0; i < array.length; i += 1){
+                    if(typeof array[i] === "number"){
+                        nums.push(array[i]);
+                    }
+                }
+                return nums;
+            }
+
+            function numbersOnlyInPlace(array){
+                for(var i = 0; i < array.length; i += 1){
+                    if(typeof array[i] !== "number"){
+                        // remove one item from the array at index i
+                        array.splice(i, 1);
+                    }
+                }
+            }
+            
+            var arr = [1, "apple", -3, "orange", 0.5];
+            console.log(arr);
+            console.log(numbersOnly(arr));
+            numbersOnlyInPlace(arr);
+            console.log(arr);
+        </script>
+    </head>
+</html>

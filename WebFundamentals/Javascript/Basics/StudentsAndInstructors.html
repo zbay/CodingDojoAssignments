@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <script>
+            "use strict";
+            function printNames(people){
+                for(var i = 0; i < people.length; i += 1){
+                    console.log(people[i].first_name + " " + people[i].last_name);
+                }
+            }
+            
+            var students = [ 
+                {first_name:  'Michael', last_name : 'Jordan'},
+                {first_name : 'John', last_name : 'Rosales'},
+                {first_name : 'Mark', last_name : 'Guillen'},
+                {first_name : 'KB', last_name : 'Tonel'}
+            ];
+            printNames(students);
+
+            function printNamesGrouped(people){
+                //get two separate arrays from the object, as shorthand
+                var students = people['Students'];
+                var instructors = people['Instructors'];
+                console.log("Students");
+                for(var i = 0; i < students.length; i += 1){
+                    console.log(i + " - " + students[i].first_name.toUpperCase() + " " + students[i].last_name.toUpperCase() + " " + (students[i].first_name.length + students[i].last_name.length));
+                }
+                console.log("Instructors");
+                for(var i = 0; i < instructors.length; i += 1){
+                    console.log(i + " - " + instructors[i].first_name.toUpperCase() + " " + instructors[i].last_name.toUpperCase() + " " + (instructors[i].first_name.length + instructors[i].last_name.length));
+                }
+            }
+            
+            var users = {
+                'Students': [ 
+                    {first_name:  'Michael', last_name : 'Jordan'},
+                    {first_name : 'John', last_name : 'Rosales'},
+                    {first_name : 'Mark', last_name : 'Guillen'},
+                    {first_name : 'KB', last_name : 'Tonel'}
+                ],
+                'Instructors': [
+                    {first_name : 'Michael', last_name : 'Choi'},
+                    {first_name : 'Martin', last_name : 'Puryear'}
+                ]
+            }
+            printNamesGrouped(users);
+        </script>
+    </head>
+</html>
