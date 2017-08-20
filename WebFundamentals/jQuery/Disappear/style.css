@@ -1,0 +1,13 @@
+.inlineBlock{
+    display:inline-block;
+}
+.hidden{
+    display:none;
+}
+img{
+    width:200px;
+    border:2px solid black;
+}
+body{
+    width:1000px;
+}

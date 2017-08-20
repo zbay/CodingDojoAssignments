@@ -1,0 +1,56 @@
+*{
+    color:black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background-color:antiquewhite;
+    width:980px;
+    margin:10px;
+}
+
+button, .functionDescription{
+    display:inline-block;
+}
+
+.functionBox{
+    border-bottom:3px solid black;
+    width:980px;
+}
+
+button{
+    width:180px;
+    margin-left:0;
+    margin-right:20px;
+    vertical-align: top;
+    position:relative;
+    top:50px;
+}
+.functionDescription{
+    width:740px;
+}
+
+.redText{
+    color:red;
+}
+
+h1{
+text-align:center;
+}
+
+img{
+    display:none;
+    width:100%;
+}
+
+#foImage{
+    display:block;
+}
+
+#unhideThis, #pDown{
+    display:none;
+}
+
+input{
+    margin-bottom:10px;
+}

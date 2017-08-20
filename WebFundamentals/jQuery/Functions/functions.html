@@ -1,0 +1,200 @@
+<html>
+    <head>
+        <title>jQuery Functions</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <script>
+            $( document ).ready(function() {
+                jQuery.data( document.body, "foo", 52 );
+                $("#addClass").click(function(){
+                    $("#redP").addClass("redText");
+                 });
+                $("#slideToggle").click(function(){
+                    $("#stImage").slideToggle();
+                 });
+                $("#append").click(function(){
+                    $("#addP").append("<p>Check out this new paragraph!</p>");
+                 });
+                $("#click").click(function(){
+                    alert("$(#click).click() works!");
+                 });
+                $("#hide").click(function(){
+                    $("#hideThis").hide();
+                 });
+                 $("#show").click(function(){
+                     $("#unhideThis").show();
+                 });
+                 $("#toggle").click(function(){
+                     $("#tImage").toggle();
+                 });
+                 $("#slideDown").click(function(){
+                     $("#pDown").slideDown();
+                 });
+                 $("#slideUp").click(function(){
+                     $("#pUp").slideUp();
+                 });
+                 $("#fadeIn").click(function(){
+                     $("#fiImage").fadeIn();
+                 });
+                 $("#fadeOut").click(function(){
+                     $("#foImage").fadeOut();
+                 });
+                 $("#before").click(function(){
+                     $("#beforeP").before("<p>Added something before!</p>");
+                 });
+                 $("#after").click(function(){
+                     $("#afterP").after("<p>Added something after!</p>");
+                 });
+                 $("#html").click(function(){
+                     $("#htmlP").html("<ul><li>Check out...</li><li>...this list!</li></ul>");
+                 });
+                 $("#attr").click(function(){
+                     $("#attrP").attr("style", "text-decoration: wavy overline lime; color: magenta");
+                 });
+                 $("#val").click(function(){
+                     $("#valInput").val("Button clicked!");
+                 });
+                 $("#text").click(function(){
+                     $("#textP").text("This text has been changed!");
+                 });
+                 $("#data").click(function(){
+                     $("#secret").text(JSON.stringify(jQuery.data(document.body)));
+                 });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="functionBox">
+            <button id="addClass">Add Class</button>
+            <div class="functionDescription">
+                <h1>AddClass</h1>
+                <p id="redP">Click the button to add class 'red' to this paragraph.</p>
+            </div>
+        </div>  
+        <div class="functionBox">
+            <button id="slideToggle">Slidetoggle</button>
+            <div class="functionDescription">
+                <h1>Slidetoggle</h1>
+                <p>Click the button to slidetoggle a hidden image.</p>
+            </div>
+            <img id="stImage" src="./images/jquery.png"/>
+        </div>  
+        <div class="functionBox">
+            <button id="append">Append</button>
+            <div class="functionDescription" id="addP">
+                <h1>Append</h1>
+                <p>Click the button to append a new paragraph.</p>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="click">Click</button>
+            <div class="functionDescription">
+                <h1>Click</h1>
+                <p>Click the button to get an alert.</p>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="hide">Hide</button>
+            <div class="functionDescription">
+                <h1>Hide</h1>
+                <p id="hideThis">Click the button to hide this paragraph.</p>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="show">Show</button>
+            <div class="functionDescription">
+                <h1>Show</h1>
+                <p>Click the button to show a hidden paragraph.</p>
+                <p id="unhideThis">Peekaboo!</p>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="toggle">Toggle</button>
+            <div class="functionDescription">
+                <h1>Toggle</h1>
+                <p>Click the button to toggle an image.</p>
+                <img id="tImage" src="./images/jquery.png"/>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="slideDown">Slide Down</button>
+            <div class="functionDescription">
+                <h1>Slide Down</h1>
+                <p id="pDown">Click the button to show this paragraph via slide down.</p>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="slideUp">Slide Up</button>
+            <div class="functionDescription">
+                <h1>Slide Up</h1>
+                <p id="pUp">Click the button to hide this paragraph via slide up.</p>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="fadeIn">Fade In</button>
+            <div class="functionDescription">
+                <h1>Fade In</h1>
+                <p>Click the button to fade in an image.</p>
+                <img id="fiImage" src="./images/jquery.png"/>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="fadeOut">Fade Out</button>
+            <div class="functionDescription">
+                <h1>Fade Out</h1>
+                <p>Click the button to fade out the image.</p>
+                <img id="foImage" src="./images/jquery.png"/>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="before">Before</button>
+            <div class="functionDescription">
+                <h1>Before</h1>
+                <p id="beforeP">Click the button to add something before this paragraph.</p>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="after">After</button>
+            <div class="functionDescription">
+                <h1>After</h1>
+                <p id="afterP">Click the button to add something after this paragraph.</p>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="html">HTML</button>
+            <div class="functionDescription">
+                <h1>HTML</h1>
+                <p id="htmlP">Click the button to turn this paragraph into a list.</p>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="attr">Attr</button>
+            <div class="functionDescription">
+                <h1>Attr</h1>
+                <p id="attrP">Click the button to set the style attribute of this paragraph to something wild.</p>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="val">Val</button>
+            <div class="functionDescription">
+                <h1>Val</h1>
+                <p>Click the button to change the value of the input box.</p>
+                <input type="text" id="valInput"/>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="text">Text</button>
+            <div class="functionDescription">
+                <h1>Text</h1>
+                <p id="textP">Click the button to change the text of this paragraph.</p>
+            </div>
+        </div>   
+        <div class="functionBox">
+            <button id="data">Data</button>
+            <div class="functionDescription">
+                <h1>Data</h1>
+                <p id="secret">Click the button to see some data I stored in document.body.</p>
+            </div>
+        </div>      
+    </body>
+</html>
