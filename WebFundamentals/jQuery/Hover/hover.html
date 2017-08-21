@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>jQuery Hover</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <script>
+            $( document ).ready(function() {
+                $("img").hover(function on(){
+                    var oldSrc = $(this).attr("src");
+                    $(this).attr("src", $(this).attr("data-alt-src"));
+                    $(this).attr("data-alt-src", oldSrc);
+                },
+                function off(){
+                    var oldSrc = $(this).attr("src");
+                    $(this).attr("src", $(this).attr("data-alt-src"));
+                    $(this).attr("data-alt-src", oldSrc);
+                })
+            });
+        </script>
+    </head>
+    <body>
+        <img src="hoverboard.jpg" data-alt-src="future_hoverboard.jpg" alt="Hoverboard"/>
+        <img src="hoverboard.jpg" data-alt-src="future_hoverboard.jpg" alt="Hoverboard"/>
+        <img src="hoverboard.jpg" data-alt-src="future_hoverboard.jpg" alt="Hoverboard"/>
+        <img src="hoverboard.jpg" data-alt-src="future_hoverboard.jpg" alt="Hoverboard"/>
+    </body>
+</html>

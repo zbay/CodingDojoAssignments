@@ -1,0 +1,38 @@
+body{
+    width:980px;
+    margin:10px;
+}
+table{
+    border-collapse:collapse;
+    width:980px;
+}
+thead tr{
+    border: 1px solid black;
+    font-weight: bold;
+    text-align:center;
+}
+td{
+    padding:5px 20px 5px 20px;
+}
+tbody td{
+    border: 1px solid black;
+}
+h1{
+    border-bottom: 2px solid grey;
+}
+label{
+    display:inline-block;
+    width:125px;
+    text-align: right;
+}
+input{
+    margin-top:10px;
+    margin-bottom:10px;
+    width:200px;
+}
+button{
+    margin-top:30px;
+    position: relative;
+    width:75px;
+    left:250px;
+}

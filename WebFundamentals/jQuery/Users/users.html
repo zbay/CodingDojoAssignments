@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Users</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <script>
+            $( document ).ready(function() {
+                $("button").click(function(){
+                    $("tbody").append("<tr><td>" + $("#firstName").val() + "</td><td>" + $("#lastName").val() + "</td><td>" +
+                    $("#emailAddress").val() + "</td><td>" + $("#contactNumber").val() + "</td></tr>");
+                    return false;
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>Email Address</td>
+                    <td>Contact #</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <form>
+            <h1>Add User</h1>
+            <div class="formRow">
+                <label for="firstName">First Name: </label>
+                <input id="firstName" name="firstName" type="text" value="First Name" />
+            </div>
+            <div class="formRow">
+                    <label for="lastName">Last Name: </label>
+                    <input id="lastName" name="lastName" type="text" value="Last Name" />
+            </div>
+            <div class="formRow">
+                <label for="emailAddress">Email Address: </label>
+                <input id="emailAddress" name="emailAddress" type="text" value="Email Address" />
+            </div>
+             <div class="formRow">
+                <label for="contactNumber">Contact No: </label>
+                <input id="contactNumber" name="contactNumber" type="text" value="Phone #" />
+            </div>
+            <button>Add User</button>
+        </form>
+    </body>
+</html>
