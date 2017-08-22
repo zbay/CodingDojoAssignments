@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>Using some widgets</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#accordion").accordion();
+                $("#tabs").tabs();
+                $("#datepicker").datepicker();
+            });
+        </script>
+        <style>
+            body{
+                margin:15px;
+            }
+            #accordion, #tabs{
+                margin-bottom:15px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="accordion">
+            <h3>Header 1</h3>
+            <div>Content 1</div>
+            <h3>Header 2</h3>
+            <div>Content 2</div>
+            <h3>Header 3</h3>
+            <div>Content 3</div>
+            <h3>Header 4</h3>
+            <div>Content 4</div>
+        </div>
+        <div id="tabs">
+            <ul>
+                <li><a href="#tab1">Tab One</a></li>
+                <li><a href="#tab2">Tab Two</a></li>
+                <li><a href="#tab3">Tab Three</a></li>
+            </ul>
+            <div id="tab1">Content 4</div>
+            <div id="tab2">Content 5</div>
+            <div id="tab3">Content 6</div>
+        </div>
+
+        <input type="text" id="datepicker" value="Pick a date"/>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Sortable Ninja</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("body").sortable(); // the enclosing element must be sortable for the children to be sortable
+            });
+        </script>
+        <style>
+            img{
+                display:block;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="./images/sort1.png" />
+        <img src="./images/sort2.png" />
+        <img src="./images/sort3.png" />
+        <img src="./images/sort4.png" />
+        <img src="./images/sort5.png" />
+    </body>
+</html>

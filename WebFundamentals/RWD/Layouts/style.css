@@ -1,0 +1,62 @@
+* { box-sizing: border-box; } /* includes padding in the assigned width of the object*/
+
+.row{
+    clear:both;
+}
+
+header{
+    background-color:tan;
+    padding-left:20px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+nav{
+    margin-left:0;
+    float:left;
+    position: relative;
+    left:-40px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+ul li{
+    display: inline-block;
+    background-color:tan;
+    border: 1px solid black;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+.column{
+    float: left;
+    padding-right:3%;
+    width:25%;
+}
+
+/* Medium sized screens */
+@media only screen and (max-width: 862px) {
+    .md-4{
+        width: 33.333333%
+    }
+    .md-12{
+        width:100%;
+    }
+    .md-gone{
+        display:none;
+    }
+}
+
+@media only screen and (min-width: 863px) {
+    .lg-3{
+        width: 25%;
+    }
+}
+
+
+
+/* 863px is the nav breakpoint in chrome */

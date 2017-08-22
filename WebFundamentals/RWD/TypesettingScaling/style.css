@@ -1,0 +1,16 @@
+#main {
+	background: #ddd;
+	border: 1px solid #999;
+	padding: 2.5%;
+	margin: 2.5%;
+	width: 90%;
+	overflow-wrap: break-word; /* The only way I could think of to remove the horizontal scroll bar */
+}
+
+/*convert these font sizes to ems*/
+.large {
+	font-size: 4em;
+}
+.medium {
+	font-size: 2em;
+}

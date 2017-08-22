@@ -2,15 +2,105 @@
     <head>
         <title>Contact Card</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="style.css"/>
         <script>
             $( document ).ready(function() {
-
+                $("form").on("click", "button", function(){                    
+                    $("#contacts").append("<div class='contact'><h1>" + 
+                        $("input[name='firstName']").val() + " " + $("input[name='lastName']").val() + "</h1><h2>Click for description!</h2><p class='hidden'>" +
+                        $("textarea").val() + "</p></div>");
+                    $("input[name='firstName']").val("First name");
+                    $("input[name='lastName']").val("Last name");
+                    $("textarea").val("Enter description");
+                    return false;
+                });
+                $("#contacts").on("click", ".contact", function flip(){
+                        if($(this).children("p").attr("class") === "hidden"){
+                            console.log("unhide description");
+                            $(this).children("p").attr("class", "");
+                            $(this).children("h1").attr("class", "hidden");
+                            $(this).children("h2").attr("class", "hidden");
+                        }
+                        else{
+                            console.log("hide description");
+                            $(this).children("p").attr("class", "hidden");
+                            $(this).children("h1").attr("class", "");
+                            $(this).children("h2").attr("class", "");
+                        }
+                 });
             });
         </script>
         <style type="text/css">
+            body{
+                width:980px;
+                margin:10px;
+            }
+            textarea{
+                max-width:100%;
+            }
+            .inlineBlock{
+                display:inline-block;
+                vertical-align: top;
+            }
+            .contact{
+                border: 3px solid black;
+                height:150px;
+                width: 297px;
+                margin-top:10px;
+                margin-bottom:10px;
+                display:block;
+                text-align:center;
+            }
+            #form{
+                width:600px;
+            }
+            #descriptions{
+                width:300px;
+            }
+            .hidden{
+                display:none;
+            }
+            button{
+                margin-top: 20px;
+            }
+            label, input{
+                display: inline-block;
+            }
+            label{
+                width:100px;
+            }
+            label[for="description"]{
+                margin-top:20px;
+                margin-bottom:10px;
+            }
+            .formRow{
+                margin-top:10px;
+                margin-bottom:10px;
+            }
         </style>
     </head>
     <body>
+        <div class="inlineBlock" id="form">
+            <form>
+                <div class="formRow">
+                    <label for="firstName">First name: </label>
+                    <input id="firstName" type="text" name="firstName" value="First name"/>
+                </div>
+                <div class="formRow">
+                    <label for="firstName">First name: </label>
+                    <input id="lastName" type="text" name="lastName" value="Last name"/>
+                </div>
+                <div class="formRow">
+                    <label for="description">Description: </label>
+                </div>
+                <div class="formRow">
+                    <textarea id="description" name="description"/>Enter description</textarea>
+                </div>
+                <div class="formRow">
+                    <button>Add User</button>
+                </div>
+            </form>
+        </div>
+        <div class="inlineBlock" id="contacts">
+        </div>
     </body>
 </html>

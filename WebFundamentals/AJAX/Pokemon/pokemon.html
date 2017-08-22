@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Contact Card</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            $( document ).ready(function() {
+                var row = $("<div></div>");
+                for(var i = 1; i <= 151; i += 1){
+                    row.append("<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + i + ".png' />");
+                    if((i % 9 === 0) || (i === 151)){
+                        $("body").append(row);
+                        row = $("<div></div>");
+                    }
+                }
+            });
+        </script>
+        <style type="text/css">
+            img{
+                margin:10px;
+                width:60px;
+                display:inline-block;
+            }
+        </style>
+    </head>
+    <body>
+
+    </body>
+</html>

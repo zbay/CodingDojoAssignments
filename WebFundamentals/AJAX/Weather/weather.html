@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Weather</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            $( document ).ready(function() {
+                $("form").submit(function(){
+                    $.get("http://api.openweathermap.org/data/2.5/weather?q=" + $("#searchField").val() + 
+                        "&appid=ee5e54e290fd8250233a59e2acaeaf4b", function(data){
+                            $("#weather").removeClass("hidden");
+                            $("#weather h1").text(data.name);
+                            $("#weather p").text("Temperature: " + kelvinToFahrenheit(data.main.temp) + " degrees Fahrenheit");
+                    }, "json");
+                    return false;
+                });
+
+                function kelvinToFahrenheit(temp){
+                    return Math.round(temp * 1.8 - 459.67);
+                }
+            });
+        </script>
+        <style type="text/css">
+            body{
+                width:980px;
+                margin:10px;
+            }
+            #weather{
+            }
+            .hidden{
+                display:none;
+            }
+            #searchField, #searchButton{
+                display:inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <form>
+            <input type="text" id="searchField"/>
+            <input type="submit" value="Search Weather" />
+        </form>
+        <div id="weather" class="hidden">
+            <h1></h1>
+            <p></p>
+        </div>
+    </body>
+</html>

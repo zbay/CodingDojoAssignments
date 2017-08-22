@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Pokedex</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            $( document ).ready(function() {
+                var row = $("<div></div>");
+                for(var i = 1; i <= 151; i += 1){
+                    row.append("<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + i + ".png' id=" + i + " />");
+                    if((i % 9 === 0) || (i === 151)){
+                        $("#pokemen").append(row);
+                        row = $("<div></div>");
+                    }
+                }
+                $("body").on("click", "img", function(){
+                    $.getJSON("http://pokeapi.co/api/v2/pokemon/" + $(this).attr("id"), function(data){
+                        var htmlString = "<h1>" +data.forms[0].name + "</h1><img src='" + data.sprites.front_default + "'/><h2>Types</h2><ul>";
+                        for(var i = 0; i < data.types.length; i += 1){
+                            htmlString += "<li>" + data.types[i].type.name + "</li>";
+                        }
+                        htmlString += "</ul><h2>Height</h2>" + data.height + "<h2>Weight</h2>" + data.weight;
+                        $("#pokedex").html(htmlString);
+                    });
+                });
+            });
+        </script>
+        <style type="text/css">
+            img{
+                margin:10px;
+                width:60px;
+                display:inline-block;
+            }
+            #pokedex{
+                border: 15px solid red;
+                border-bottom: 30px solid red;
+                padding:10px;
+                height: 500px;
+                width:150px;
+                margin-left:10px;
+            }
+            .inlineBlock{
+                vertical-align:top;
+                display:inline-block;
+            }
+            h1:first-letter {
+                text-transform:capitalize;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="inlineBlock" id="pokemen">
+
+        </div>
+        <div class="inlineBlock" id="pokedex">
+
+        </div>
+    </body>
+</html>
