@@ -1,0 +1,289 @@
+<html>
+    <head>
+        <title>PacMan</title>
+        <style type="text/css">
+            body{
+                color:white;
+            }
+            #score{
+                padding:20px;
+            }
+            .row, header{
+                width:1000px;
+                background-color:black;
+            }
+            div.row div{
+                width:20px;
+                height:20px;
+                display: inline-block;
+            }
+            div.brick{
+                background-color:blue;
+                margin:0 !important;
+            }
+            div.empty{}
+            div.coin{
+                background: url("coin.gif");
+                background-position: center;
+                background-repeat:no-repeat;
+            }
+            div#pacman{
+                background: url("pacman.gif");
+                background-position: center;
+                background-repeat:no-repeat;
+                background-size:cover;
+                width:20px;
+                height:20px;
+                position: absolute;
+                top:87px;
+                left:29px;
+            }
+            div.cherry{
+                background: url("cherry.png");
+                background-position: center;
+                background-repeat:no-repeat;
+                background-size:cover;   
+            }
+            #ghost1, #ghost2, #ghost3{
+                width:20px;
+                height:20px;
+                background: url("ghost.gif");
+                background-position: center;
+                background-repeat:no-repeat;
+                background-size:cover;
+                position: absolute;
+            }
+            #ghost1{
+                top:167px;
+                left:109px;                
+            }
+            #ghost2{
+                top:207px;
+                left:269px;  
+            }
+            #ghost3{
+                top:347px;
+                left:269px;  
+            }
+            .right{
+                transform: rotate(180deg);
+            }
+            .up{
+                transform: rotate(90deg);
+            }
+            .down{
+                transform: rotate(270deg);
+            }
+
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="inlineBlock">
+                <!--Lives -->
+            </div>
+            <div id="score">Score: 0</div>
+        </header>
+        <div id="world"></div>
+        <div id="pacman"></div>
+        <div id="ghost1"></div>
+        <div id="ghost2"></div>
+        <div id="ghost3"></div>
+    </body>
+    <script>
+            var world = [
+                [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+                [2,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2],
+                [2,1,2,2,1,2,1,2,1,1,1,1,1,1,1,1,1,1,2],
+                [2,1,2,2,1,2,1,2,2,2,2,1,2,2,2,2,2,1,2],
+                [2,1,1,1,1,2,1,2,2,2,2,1,2,2,2,2,2,1,2],
+                [2,1,2,1,1,1,1,2,2,2,2,1,2,1,1,1,2,1,2],
+                [2,1,2,2,1,2,1,2,2,2,2,1,2,1,2,1,2,1,2],
+                [2,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2],
+                [2,1,2,2,2,2,1,2,2,1,2,2,2,1,2,2,1,2,2],
+                [2,1,1,1,1,1,2,2,2,1,2,2,2,1,2,2,1,2,2],
+                [2,1,2,2,1,2,2,2,2,1,2,2,2,1,2,2,1,2,2],
+                [2,1,2,2,1,1,1,2,2,1,1,1,1,1,1,1,1,2,2],
+                [2,1,2,2,2,2,1,1,1,1,2,2,2,1,2,2,1,1,2],
+                [2,1,1,3,1,1,2,1,2,1,2,2,2,2,2,2,2,1,2],
+                [2,2,2,2,1,2,2,1,2,1,1,1,1,1,1,1,1,1,2],
+                [2,2,2,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2],
+                [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
+                ]; // represent world with 2 as brick, 1 as coin, 0 as empty, 3 as cherry, 4 as ghost. build world from there with displayWorld()
+                var worldCopy = JSON.parse(JSON.stringify(world));
+            var score = 0;
+            var coins = 0;
+            var pacmanPosition = {"top": 1, "left": 1};
+            var ghostPositions = [{"top": 5, "left": 5},
+                {"top": 7, "left": 13},
+                {"top": 14, "left": 13}];
+            
+            setInterval(function(){
+                moveGhosts();
+            }, 100);
+
+            displayWorld();
+
+            function displayWorld(){
+                var output = "";
+                for(var i=0; i < world.length; i++){
+                    output += "\n<div class='row'>\n"
+                    for(var j=0; j < world[i].length; j++){
+                        if(world[i][j] === 2){
+                            output += "<div class='brick'></div>";
+                        }
+                        if(world[i][j] === 1){
+                            output += "<div class='coin'></div>";
+                        }
+                        if(world[i][j] === 0){
+                            output += "<div class='empty'></div>";
+                        }
+                        if(world[i][j] === 3){
+                            output += "<div class='cherry'></div>";
+                        }
+                        //output = output + world[i][j];
+                    }
+                    output += "\n</div>"
+                }
+                document.getElementById('world').innerHTML = output;
+            }
+            function displayPacman(){
+                document.getElementById("pacman").style.left = 9+(pacmanPosition.left*20) + "px";
+                document.getElementById("pacman").style.top = 67+(pacmanPosition.top*20) + "px";
+                if(score >= 1480){
+                    alert("You cleared the level! Keep playing to boost your score!");
+                        pacmanPosition = {"top": 1, "left": 1};
+                        ghostPositions = [{"top": 5, "left": 5},
+                            {"top": 7, "left": 13},
+                            {"top": 14, "left": 13}];
+                        world = worldCopy;
+                        worldCopy = JSON.parse(JSON.stringify(world));
+                        displayWorld();
+                        displayPacman();
+                        displayGhosts();
+                        displayScore();
+                }
+            }
+            function displayGhosts(){
+                document.getElementById("ghost1").style.left = 9+(ghostPositions[0].left*20) + "px";
+                document.getElementById("ghost1").style.top = 67+(ghostPositions[0].top*20) + "px";
+                document.getElementById("ghost2").style.left = 9+(ghostPositions[1].left*20) + "px";
+                document.getElementById("ghost2").style.top = 67+(ghostPositions[1].top*20) + "px";
+                document.getElementById("ghost3").style.left = 9+(ghostPositions[2].left*20) + "px";
+                document.getElementById("ghost3").style.top = 67+(ghostPositions[2].top*20) + "px";
+            }
+            function displayScore(){
+                document.getElementById("score").innerHTML = "Score: " + score;
+            }
+
+            function noWall(left, top){
+                return ((top >= 0) && (left >= 0) && (top < world.length) && (left < world[0].length) && (world[top][left] !== 2));
+            }
+
+            document.onkeydown = function(e){ // handle button presses and the subsequent collisions
+                if(e.keyCode === 37){ // left arrow
+                    if(noWall(pacmanPosition.left-1,pacmanPosition.top)){
+                        document.getElementById("pacman").className = ""; 
+                        pacmanPosition.left -= 1;
+                        displayPacman();
+                        consequences();
+                    }
+                }
+                else if(e.keyCode === 38){ // up arrow
+                    if(noWall(pacmanPosition.left,pacmanPosition.top-1)){
+                        document.getElementById("pacman").className = "up"; 
+                        pacmanPosition.top -= 1;
+                        displayPacman();
+                        consequences();
+                    }
+                }
+                else if(e.keyCode === 39){ // right arrow
+                    if(noWall(pacmanPosition.left+1,pacmanPosition.top)){
+                        document.getElementById("pacman").className = "right"; 
+                        pacmanPosition.left += 1;
+                        displayPacman();
+                        consequences();
+                    }
+                }
+                else if(e.keyCode === 40){ // down arrow
+                    if(noWall(pacmanPosition.left,pacmanPosition.top+1)){
+                        document.getElementById("pacman").className = "down"; 
+                        pacmanPosition.top += 1;
+                        displayPacman();
+                        consequences();
+                    }
+                }
+                else{}
+            }
+
+            function moveGhosts(){
+                for(let i = 0; i < ghostPositions.length; i += 1){
+                    let direction = Math.floor(Math.random() * 4);
+                    //alert(direction);
+                    switch(direction){
+                        case 0: // left
+                            if(noWall(ghostPositions[i].left-1, ghostPositions[i].top)){
+                                document.getElementById("ghost" + parseInt(i+1)).className = ""; 
+                                ghostPositions[i].left -= 1;
+                            }
+                            break;
+                        case 1: // right
+                            if(noWall(ghostPositions[i].left+1, ghostPositions[i].top)){
+                                document.getElementById("ghost" + parseInt(i+1)).className = "right"; 
+                                ghostPositions[i].left += 1;
+                            }
+                            break;
+                        case 2: // up
+                            if(noWall(ghostPositions[i].left, ghostPositions[i].top-1)){
+                                document.getElementById("ghost" + parseInt(i+1)).className = "up"; 
+                                ghostPositions[i].top -= 1;
+                            }
+                            break;
+                        case 3: // down
+                            if(noWall(ghostPositions[i].left, ghostPositions[i].top+1)){
+                                document.getElementById("ghost" + parseInt(i+1)).className = "down"; 
+                                ghostPositions[i].top += 1;
+                        }
+                        break;
+                    }
+                }
+                displayGhosts();
+                killThePacman();
+            }
+
+            function killThePacman(){
+                for(var i = 0; i < ghostPositions.length; i += 1){
+                    if((pacmanPosition.top === ghostPositions[i].top) && (pacmanPosition.left === ghostPositions[i].left)){
+                        alert("Pacman hit a ghost! Game over!");
+                        pacmanPosition = {"top": 1, "left": 1};
+                        ghostPositions = [{"top": 5, "left": 5},
+                            {"top": 7, "left": 13},
+                            {"top": 14, "left": 13}];
+                        world = worldCopy;
+                        worldCopy = JSON.parse(JSON.stringify(world));
+                        displayWorld();
+                        displayPacman();
+                        displayGhosts();
+                        score = 0;
+                        displayScore();
+                    }
+                }
+            }
+
+            function consequences(){
+                if(world[pacmanPosition.top][pacmanPosition.left] === 1){
+                    world[pacmanPosition.top][pacmanPosition.left] = 0;
+                    displayWorld();
+                    score += 10;
+                    displayScore();
+                }
+                if(world[pacmanPosition.top][pacmanPosition.left] === 3){ // if cherry
+                    world[pacmanPosition.top][pacmanPosition.left] = 0;
+                    displayWorld();
+                    score += 150;
+                    displayScore();
+                }
+                killThePacman();
+            }
+        </script>
+</html>
