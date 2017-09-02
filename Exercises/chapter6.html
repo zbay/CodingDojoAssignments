@@ -1,0 +1,682 @@
+<html>
+    <head>
+        <title>Chapter 6: Queues and Stacks</title>
+        <script>
+            // pg. 73
+            function SLNode(value){
+                this.val = value;
+                this.next = null;
+            }
+
+            function SLQueue(){
+                var head = null;
+                var tail = null;
+
+                this.enqueue = function(val){
+                    var newNode = new SLNode(val);
+                    if(!head){
+                        head = newNode;
+                        tail = newNode;
+                    }
+                    else if(!tail){
+                        tail = newNode;
+                        head.next = tail;
+                    }
+                    else{
+                        tail.next = newNode;
+                        tail = newNode;
+                    }
+                }
+
+                this.front = function(){
+                    return head;
+                }
+
+                this.isEmpty = function(){
+                    return !head;
+                }
+
+                this.dequeue = function(){
+                    var runner = head;
+                    if(!runner.next){
+                        var returnVal = head.val;
+                        head = null;
+                        tail = null;
+                        return returnVal;
+                    }
+                    if(!runner.next.next){
+                        var returnVal = head.next.val;
+                        head.next = null;
+                        tail = head;
+                        return returnVal;
+                    }
+                    while(runner.next){
+                        if(!runner.next.next){
+                            var returnVal = runner.next.val;
+                            runner.next = null;
+                            tail = runner;
+                            return returnVal;
+                        }
+                        runner = runner.next;
+                    }
+                }
+
+                this.contains = function(val){
+                    var runner = head;
+                    while(runner){
+                        if(runner.val === val){
+                            return true;
+                        }
+                        runner = runner.next;
+                    }
+                    return false;
+                }
+
+                this.size = function(){
+                    var count = 0;
+                    var runner = head;
+                    while(runner){
+                        count++;
+                        runner = runner.next;
+                    }
+                    return count;
+                }
+            }
+
+            // resume here
+            function removeMinimums(queue){
+                var head = queue.front();
+                var runner = head;
+                var min = Infinity;
+                while(runner){
+                    if(runner.val < min){
+                        min = runner.val
+                    }
+                    runner = runner.next;
+                }
+                if(head.val === min){
+                    head = head.next;
+                }
+                runner = head;
+                while(runner.next){ // check every node except first for minimums and skip them
+                    if(runner.next.val === min){
+                        runner.next = runner.next.next;
+                    }
+                }
+                if(head.val === min){ // check first node
+                    head = head.next;
+                }
+                return head;
+            }
+
+            function interleaveQueue(queue){
+                var newQueue = new SLQueue();
+                var runnerFront = queue;
+                var runnerBack = queue;
+                for(var i = 0; i < queue.size()/2; i++){
+                    runnerBack = runnerBack.next;
+                }
+                while(runnerFront && runnerBack){
+                    newQueue.enqueue(runnerFront.val);
+                    newQueue.enqueue(runnerBack.val);
+                }
+                while(runnerFront){
+                    newQueue.enqueue(runnerFront.val);
+                }
+                while(runnerBack){
+                    newQueue.enqueue(runnerBack.val);
+                }
+                return newQueue;
+            }
+
+            // pg. 74
+
+            function ArrStack(){
+                var stack = [];
+                this.push = function(val){
+                    stack.push(val);
+                }
+                this.pop = function(){
+                    return stack.pop();
+                }
+                this.top = function(){
+                    return stack[stack.length-1];
+                }
+                this.size = function(){
+                    return stack.length;
+                }
+                this.contains = function(val){
+                    for(var i = 0; i < stack.length; i++){
+                        if(val === stack[i]){
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                this.isEmpty = function(){
+                    return stack.length === 0;
+                }
+            }
+
+            function SLStack(){
+                var head = null;
+
+                this.push = function(val){ // I'll be adding and removing from the front of the linked list
+                    var newNode = new SLNode(val);
+                    newNode.next = head;
+                    head = newNode;
+                }
+
+                this.pop = function(){
+                    var returnThis = head;
+                    head = head.next;
+                    return returnThis.value;
+                }
+
+                this.top = function(){
+                    return head.value;
+                }
+
+                this.contains = function(val){
+                    var runner = head;
+                    while(runner){
+                        if(runner = value === val){
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                this.isEmpty = function(){
+                    return head !== null;
+                }
+
+                this.size = function(){
+                    var count = 0;
+                    var runner = head;
+                    while(runner){
+                        count++;
+                        runner = runner.next;
+                    }
+                }
+
+                function SLNode(val){
+                    this.value = val;
+                    this.next = null;
+                }
+            }
+
+            function stacksEqual(stack1, stack2){
+                if(stack1.size() !== stack2.size()){
+                    return false;
+                }
+                var result = true;;
+                var stack3 = new SLStack();
+                while(!stack1.isEmpty() && result){
+                    if(stack1.front() !== stack2.front()){
+                        result = false;
+                    }
+                    stack3.push(stack1.pop());
+                    stack3.push(stack2.pop());
+                }
+                while(!stack3.isEmpty()){ // restore original stacks
+                    stack2.push(stack3.pop());
+                    stack1.push(stack3.pop());
+                }
+                return result;
+            }
+
+            // pg. 75
+
+            function copyStack(stack){
+                var queue = new SLQueue();
+                var newStack = new SLStack();
+                // pop off stack. enqueue popped value. dequeue all values into both the old and new stacks
+                while(!stack.empty){
+                    var popped = stack.pop();
+                    queue.enqueue(popped);
+                }
+                while(!queue.empty){
+                    var dequeued = queue.dequeued;
+                    stack.push(dequeued);
+                    newStack.push(dequeued);
+                }
+                return newStack;
+            }
+
+            function TwoStackQueue(){
+                var inbox = new SLStack();
+                var outbox = new SLStack();
+
+                // enqueue by pushing to inbox
+                // dequeue by popping from outbox
+                // if outbox empty, pop from inbox and push to outbox until inbox empty
+                // test contains? make buffer stack. push all popped values from outbox, then from inbox. pop from buffer and push to outbox, testing along the way
+                
+                this.enqueue = function(val){
+                    inbox.push(new SLNode(val));
+                }
+
+                this.dequeue = function(){
+                    if(outbox.isEmpty()){
+                        prepareOutbox();
+                    }
+                    return outbox.pop();
+                }
+
+                this.isEmpty = function(){
+                    return inbox.isEmpty() && outbox.isEmpty();
+                }
+
+                this.front = function(){
+                    if(outbox.isEmpty()){
+                        prepareOutbox();
+                    }
+                    return outbox.front();
+                }
+
+                this.size = function(){
+                    return inbox.size() + outbox.size();
+                }
+
+                this.contains = function(val){
+                    var returnThis = false;
+                    var buffer = new SLStack();
+                    while(!outbox.empty()){
+                        var popped = outbox.pop();
+                        if(popped.value === val){
+                            returnThis = true;
+                        }
+                        buffer.push(popped);
+                    }
+                    while(!inbox.empty()){
+                        var popped = inbox.pop();
+                        if(popped.value === val){
+                            returnThis = true;
+                        }
+                        buffer.push(popped);
+                    }
+                    inbox = buffer;
+                    prepareOutbox();
+                    return returnThis;
+                }
+
+                function prepareOutbox(){
+                    while(!inbox.isEmpty){
+                        outbox.push(inbox.pop());
+                    }
+                }
+            }
+
+            function isPalindrome(queue){
+                // how to do this without a string????
+                var buffer = new SLStack();
+                var palindrome = true;
+                var queueLength = queue.size();
+                var str = "";
+
+                var indexComp = 0;
+                while(!queue.isEmpty()){ 
+                    buffer.push(queue.dequeue());
+                    str += buffer.front();
+                }
+
+                if(str !== str.split("").reverse().join()){
+                    palindrome = false;
+                }
+
+                while(!buffer.isEmpty()){
+                    queue.push(buffer.pop());
+                }
+                
+                return palindrome;
+            }
+
+            function dequeue(){
+                var head = null;
+                var tail = null;
+
+                this.pushFront = function(val){
+                    var newNode = new SLNode(val);
+                    if(!head){
+                        head = newNode;
+                        tail = newNode;
+                    }
+                    else{
+                        newNode.next = head;
+                        head = newNode;
+                    }
+                }
+                this.pushBack = function(val){
+                    var newNode = new SLNode(val);
+                    if(!head){
+                        head = newNode;
+                        tail = newNode;
+                    }
+                    else{
+                        tail.next = newNode;
+                        tail = newNode;
+                    }
+                }
+
+                this.popFront = function(val){
+                    var returnThis = null;
+                    if(head){
+                        returnThis = head.value;
+                        head = head.next;
+                    }
+                    return returnThis;
+                }
+                this.popBack = function(val){
+                    var returnVal = null;
+                    if(tail){
+                        returnVal = tail.value;
+                        var runner = head;
+                        if(!runner.next){
+                            returnVal = runner.value;
+                            head = null;
+                            tail = null;
+                        }
+                        while(runner && runner.next){
+                            if(!runner.next.next){
+                                tail = runner;
+                                tail.next = null;
+                            }
+                            runner = runner.next;
+                        }
+                        head = head.next;
+                    }
+                    return returnVal;
+                }
+
+                this.front = function(){
+                    return head.value;
+                }
+                this.back = function(){
+                    return tail.value;
+                }
+                this.isEmpty = function(){
+                    return !head && !tail;
+                }
+                this.size = function(){
+                    var count = 0;
+                    var runner = head;
+                    while(runner){
+                        count++;
+                        runner = runner.next;
+                    }
+                    return count;
+                }
+                this.contains = function(val){
+                    var inHere = false;
+                    var runner = head;
+                    while(runner){
+                        if(runner.value === val){
+                            inHere = true;
+                            break;
+                        }
+                    }
+                    return inHere;
+                }
+            }
+
+            function removeStackMin(stack){
+                var buffer = new SLQueue();
+                var min = Infinity;
+                while(!stack.isEmpty()){
+                    if(stack.top() < min){
+                        min = stack.top();
+                    }
+                    buffer.enqueue(stack.pop());
+                }
+                while(!buffer.isEmpty()){
+                    if(buffer.front() === min){
+                        buffer.dequeue();
+                    }
+                    else{
+                        stack.push(buffer.dequeue());
+                    }
+                }
+            }
+
+            // pg. 76
+            function CirQueue(cap){
+                var head = 0; // remove from this index
+                var tail = 0; // add at this index
+                var capacity = cap;
+                var arr = [];
+
+                this.front = function(){
+                    if(arr[head]){
+                        return arr[head];
+                    }
+                    return undefined;
+                }
+                this.isEmpty = function(){
+                    return head === tail;
+                }
+                this.isFull = function(){
+                    return this.size() === capacity;
+                }
+
+                this.size = function(){
+                    if(head === tail){
+                        return 0;
+                    }
+                    if(tail > head){
+                        return tail-head;
+                    }
+                    return capacity - head + tail; // if head > tail
+                }
+
+                this.enqueue = function(val){
+                    var incremented = (tail+1) % (capacity+1);
+                    if(incremented === head){
+                        return false;
+                    }
+                    arr[tail] = val;
+                    tail = incremented;
+                }
+                this.dequeue = function(){
+                    if(head === tail){
+                        if(!arr[head]){
+                            return null;
+                        }
+                        var returnVal = arr[head];
+                        arr[head] = null;
+                        return returnVal;
+                    }
+                    var returnVal = arr[head];
+                    head = (head+1) % (capacity+1);
+                    return returnVal;
+                }
+
+                this.contains = function(val){
+                    if(head === tail){
+                        return false;
+                    }
+                    if(head < tail){
+                        for(var i = head; i < tail; i++){
+                            if(arr[i].value === val){
+                                return true;
+                            }
+                        }
+                    }
+                    else{ // tail < head
+                        for(var i = head; i < capacity; i++){
+                            if(arr[i].value === val){
+                                return true;
+                            }
+                        }
+                        for(var i = 0; i < tail; i++){
+                            if(arr[i].value === val){
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
+
+                this.grow = function(newSize){
+                    if(newSize > capacity){
+                        capacity = newSize;
+                    }
+                    // shift contents so the head is at zero, if the current array wraps around
+                    if(tail < head){
+                        var newArr = [];
+                        for(var i = head; i < capacity; i++){
+                            newArr.push(arr[i]);
+                        }
+                        for(var i = 0; i < tail; i++){
+                            newArr.push(arr[i]);
+                        }
+                        arr = newArr;
+                    }
+                }
+            }
+
+            // pg. 77
+            function reorderAbsolute(queue){ // goal is to make the stack have small values at top, then enqueue them all back into queue
+                var stack = new SLStack();
+
+                while(!queue.isEmpty()){ 
+                    var dequeued = queue.dequeue(); 
+                    if(queue.front() && dequeued.value < queue.front().value){ // push the larger value of the two next queue values to the stack
+                        stack.push(queue.dequeue());
+                        queue.enqueue(dequeued); // put back the originally enqueued value, to compare it again
+                    }
+                    else{
+                        stack.push(dequeued);
+                    }
+                }
+                while(!stack.isEmpty()){
+                    queue.enqueue(stack.pop());
+                }
+            }
+
+            function partition(stack){
+                var queue = new SLQueue();
+                while(!stack.isEmpty()){ // pop all from stack to queue.
+                    queue.enqueue(stack.pop());
+                }
+                for(var i = 0; i < queue.size(); i++){ // iterate through queue once to put all positive values on stack.
+                    var considerThis = queue.dequeue();
+                    if(considerThis.value > 0){
+                        stack.push(considerThis);
+                    }
+                    else{
+                        queue.enqueue(considerThis);
+                    }
+                }
+                while(!queue.isEmpty()){ // push the rest (just non-positive values) onto stack
+                    stack.push(queue.dequeue());
+                }
+            }
+
+            function isSorted(stack){
+                var buffer = new SLStack();
+                var sortedAsc = true;
+                var sortedDesc = true;
+                while(!stack.isEmpty()){ // push whole stack to buffer
+                    buffer.push(stack.pop());
+                }
+                while(!buffer.isEmpty()){
+                    if(stack.top()){ 
+                        if(stack.top() > buffer.top()){ // if the top of the repopulated original is greater than the top of the buffer, it's not sorted descending
+                            sortedDesc = false;
+                        }
+                        if(stack.top() < buffer.top()){ // if the top of the repopulated original is less than the top of the buffer, it's not sorted asscending
+                            sortedAsc = false;
+                        }
+                    }
+                    stack.push(buffer.pop());
+                }
+                return sortedAsc || sortedDesc;
+            }
+
+            function switchPairs(stack){
+                var queue = new SLQueue();
+                while(!stack.isEmpty()){// put all stack values in the queue
+                    queue.enqueue(stack.pop());
+                }
+                // swap all pairs except the last value, pushing them on the stack
+                while(!queue.isEmpty()){
+                    if(queue.size() > 1){
+                        var temp = queue.dequeue();
+                        stack.push(queue.dequeue()); // push the next one before the current one
+                        stack.push(temp);
+                    }
+                    else{
+                        stack.push(queue.dequeue());
+                    }
+                }
+            }
+
+            function mirror(stack){ 
+                var queue = new SLQueue();
+                
+                while(!stack.isEmpty()){ // pop whole stack onto queue, each value twice
+                    var enqueueTwice = stack.pop();
+                    queue.enqueue(enqueueTwice);
+                    queue.enqueue(enqueueTwice);
+                }
+                //push values to stack. skip 1 each time, EXCEPT for the last pair.
+                var iterations = queue.size();
+                for(var i = 0; i < iterations; i++){
+                    if(i % 2 === 0 || i === iterations-1){ // push back one of each pair and both of the last one
+                        stack.push(queue.dequeue());
+                    }
+                    else{ // skip, by sending the value to the end
+                        queue.enqueue(queue.dequeue());
+                    }
+                }
+                // while !queue.isEmpty(): cycle around to the end and push
+                while(!queue.isEmpty()){
+                    var endIndex = queue.size()-1;
+                    for(var i = 0; i <= endIndex; i++){
+                        if(endIndex === i){ // push the last value to the stack
+                            stack.push(queue.dequeue());
+                        }
+                        else{ //skip
+                            queue.enqueue(queue.dequeue());
+                        }
+                    }
+                }
+                return stack;
+            }
+
+            function weakFinger(weakNum, uses){
+                var count = 1;
+                var iterations = 0;
+                var up = true;
+                while(uses >= 0){
+                    if(count === weakNum){
+                        uses--;
+                        if(uses <= 0){
+                            return count;
+                        }
+                    }
+                    if(count >= 5){
+                        up = false;
+                    }
+                    if(count <= 1){
+                        up = true;
+                    }
+                    if(up){
+                        count++;
+                    }
+                    else{
+                        count--;
+                    }
+                    iterations++;
+                }
+                return 0;
+            }
+
+            // pg. 78
+
+            // pg. 79
+        </script>
+    </head>
+    <body></body>
+</html> 

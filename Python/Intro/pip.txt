@@ -1,0 +1,7 @@
+1. pip install Django: downloaded and installed Django and its dependencies
+2. pip list: shows Pip, Django, Flask, and dependencies of the web frameworkds
+3. pip install Django: Tells me the requirement is already satisfied
+4. cd Desktop, pip freeze > requirements.txt: Shows packages and their version numbers
+5. pip uninstall Django: Deleted the relevant files/folders
+6. pip show Django: Showed nothing
+7. pip search Flask: Showed pip-registered packages containing the word "Flask"

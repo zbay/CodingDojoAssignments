@@ -1,0 +1,430 @@
+<html>
+    <head>
+        <title>Chapter 3: Arrays</title>
+        <script>
+
+            // pg. 38
+
+            function pushFront(arr, val){
+                for(var i = arr.length-1; i >= 0; i++){
+                    arr[i+1] = arr[i]
+                }
+                arr[0] = val;
+                return arr;
+            }
+
+            function popFront(arr){
+                var firstVal = arr[0];
+                for(var i = 0; i < arr.length-1; i++){
+                    arr[i] = arr[i+1];
+                }
+                arr.pop();
+                return firstVal;
+            }
+
+            function insertAt(arr, val, insertIndex){
+                for(var i = arr.length-1; i >= insertIndex; i++){
+                    arr[i+1] = arr[i] 
+                }
+                arr[insertIndex] = val;
+                return arr;
+            }
+
+            function removeAt(arr, removeIndex){
+                for(var i = removeIndex; i < arr.length-1; i++){
+                    arr[i] = arr[i+1];
+                }
+                arr.pop();
+            }
+
+            function swapPairs(arr){
+                for(var i = 0; i < arr.length-1; i += 2){
+                    var temp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = temp;
+                }
+            }
+
+            function removeDupes(arr){
+                var flagForRemoval = [];
+                var prevName = "";
+                for(var i = 0; i <  arr.length; i += 1){
+                    if(arr[i] === prevName){
+                        flagForRemoval.push(i-flagForRemoval.length);
+                    }
+                    prevName = arr[i];
+                }
+                for(var i = 0; i < flagForRemoval.length; i++){
+                    removeAt(arr, flagForRemoval[i]);
+                }
+            }
+
+            // pg. 39
+            function minToFront(arr){
+                var minInd = minIndex(arr);
+                var min = arr[minInd];
+                for(var i = 0; i < minInd; i += 1){
+                    arr[i+1] = arr[i];
+                }
+                arr[0] = min;
+            }
+            function minIndex(arr){
+                var min = Infinity;
+                var minIndex = -1;
+                for(var i = 0; i < arr.length; i++){
+                    if(arr[i] < min){
+                        min = arr[i];
+                        minIndex = i;
+                    }
+                }
+                return minIndex;
+            }
+
+            // pg. 40
+            function reverseArr(arr){
+                if(arr.length < 2){
+                    return arr;
+                }
+                var left = 0;
+                var right = arr.length-1;
+                while(right > left){
+                    var temp = arr[left];
+                    arr[left] = arr[right];
+                    arr[right] = arr[left];
+                    right -= 1;
+                    left += 1;
+                }
+                return arr;
+            }
+
+            function rotateArr(arr, shiftBy){
+                var origLength = arr.length;
+                if(shiftBy > 0){
+                    for(var i = arr.length-1; i >= shiftBy; i--){ // 4,5,6,7 becomes 4,5,4,5,6,7 (shiftBy 2)
+                        arr[i+shiftBy] = arr[i];
+                    }
+                    for(var i = 0; i < shiftBy; i++){
+                        arr[i] = arr[i+origLength];
+                    }
+                    for(var i = 0; i < shiftBy; i++){
+                        arr.pop();
+                    }
+                }
+                if(shiftBy < 0){ // 1,2,3,4,5 becomes 3,4,5,1,2 (shiftBy 2)
+                    shiftBy *= -1;
+                    for(var i = 0; i < shiftBy; i++){ // 1,2,3,4,5,1,2
+                        arr.push(arr[i]);
+                    }
+                    for(var i = 0; i < shiftBy; i++){ // 
+                        arr[i] = arr[i+shiftBy];
+                    }
+                    for(var i = 0; i < shiftBy; i++){
+                        arr.shift();
+                    }
+                }
+                return arr;
+            }
+
+            function filterRange(arr, min, max){
+                for(var i = 0; i < arr.length; i++){
+                    if(arr[i] > max || arr[i] < min){
+                        removeAt(arr, i);
+                    }
+                }
+            }
+
+            function concat(arr1, arr2){
+                var newArr = arr1.slice();
+                for(var i = 0; i < arr2.length; i++){
+                    newArr.push(arr2[i]);
+                }
+                return newArr;
+            }
+
+            function visibleBuildings(buildings){
+                var visible = [];
+                for(var i = 0; i < buildings.length; i++){
+                    if(buildings[i] > 0){
+                        visible.push(buildings[i]);
+                    }
+                }
+                return visible;
+            }
+
+            // pg. 42
+            function removeNegatives(arr){
+                for(var i = 0; i < arr.length; i++){
+                    if(arr[i] < 0){
+                        removeAt(arr, i);
+                    }
+                }
+            }
+
+            function secondToLast(arr){
+                if(arr.length < 2){
+                    return null;
+                }
+                return arr[arr.length-2];
+            }
+
+            function nthToLast(arr, n){
+                if(arr.length < n){
+                    return null;
+                }
+                return arr[arr.length-n]
+            }
+
+            function secondLargest(arr){
+                if(arr.length < 2){
+                    return null;
+                }
+                var largest = -Infinity;
+                var almostLargest = -Infinity;
+                for(var i = 0; i < arr.length; i++){
+                    if(arr[i] > almostLargest){
+                        almostLargest = arr[i];
+                    }
+                    if(arr[i] > largest){
+                        almostLargest = largest;
+                        largest = arr[i];
+                    }
+                }
+                return almostLargest;
+            }
+
+            function nthLargest(arr, n){
+                if(arr.length < n || n < 1){
+                    return null;
+                }
+                var sortedValues = [arr[0]];
+                for(var i = 1; i < arr.length; i++){
+                    var inserted = true;
+                    for(var j = 0; j < sortedValues.length; j++){
+                        var inserted = true;
+                        if(arr[i] < sortedValues[j]){
+                            insertAt(sortedValues, arr[i], j);
+                            break;
+                        }
+                    }
+                    if(!inserted){
+                        insertAt(sortedValues, arr[i], 0);
+                    }
+                }
+                return sortedValues[arr.length-n];
+            }
+            
+            function isCreditCardValid(digitArr){
+                var digitStr = "" + digitArr;
+                if((digitStr.length > 19) || (digitStr.length < 13)){ // check for appropriate length
+                    return false;
+                }
+                for(var i = 1; i < digitArr.length-1; i += 2){ // multiply all odd digits by 2. subtract 9 if the digit has become double digits
+                    digitArr[i] *= 2;
+                    if(digitArr[i] > 9){
+                        digitArr[i] -= 9;
+                    }
+                }
+                var sum = 0;
+                for(var i = 0; i < digitArr.length; i++){ // add all digits together
+                    sum += digitArr[i];
+                }
+                return (sum % 10) === 0; // return whether the sum is divisible by 10
+            } 
+
+            // pg. 43
+            function shuffle(arr){
+                for(var i = 0; i < arr.length; i++){ // get a new, random index for each element of the array and swap it with the index's current value
+                    var newIndex = Math.floor(Math.random() * arr.length);
+                    var temp = arr[newIndex];
+                    arr[newIndex] = arr[i];
+                    arr[i] = temp;
+                }
+            }
+
+            function removeRange(arr, start, end){
+                if(start < 0){
+                    start = 0;
+                }
+                if(end > arr.length-1){
+                    end = arr.length-1;
+                }
+                var shiftBy = (end - start) + 1;
+                for(var i = end+1; i < arr.length; i++){ // shift the values after end into their new positions
+                    arr[i-shiftBy] = arr[i];
+                }
+                for(var i = end+1; i < arr.length; i++){ // remove the redundant values
+                    arr.pop();
+                }
+                return arr;
+            }
+
+            function intermediateSums(arr){
+                var intermediateSum = 0;
+                var sumsAdded = 0;
+                for(var i = 0; i < arr.length; i += 1){
+                    intermediateSum += arr[i];
+                    if(i === arr.length-1){ // if you've come to the end of the array, just add the remaining sum
+                        arr.push(intermediateSum);
+                        break;
+                    }
+                    if(((i+1-sumsAdded) % 10 === 0) && i >= 9){ // if index divisible by 10...
+                        sumsAdded += 1; // sumsAdded adjusts the index to account for values you've already added
+                        arr.splice(i+sumsAdded, 0, intermediateSum); // add the intermediate sum at the current index, reset the sum, and advance the index beyond the new value
+                        intermediateSum = 0;
+                        i += 1;
+                    }
+                }
+                return arr;
+            }
+
+            //console.log(intermediateSums([1,2,1,2,1,2,1,2,1,2,1,2,1,2]));
+
+            function doubleTrouble(arr){
+                for(var i = 0; i < arr.length; i++){
+                    arr.splice(i, 0, arr[i]); // duplicate the value into the array and then increment index
+                    i += 1;
+                }
+                return arr;
+            }
+
+            //console.log(doubleTrouble([4, "Ulysses", 42, false]));
+
+            function zipIt(arr1, arr2){
+                var valsAdded = 0;
+                var origLength = arr1.length;
+                for(var i = 0; i < arr2.length; i++){
+                    if(valsAdded >= origLength){ // if you've already added as many values to arr1 as there already were in it, just add to the end
+                        arr1.push(arr2[i]);
+                        console.log
+                    }
+                    else{ // otherwise, add value and increment valsAdded
+                        arr1.splice(i+1+valsAdded, 0, arr2[i]);
+                        valsAdded += 1;
+                    }
+                }
+                return arr1;
+            }
+
+            /*console.log(zipIt([1,2], [10,20,30,40]));
+            console.log(zipIt([1,2,3,4], [10,20,30,40,50,60]));*/
+
+            // pg. 44
+            function ticTacToeState(grid){
+                var xSum = 0;
+                var oSum = 0;
+                var blanks = 0;
+                var xTurn = true;
+                
+                //step 1: count the total number of x's, o's, and blanks to see whose turn it is
+
+                for(var row = 0; row < grid.length; row++){
+                    for(var col = 0; col < grid[row].length; col++){
+                        if(grid[row][col] === "X"){
+                            xSum += 1;
+                        }
+                        else if(grid[row][col] === "O"){
+                            oSum += 1;
+                        }
+                        else{
+                            blanks += 1;
+                        }
+                    }
+                }
+
+                var xTurn = xSum <= oSum;
+
+                //test 2: test straight lines and diagonals to see if a winning condition has been met. if zero blanks and no winner, stalemate
+                // step 2: test row-by-row for streak
+                for(var row = 0; row < grid.length; row++){
+                    var streak = true;
+                    var first = grid[row][0];
+                    if(first === "X" || first === "O"){
+                        for(var col = 1; col < grid[row].length; col++){
+                            if(grid[row][col] !== first){
+                                streak = false;
+                                break;
+                            }
+                        }
+                    }
+                    else{
+                        streak = false;
+                    }
+                    if(streak){
+                        return first + " is the winner! Game over!"
+                    }
+                }
+
+                // step 3: test col-by-col for streak
+                for(var col = 0; col < grid[0].length; col++){
+                    var streak = true;
+                    var first = grid[0][col];
+                    if(first === "X" || first === "O"){
+                        for(var row = 1; row < grid.length; row++){
+                            if(grid[row][col] !== first){
+                                streak = false;
+                                break;
+                            }
+                        }
+                    }
+                    else{
+                        streak = false;
+                    }
+                    if(streak){
+                        return first + " is the winner! Game over!";
+                    }
+                }
+
+                // step 4: test left diagonal for streak. Assumes square-shaped board
+                var streak = true;
+                var first = grid[0][0];
+                if(first === "X" || first === "O"){
+                    for(var i = 1; i < grid.length; i++){
+                        if(grid[i][i] !== first){
+                            streak = false;
+                            break;
+                        }
+                    }
+                }
+                else{
+                    streak = false;
+                }
+                if(streak){
+                    return first + " is the winner! Game over!";
+                }
+
+
+                // step 5: test right diagonal for streak
+                var streak = true;
+                var first = grid[0][grid.length-1];
+                if(first === "X" || first === "O"){
+                    for(var i = 1; i < grid.length; i++){
+                        if(grid[i][grid.length-i] !== first){
+                            streak = false;
+                            break;
+                        }
+                    }
+                }
+                else{
+                    streak = false;
+                }
+                if(streak){
+                    return first + " is the winner! Game over!";
+                }
+
+                // step 6: return stalement if no blanks
+                if(blanks === 0){
+                    return "Game over! Stalemate!"
+                }
+
+                // step 7: return whose turn it is if no winner and no stalemate
+                if(xTurn){
+                    return "It's X's turn!"
+                }
+                else{
+                    return "It's O's turn!"
+                }
+            }
+        </script>
+    </head>
+    <body></body>
+</html> 

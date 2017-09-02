@@ -1,0 +1,352 @@
+<html>
+    <head>
+        <title>Chapter 7: Arrays II</title>
+        <script>
+            // pg. 80
+            function balancePoint(arr){
+                var balanceExists = false;
+                for(var i = 0; i < arr.length; i++){
+                    var left = arr.slice(0, i+1);
+                    var right = arr.slice(i);
+                    var leftSum = left.reduce(function(sum, value){
+                        return sum+value;
+                    });
+                    var rightSum = left.reduce(function(sum, value){
+                        return sum+value;
+                    });
+                    balanceExists = leftSum === rightSum;
+                }
+                return balanceExists;
+            }
+
+            function balanceIndex(arr){
+                var balanceExists = false;
+                for(var i = 0; i < arr.length; i++){
+                    var left = arr.slice(0, i);
+                    var right = arr.slice(i+1);
+                    var leftSum = left.reduce(function(sum, value){
+                        return sum+value;
+                    });
+                    var rightSum = left.reduce(function(sum, value){
+                        return sum+value;
+                    });
+                    balanceExists = leftSum === rightSum;
+                }
+                return balanceExists;
+            }
+
+            function tacoLocation(customers){
+                // get range by min/max x and y coordinates, test all coordinates in that range to find minDistance
+                if(customers.length === 0){
+                    return "No customers!";
+                }
+                var minX = customers[0][0];
+                var minY = customers[0][1];
+                var maxX = customers[0][0];
+                var maxY = customers[0][1];
+                for(var i = 1; i < customers.length; i++){
+                    if(customers[i][0] > maxX){
+                        maxX = customers[i][0];
+                    }
+                    if(customers[i][1] > maxY){
+                        maxY = customers[i][1];
+                    }
+                    if(customers[i][0] < minX){
+                        minX = customers[i][0];
+                    }
+                    if(customers[i][1] < minY){
+                        minY = customers[i][1];
+                    }
+                }
+                var minDistance = Infinity;
+                var optimalCoords = [];
+                for(var x = minX; x <= maxX; x++){
+                    for(var y = minY; y <= maxY; y++){
+                        var totalDistance = 0;
+                        for(var i = 0; i < customers.length; i++){
+                            totalDistance += (Math.abs(customers[i][0] - x) + Math.abs(customers[i][y] - y));
+                        }
+                        if(minDistance > totalDistance){
+                            minDistance = totalDistance;
+                            optimalCoords = [x, y];
+                        }
+                    }
+                }
+                return optimalCoords;
+            }
+
+            //console.log(tacoLocation([[10,0], [-1, -10], [2,4]])); 0 1 2 3 4
+
+            // pg. 81
+            function binarySearch(arr, value){
+                if(arr.length < 1){
+                    return false;
+                }
+                while(arr.length > 1){
+                    var midpoint = Math.floor(arr.length/2);
+                    if(arr[midpoint] === value){
+                        return true;
+                    }
+                    if(arr[midpoint] > value){
+                        arr = arr.slice(0, midpoint);
+                        continue;
+                    }
+                    if(arr[midpoint] < value){
+                        arr = arr.slice(midpoint+1);
+                        continue;
+                    }
+                }
+                return arr[0] === value;
+            }
+
+            /*var arr = [1, 2, 3, 4, 5, 6];
+            var arrOdd = [1, 2, 3, 4, 5, 6, 7];
+            console.log(binarySearch(arr, 2));
+            console.log(binarySearch(arrOdd, 2));
+            console.log(binarySearch(arr, 8));*/
+
+            function minOfSortedRotated(arr){
+                // minimum value is the only value smaller than the one before it
+                // 4, 5, 6, 7, 1, 2, 3
+                // first: check middle. compare to very last element. if very last is less, the minimum is on right side.
+                if(arr.length < 1){
+                    return false;
+                }
+                while(arr.length > 1){
+                    var midpoint = Math.floor(arr.length/2);
+                    if(arr[midpoint+1] && arr[midpoint+1] < arr[midpoint]){
+                        return arr[midpoint+1];
+                    }
+                    if(arr[midpoint-1] && arr[midpoint-1] > arr[midpoint]){
+                        return arr[midpoint];
+                    }
+                    if(arr[arr.length-1] > arr[midpoint]){
+                        arr = arr.slice(0, midpoint);
+                    }
+                }
+                return arr[0];               
+            }
+
+            /*var names = ["Gigli", "Jay is cool", "Mavis", "Phoebe", "Thurber", "Anna", "Celeste", "Elon"];
+            console.log(minOfSortedRotated(names));*/
+
+            function binarySearchStr(str, char){
+                var targetCode = char.charCodeAt(0);
+                if(str.length < 1){
+                    return false;
+                }
+                while(str.length > 1){
+                    var midpoint = Math.floor(str.length/2);
+                    if(str.charCodeAt(midpoint) === targetCode){
+                        return true;
+                    }
+                    if(str.charCodeAt(midpoint) < targetCode){
+                        str = str.slice(midpoint+1);
+                        continue;
+                    }
+                    if(str.charCodeAt(midpoint) > targetCode){
+                        str = str.slice(0, midpoint);
+                        continue;
+                    }     
+                }
+                return str.charCodeAt(0) === targetCode;
+            }
+
+            /*console.log(binarySearchStr(" &-0379DEFXZ[abcz|", "6"));
+            console.log(binarySearchStr(" &-0379DEFXZ[abcz|", "c"));*/
+
+            // pg. 82
+            function flatten(arr){
+                var flattened = [];
+                for(var i = 0; i < arr.length; i++){
+                    if(!Array.isArray(arr[i])){
+                        flattened.push(arr[i]);
+                    }
+                    else{
+                        var nested = flatten(arr[i]);
+                        for(var j = 0; j < nested.length; j++){
+                            flattened.push(nested[j]);
+                        }
+                    }
+                }
+                return flattened;
+            }
+            //console.log(flatten([1, [2, 3], 4, []]));
+
+            function flattenInPlace(arr){ 
+                // HOW DO I DO THIS????
+            }
+
+            /*var arr = [1, [2, 3], 4, []];
+            flattenInPlace(arr);
+            console.log(arr);*/
+
+            function removeDupes(arr){
+                var duped = {};
+                for(var i = 0; i < arr.length; i++){
+                    if(duped[arr[i]]){
+                        arr.splice(i, 1);
+                        i--;
+                    }
+                    else{
+                        duped[arr[i]] = true;
+                    }
+                }
+            }
+
+            /*var arr = [1,2,1,3,4,2];
+            removeDupes(arr);
+            console.log(arr);*/
+
+            function mode(arr){
+                // assumes that it's ok to sort the array in question
+                // if you can't sort, just do repeated iterations with a given currentVal
+                arr = arr.sort();
+                var currentVal;
+                var mode;
+                var modeCount = 0;
+                var count = 0;
+                for(var i = 0; i < arr.length; i++){
+                    if(!currentVal || currentVal !== arr[i]){
+                        currentVal = arr[i];
+                        count = 1;
+                    }
+                    else{
+                        if(arr[i] === currentVal){
+                            count++;
+                        }
+                    }
+                    if(count > modeCount){
+                        modeCount = count;
+                        mode = currentVal;
+                    }
+                }
+                return mode;
+            }
+
+            //console.log(mode([1, 2, 1, 3, 1, 4, 1, 5, 1, 6]));
+
+            function arrBufferCopy(sourceArr, destArr, sourceStartIdx, destStartIdx, numVals){ // version 2
+                // goal: copy from sourceArr to destArr
+                // for loop: from 0 to numVals (exclusive at the end), copy from sourceArr[(sourceStartIdx+ i) % sourceArr.length] to destArr[destStartIdx+ i) % destArr.length]
+                if(numVals > destArr.length){
+                    numVals = destArr.length;
+                }
+                for(var i = 0; i < numVals; i++){
+                    destArr[(destStartIdx + i) % destArr.length] = sourceArr[(sourceStartIdx + i) % sourceArr.length];
+                }
+            }
+            function arrBufferCopy(sourceArr, destArr, sourceStartIdx, destStartIdx, numVals){ // version 2
+                // goal: copy from sourceArr to destArr
+                // for loop: from 0 to numVals (exclusive at the end), copy from sourceArr[(sourceStartIdx+ i) % sourceArr.length] to destArr[destStartIdx+ i) % destArr.length]
+                for(var i = 0; i < numVals; i++){
+                    destArr[(destStartIdx + i) % destArr.length] = sourceArr[(sourceStartIdx + i) % sourceArr.length];
+                }
+            }
+
+            // don't understand fourth or fifth of array: buffer copy
+
+            // pg. 83
+            var savedSums = [0];
+            function iSigma(num){
+                var sum = 0;
+                if(savedSums[num]){
+                    return savedSums[num];
+                }
+                for(var i = 1; i <= num; i += 1){
+                    sum += i;
+                    savedSums[i] = sum;
+                }
+                return sum;
+                }
+
+            var savedFactorials = [1];
+            function Factorial(num){
+                var product = 1;
+                if(savedFactorials[num]){
+                    return savedFactorials[num];
+                }
+                for(var i = 1; i <= num; i += 1){
+                    product *= i;
+                    savedFactorials[i] = product;
+                }
+                return product;
+            }
+
+            var savedFibonaccis = [0, 1, 1];   
+            function iFib(num){
+                if(num < 0){
+                    return 0;
+                }
+                if(savedFibonaccis[num]){
+                    return savedFibonaccis[num];
+                }
+                var fib = iFib(num-1) + iFib(num-2);
+                savedFibonaccis[num] = fib;
+                return fib;
+            } 
+
+            var savedTribonaccis = [0, 1, 1, 2];
+            function iTrib(num){
+                if(num < 0){
+                    return 0;
+                }
+                if(savedTribonaccis[num]){
+                    return savedTribonaccis[num];
+                }
+                var fib = iTrib(num-1) + iTrib(num-2) + iTrib(num-3);
+                savedTribonaccis[num] = fib;
+                return fib;
+            }
+
+            // pg. 84
+            function medianOfArrays(arrs){
+                var totalLength = 0;
+                var leftCounters = [];
+                for(var i = 0; i < arrs.length; i++){ // get the combined length of the data set, and initialize index trackers to zero
+                    totalLength += arrs[i].length;
+                    leftCounters[i] = 0;
+                }
+                var evenLength = true; // determine if even length or not
+                if(totalLength % 2 === 1){ 
+                    evenLength = false;
+                }
+                // find array with minimum value at its left counter, and increment that left counter
+                // if target is reached, return the median. odd length? want Math.floor(arr.length/2);
+                // even length? want arr.length/2 + arr.length/2 - 1
+                var medianCounter = -1;
+                var lastVal;
+                var penultimateVal;
+                console.log(totalLength);
+                while(medianCounter <= totalLength/2 + 1){ // find the min and increment one of the counters accordingly. store recent values
+                    var min = arrs[0][leftCounters[0]];
+                    var minIndex = 0;
+                    for(var i = 1; i < arrs.length; i++){
+                        if(arrs[i][leftCounters[i]] < min){
+                            minIndex = i;
+                            min = arrs[i][leftCounters[i]];
+                        }
+                    }
+                    arrs[minIndex][leftCounters[minIndex]]++;
+                    penultimateVal = lastVal;
+                    lastVal = min;
+                    medianCounter++;
+                }
+                if(!evenLength){
+                    return lastVal;
+                }
+                else{
+                    return (lastVal + penultimateVal) / 2;
+                }
+            }
+
+            /* console.log(medianOfArrays([[1, 5, 9], [1, 2, 3, 4, 5, 6]])); // 4
+            console.log(medianOfArrays([[1, 5, 9], [1, 2, 3, 4, 5]])); // 3.5 */
+
+            function timeToEnglish(int){
+
+            }
+        </script>
+    </head>
+    <body></body>
+</html> 

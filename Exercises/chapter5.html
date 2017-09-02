@@ -1,0 +1,530 @@
+<html>
+    <head>
+        <title>Chapter 5: Linked Lists</title>
+        <script>
+            // pg. 60
+            function ListNode(value){
+                this.val = value;
+                this.next = null;
+            }
+
+            function addFront(firstNode, value){
+                var head = new ListNode(value);
+                head.next = firstNode;
+                return head;
+            }
+
+            //console.log(JSON.stringify(addFront(new ListNode(5), 4)));
+
+            function contains(head, val){
+                while(head){
+                    if(head.value === val){
+                        return true;
+                    }
+                    else{
+                        head = head.next;
+                    }
+                }
+                return false;
+            }
+
+            function removeFront(head){
+                if(!head){
+                    return null;
+                }
+                var newHead = head.next;
+                head.next = null;
+                return newHead;
+            }
+
+            function front(head){
+                if(head){
+                    return head.value;
+                }
+                return null;
+            }
+
+            // pg. 61
+            function length(head){
+                var runner = head;
+                var count = 0;
+                while(runner){
+                    count++;
+                    runner = head.next;
+                }
+                return count;
+            }
+
+            function display(head){
+                var runner = head;
+                while(runner){
+                    console.log(runner.value);
+                    runner = runner.next;
+                }
+            }
+
+            function max(head){
+                var runner = head;
+                var max;
+                if(runner){
+                    max = -Infinity;
+                }
+                else{
+                    return "N/A";
+                }
+                while(runner){
+                    if(runner.value > max){
+                        max = runner.value;
+                    }
+                    runner = runner.next;
+                }
+                return max;
+            }
+
+            function min(head){
+                var runner = head;
+                var min;
+                if(runner){
+                    min = Infinity;
+                }
+                else{
+                    return "N/A";
+                }
+                while(runner){
+                    if(runner.value < min){
+                        min = runner.value
+                    }
+                    runner = runner.next;
+                }
+                return min;
+            }
+
+            function average(head){
+                var sum = 0;
+                var length = 0;
+                if(!head){
+                    return "N/A";
+                }
+                var runner = head;
+                while(runner){
+                    length++;
+                    sum += runner.value;
+                    runner = runner.next;
+                }
+                return sum / length;
+            }
+
+            // pg. 62
+            function lastNode(head){
+                var runner = head;
+                while(runner && runner.next){
+                    runner = runner.next;
+                }
+                return runner;
+            }
+
+            function removeLast(head){
+                var runner = head;
+                while(runner && runner.next){
+                    runner = runner.next;
+                }
+                runner.next = null;     
+                return head;    
+            }
+
+            function insertLast(head, val){
+                var runner = head;
+                while(runner && runner.next){
+                    runner = runner.next;
+                }
+                runner.next = new ListNode(val);
+            }
+
+            function moveMinToFront(head){
+                if(!head || !head.val){
+                    return "N/A";
+                }
+                var runner = head;
+                var prevRunner = head;
+                var runnerMin = head;
+                var min = head.value;
+                while(runner && runner.next){ // find the min
+                    if(runner.value < min){
+                        min = runner.value;
+                        runnerMin = prevRunner;
+                    }
+                    prevRunner = runner;
+                    runner = runner.next;
+                }
+
+                // set runnerMin to skip the min value
+                runnerMin.next = runnerMin.next.next;   
+
+                //finally: move min to the front
+                var firstNode = new ListNode(min);
+                firstNode.next = head;
+                return firstNode;
+            }
+
+            function moveMaxToBack(head){
+                if(!head || !head.val){
+                    return "N/A";
+                }
+                var runner = head;
+                var prevRunner = head;
+                var runnerMax = head;
+                var max = head.value;
+                while(runner && runner.next){ // find the max
+                    if(runner.value > max){
+                        max = runner.value;
+                        runnerMax = prevRunner;
+                    }
+                    prevRunner = runner;
+                    runner = runner.next;
+                }
+
+                // set runnerMax to skip the max value
+                runnerMax.next = runnerMax.next.next;   
+                 
+                //finally: move max to the front
+                var firstNode = new ListNode(max);
+                firstNode.next = head;
+                return firstNode;
+            }
+
+            // pg. 63
+            function prependVal(head, val, before){
+                var newNode = new ListNode(val);
+                if(head.value === before){
+                    newNode.next = head;
+                    return newNode;
+                }
+                if(!head){
+                    return newNode;
+                }
+                var runner = head;
+                var prevRunner = null;
+                while(runner){
+                    if(runner.value === val){
+                        prevRunner.next = newNode;
+                        newNode.next = runner;
+                        return head;
+                    }
+                    if(!runner.next){
+                        runner.next = newNode;
+                    }
+                    prevRunner = runner;
+                    runner = runner.next;
+                }
+                return head;
+            }
+
+            function appendVal(head, val, after){
+                var newNode = new ListNode(val);
+                var runner = head;
+                if(!head){
+                    return newNode;
+                }
+                while(runner){
+                    if(!runner.next){
+                        runner.next = newNode;
+                        return head;
+                    }
+                    if(runner.value === after){
+                        newNode.next = runner.next;
+                        runner.next = newNode;
+                        return head;
+                    }
+                }
+                return head;
+            }
+
+            function promptList(){
+                var nextNodeValue = "Starting...";
+                var head = undefined;
+                var runner = undefined;
+                while(nextNodeValue){
+                    nextNodeValue = prompt("Add an item to the list? (Or, type ~ to quit)");
+                    var nextNode = new ListNode(nextNodeValue);
+                    if(!head){
+                        head = nextNode;
+                        runner = head;
+                    }
+                    else{
+                        runner.next = nextNode;
+                        runner = runner.next;
+                    }
+                }
+                return head;
+            }
+
+            function removeVal(head, val){
+                var runner = head;
+                if(head && head.value === val && !head.next){
+                    return null;
+                }
+                if(head && head.val === val && head.next){
+                    return head.next;
+                }
+                while(runner.next){
+                    if(runner.next.value === val){
+                        runner.next = runner.next.next;
+                        return head;
+                    }
+                    runner = runner.next;
+                }
+                return head;
+            }
+
+            // pg. 64
+            function splitOnVal(list, num){
+                var runner = list;
+                var slowRunner = list;
+                while(runner){
+                    if(runner.value === num){
+                        slowRunner.next = null;
+                        return runner;
+                    }
+                    slowRunner = runner;
+                    runner = runner.next;
+                }
+                return list;
+            }
+
+            function removeNegatives(list){
+                if(list && !list.next && list.value < 0){
+                    return null;
+                }
+                var runner = list;
+                while(runner && runner.next){
+                    if(runner.next.value < 0){
+                        runner.next = runner.next.next;
+                    }
+                }
+                return list;
+            }
+
+            function concatLists(list1, list2){
+                var runner = list1;
+                while(runner.next){
+                    runner = runner.next;
+                }
+                runner.next = list2;
+            }
+
+            function partition(list, value){
+                var smallList = undefined;
+                var largeList = undefined;
+                var equalList = undefined;
+                var runner = list;
+                var smallRunner = undefined;
+                var largeRunner = undefined;
+                var equalList = undefined;
+
+                while(runner){ // create three separate lists (less, equal to, and greater), to be linked later
+                    if(runner.value < value){
+                        if(!smallList){
+                            smallList = new ListNode(runner.value);
+                            smallRunner = smallList;
+                        }
+                        else{
+                            smallRunner.next = new ListNode(runner.value);
+                            smallRunner = smallRunner.next;
+                        }
+                    }
+                    else if(runner.value > value){
+                        if(!largeList){
+                            largeList = new ListNode(runner.value);
+                            largeRunner = largeList;
+                        }
+                        else{
+                            largeRunner.next = new ListNode(runner.value);
+                            largeRunner = largeRunner.next;
+                        }
+                    }
+                    else{
+                        if(!equalList){
+                            equalList = new ListNode(runner.value);
+                            equalRunner = equalList;
+                        }
+                        else{
+                            equalRunner.next = new ListNode(runner.value);
+                            equalRunner = equalRunner.next;
+                        }  
+                    }
+                    runner = runner.next;
+                }
+
+                if(smallList){ // connect smallList to equalList OR largeList
+                    if(equalList){
+                        smallRunner.next = equalList;
+                    }
+                    else{
+                        if(largeList){
+                            smallRunner.next = largeList;
+                        }
+                    }
+                }
+                if(equalList){// connect equalList to largeList
+                    if(largeList){
+                        equalRunner.next = largeList;
+                    }
+                }
+
+                if(smallList){ // return appropriate head
+                    return smallList;
+                }
+                else if(equalList){
+                    return equalList;
+                }
+                else{
+                    return largeList;
+                }
+            }
+
+            // pg. 65
+            function secondToLast(head){
+                if(!head || !head.next){
+                    return "List is too short!"
+                }
+
+                var runner = head;
+                while(runner.next){
+                    if(!runner.next.next){
+                        return runner;
+                    }
+                    runner = runner.next;
+                }
+                return head;
+            }
+
+            ListNode.prototype.removeSelf = function(){
+                var runner = this;
+                while(runner.next){
+                    runner.value = runner.next.value;
+                    runner = runner.next;
+                }
+                runner.next = null;
+            }
+
+            function copyList(list){
+                if(!list){
+                    return list;
+                }
+                var runner = list;
+                while(runner){
+                    
+                }
+            }
+
+            function filterList(head, lowVal, highVal){
+                var runner = head;
+                if(!runner){
+                    return null;
+                }
+                if(!runner.next && (runner.value < lowVal && runner.value > highVal)){
+                    return null;
+                }
+                while(runner.next){
+                    if(runner.next.value < lowVal || runner.next.value > highVal){
+                        runner.next = runner.next.next;
+                    }
+                    runner = runner.next;
+                }
+                return head;
+            }
+
+            // pg. 66
+            function secondLargest(head){
+                if(!head || !head.next){
+                    return "List too short!";
+                }
+                var largest = head.value;
+                var secondLargest = -Infinity;
+                var runner = head.next;
+                while(runner){
+                    if(runner.value >= largest){
+                        secondLargest = largest;
+                        largest = runner.value;
+                    }
+                    else{
+                        if(runner.value >= secondLargest){
+                            scondLargest = runner.value;
+                        }
+                    }
+                }
+                return secondLargest;
+            }
+
+            function zipLists(list1, list2){
+                var newList = new SLNode(list1.value);
+                newList.next = new SLNode(list2.value);
+                var runner1 = list1.next;
+                var runner2 = list2.next;
+                var runnerNew = newList;
+                while(runner1 && runner2){
+                    runner.next = new SLNode(runner1.value);
+                    runner = runner.next;
+                    runner.next = new SLNode(runner2.value);
+                    runner = runner.next;
+                    runner1 = runner1.next;
+                    runner2 = runner2.next;
+                }
+                while(runner1){
+                    runner.next = new SLNode(runner1.value);
+                    runner = runner.next;
+                    runner1 = runner1.next;
+                }
+                while(runner2){
+                    runner.next = new SLNode(runner2.value);
+                    runner = runner.next;
+                    runner2 = runner2.next;
+                }
+                return newList;
+            }
+
+            function dedupe(list){
+                var alreadyHere = {};
+                alreadyHere[list.value] = true;
+                var runner = list;
+                while(runner.next){
+                    if(!alreadyHere[runner.next.value]){
+                        alreadyHere[runner.next.value] = true;
+                    }
+                    else{
+                        runner.next = runner.next.next;
+                    }
+                }
+                return list;
+            }
+
+            function dedupeNoBuffer(list){
+                var runner = list;
+                while(runner){
+                    var runner2 = runner;
+                    while(runner2){
+                        if(runner2 && runner2.next.value === runner.value){
+                            runner2.next = runner2.next.next;
+                        }   
+                        runner2 = runner2.next;
+                    }
+                    runner = runner.next;
+                }
+            }
+            // pg. 68 Weekend Challenge
+
+            function SList(){
+
+            }
+            function SLNode(id, firstName, LastName){
+                this.id = id;
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.next = null;
+            }
+
+
+        </script>
+    </head>
+    <body></body>
+</html> 

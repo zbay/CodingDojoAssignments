@@ -267,7 +267,21 @@
             // pg. 32 extract-o=matic. IMPORTANT
             function extractDigit(num, digitNum){
                 return Math.floor(num / Math.pow(10, digitNum)) % 10;
-                // do second and third
+            }
+
+            // pg. 32: most sig fig
+            function mostSigFig(num){
+                if(Math.abs(num) >= 1){
+                    while(Math.abs(num) >= 10){
+                        num = num  % 10;
+                    }
+                }
+                else{
+                    while(Math.abs(num) < 1){
+                        num *= 10;
+                    }
+                }
+                return Math.floor(num);
             }
 
             // pg. 34: desert island
@@ -434,15 +448,6 @@
                 }
             }
             function leapYear(yr){
-	            if((yr % 400 === 0)){
-		            return true;
-	            }
-	            if((yr % 4 === 0) && (yr % 100 !== 0)){
-		            return true;
-	            }
-	            return false;
-            }
-            function leapYearShitty(yr){
 	            if((yr % 400 === 0)){
 		            return true;
 	            }
