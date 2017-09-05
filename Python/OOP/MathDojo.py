@@ -1,0 +1,2 @@
+def MathDojo(object):
+    pass
