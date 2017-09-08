@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <style>
+            body{
+                text-align:center;
+            }
+            .box{
+                border: 3px solid black;
+                color:white;
+                width:80%;
+                margin:auto;
+                margin-bottom:20px;
+                padding-top:20px;
+                padding-bottom:20px;
+            }
+            #successBox{
+                background-color:green;
+            }
+            .wrong{
+                background-color:red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Welcome to the Great Number Game!</h1>
+        <p>I am thinking of a number between 1 and 100.</p>
+        <p>Take a guess!</p>
+        {% if (session.get('guess') is not none) and (session['guess'] == session['random']) %}
+        <div id="successBox" class="box">
+            <p>{{ session['random'] }} was the number!</p>
+            <form action="/reset" method="post">
+                <input type="submit" value="Play again!"></button>
+            </form>
+        </div>
+        {% elif (session.get('guess') is not none) and (session['guess'] > session['random']) %}
+        <div class="box wrong">Too high!</div>
+        {% elif (session.get('guess') is not none) and (session['random'] > session['guess'] ) %}
+        <div class="box wrong">Too low!</div>
+        {% else %}
+        {% endif %}
+        {% if (session['guess'] != session['random']) %}
+        <form action="/guess" method="post" id="guessForm">
+            <input type="text" name="guess" value="{{ session['guess'] }}"/>
+            <input type="submit" value="Submit">
+        </form>
+        {% endif %}
+    </body>
+</html>

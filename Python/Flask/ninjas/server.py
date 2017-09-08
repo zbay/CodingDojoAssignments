@@ -2,15 +2,15 @@ from flask import Flask, render_template, request, redirect
 app = Flask(__name__)
 
 @app.route("/")
-def form():
+def nothing():
     return render_template('index.html')
 
-@app.route("/result", methods=["POST"])
-def process():
-    name = request.form['name']
-    location = request.form['location']
-    fave_lang = request.form['fave_lang']
-    comment = request.form['comment']
-    return render_template('result.html', name=name, location=location, fave_lang=fave_lang, comment=comment)
+@app.route("/ninja")
+def ninjas():
+    return render_template('ninjas.html')
+
+@app.route("/ninja/<color>")
+def specific_ninja(color):
+    return render_template('ninja.html', color=color)
 
 app.run(debug=True)

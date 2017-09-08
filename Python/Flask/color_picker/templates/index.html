@@ -1,0 +1,19 @@
+<style type="text/css">
+    body {
+        background-color: rgb( {{ red }}, {{ green }}, {{ blue }} );
+    }
+    .redText{
+        color:red;
+    }
+</style>
+<h1>Enter your color values below:</h1>
+<form action="/colored" method="post">
+    <label>Red:</label>
+    <input type="text" name="red"/>
+    <label>Green:</label>
+    <input type="text" name="green"/>
+    <label>Blue:</label>
+    <input type="text" name="blue"/>
+    <p class="redText">All values must be between 1 and 255</p>
+    <input type="submit" value="Show my color!">
+</form>

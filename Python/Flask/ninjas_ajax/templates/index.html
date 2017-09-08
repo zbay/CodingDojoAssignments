@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/control.js') }}"></script>
+        <style>
+            .colorButton{
+                margin: 0 auto;
+                display:inline-block;
+                width:20%;
+            }
+            img, .buttons, div{
+                width:50%;
+                display:block;
+                margin:auto;
+            }
+            div{
+                margin-top: 30px;
+            }
+            .hide{
+                display:none;
+            }
+            img{
+                max-width:400px;
+                margin-top:30px;
+                margin-bottom:30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="buttons">
+            <button class="colorButton">red</button>
+            <button class="colorButton">blue</button>
+            <button class="colorButton">orange</button>
+            <button class="colorButton">purple</button>
+        </div>
+        <img src="{{ url_for('static', filename='img/leonardo.jpg')}}" class="hide" id="leonardo"/>
+        <img src="{{ url_for('static', filename='img/donatello.jpg')}}" class="hide" id="donatello"/>
+        <img src="{{ url_for('static', filename='img/michelangelo.jpg')}}" class="hide" id="michelangelo"/>
+        <img src="{{ url_for('static', filename='img/raphael.jpg')}}" class="hide" id="raphael"/>
+        <img src="{{ url_for('static', filename='img/notapril.jpg')}}" class="hide" id="notapril"/>
+        <div>
+            <p>Or choose a custom color:</p>
+            <input type="text" name="color" id="textBar"/>
+            <button id="searchColor">Enter</button>
+        </div>
+    </body>
+</html>

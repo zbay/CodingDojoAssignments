@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <style>
+            .success{
+                color:green;
+            }
+            .failure{
+                color:red;
+            }
+            .col{
+                display:inline-block;
+            }
+            .row{
+                display:block;
+            }
+            .location{
+                width:20%;
+                text-align:center;
+                padding:20px;
+            }
+            .activityBox{
+                overflow-y: scroll;
+                padding:5px;
+                text-align:left;
+            }
+            .moneyBox, .location, .activityBox{
+                border: 3px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="row moneyRow">
+            <div class="col">Your Gold:</div>
+            <div class="col moneyBox">{{ session['gold'] }}</div>
+        </div>
+        <div class="row">
+            <div class="col location">
+                <h2>Farm</h2>
+                <p>(earns 10-20 golds)</p>
+                <form action="/process_money" method="post">
+                    <input type="hidden" name="building" value="farm" />
+                    <input type="submit" value="Find Gold!"/>
+                </form>
+            </div>
+            <div class="col location">
+                    <h2>Cave</h2>
+                    <p>(earns 5-10 golds)</p>
+                    <form action="/process_money" method="post">
+                        <input type="hidden" name="building" value="cave" />
+                        <input type="submit" value="Find Gold!"/>
+                    </form>
+            </div>
+            <div class="col location">
+                    <h2>House</h2>
+                    <p>(earns 2-5 golds)</p>
+                    <form action="/process_money" method="post">
+                        <input type="hidden" name="building" value="house" />
+                        <input type="submit" value="Find Gold!"/>
+                    </form>
+            </div>
+            <div class="col location">
+                    <h2>Casino</h2>
+                    <p>(earns/takes 0-50 golds)</p>
+                    <form action="/process_money" method="post">
+                        <input type="hidden" name="building" value="casino" />
+                        <input type="submit" value="Find Gold!"/>
+                    </form>
+            </div>
+            <p>Activities:</p>
+            <div class="activityBox">
+                {% for activity in session['activities'] %}
+                    {% if activity['gold'] >= 0 %}
+                        <p class="success">Earned {{ activity['gold']}} from the {{ activity['location'] }}! ({{ activity['datetime'] }})</p>
+                    {% else %}
+                        <p class="failure">Entered a casino and lost {{ activity['gold']}}... Ouch... ({{ activity['datetime'] }})</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+        </div>
+    </body>
+</html>
