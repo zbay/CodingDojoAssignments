@@ -1,15 +1,17 @@
 from flask import Flask, render_template, request, redirect, session
 import random
+from datetime import datetime, date, time
 app = Flask(__name__)
-app.secret_key = "f32fekwjofewfq"
+app.secret_key = "jf439ffdkl328382hrh832"
 
 @app.route("/")
 def home():
-    if not session['gold']:
+    if (session.get('gold') is None):
+        session['activities'] = []
         session['gold'] = 0
     return render_template('index.html')
 
-@app.route("/process_money")
+@app.route("/process_money", methods=['POST'])
 def process_money():
     building = request.form['building']
     randomGold = 0
@@ -24,7 +26,7 @@ def process_money():
     else:
         return redirect("/")
     session['gold'] += randomGold
-    session['activity'] = {'gold': randomGold, 'location': building, 'time': datetime.now()}
+    session['activities'].append( {'gold': randomGold, 'location': building, 'time': datetime.now().strftime("%Y/%m/%d %I:%M %p") } )
     return redirect("/")
 
 app.run(debug=True)

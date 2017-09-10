@@ -42,3 +42,11 @@ input[type='submit']{
 .resultBox h1{
     text-decoration: underline;
 }
+
+.error{
+    color:red;
+    display: block;
+    text-align:center !important;
+    position: relative;
+    top:20px;
+}

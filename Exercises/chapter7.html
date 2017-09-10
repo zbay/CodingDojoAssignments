@@ -343,9 +343,36 @@
             /* console.log(medianOfArrays([[1, 5, 9], [1, 2, 3, 4, 5, 6]])); // 4
             console.log(medianOfArrays([[1, 5, 9], [1, 2, 3, 4, 5]])); // 3.5 */
 
-            function timeToEnglish(int){
+            function timeToEnglish(minsAfter){
+                // see WebFun/telltime.js
+            }
+
+            function missingValue(ints){
+                var searchArr = [];
+                var minVal = ints[0];
+                for(var i = 0; i < ints.length; i++){ // populate array, in order, with all values in n time
+                    searchArr[ints[i]] = ints[i];
+                    if(ints[i] < minVal){
+                        minVal = ints[i];
+                    }
+                }
+                for(var i = minVal; i < searchArr.length+1; i++){ // when you find an index where the value is undefined, you have found your mark. n time
+                    if(searchArr[i] === undefined){
+                        return i;
+                    }
+                }
+            }
+
+            console.log(missingValue([3,0,1])); // 2
+            console.log(missingValue([2,-4,0,-3,-2,1])); // -1
+            console.log(missingValue([5,2,7,8,4,9,3])); //6
+
+            function maxWater(terraceHeights){
 
             }
+
+            // pg. 85
+            
         </script>
     </head>
     <body></body>

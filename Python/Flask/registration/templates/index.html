@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <style>
+            .error{
+                color:red;
+                margin-bottom:30px;
+            }
+            .success{
+                color:green;
+            }
+            .error, .success{
+                text-align:center;
+            }
+            label{
+                display:inline-block;
+                width:200px;
+            }
+            input{
+                width:300px;
+            }
+            input[type="submit"]{
+                margin-top:10px;
+                width:200px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Registration</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'error' %}
+                        <div class="error">{{ message }}</div>
+                    {% else %}
+                        <div class="success">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/register" method="post">
+            <div class="row">
+                <label for="email">Email:</label>
+                <input type="text" name="email"/>
+            </div>
+            <div class="row">
+                <label for="fname">First Name:</label>
+                <input type="text" name="fname"/>
+            </div>
+            <div class="row">
+                <label for="lname">Last Name:</label>
+                <input type="text" name="lname"/>
+            </div>
+            <div class="row">
+                <label for="password">Password:</label>
+                <input type="password" name="password"/>
+            </div>
+            <div class="row">
+                <label for="confirm">Confirm Password:</label>
+                <input type="password" name="confirm"/>
+            </div>
+            <div class="row">
+                    <label for="birthdate">Birthdate:</label>
+                    <input type="text" name="birthdate" placeholder="MM/DD/YYYY"/>
+                </div>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
