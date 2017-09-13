@@ -1,0 +1,4 @@
+1. Command line, run as admin
+2. NET START MYSQL
+3. mysql -u root -p
+4. Enter pwd

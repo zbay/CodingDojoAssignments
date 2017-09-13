@@ -1,0 +1,2 @@
+USE twitter;
+SELECT tweet FROM tweets WHERE id = 2;
