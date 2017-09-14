@@ -1,0 +1,5 @@
+Set up Flask:
+1. python -m pip install virtualenv
+2. python -m virtualenv flaskEnv (in this folder)
+3. call ../MyEnvironments/flaskEnv/Scripts/activate (activates flask)
+4. pip install flask

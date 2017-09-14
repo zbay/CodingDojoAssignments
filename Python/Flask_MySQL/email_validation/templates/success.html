@@ -1,0 +1,42 @@
+<html>
+<head>
+  <title>Email Addresses</title>
+  <style>
+      .successBox{
+          background-color:lightgreen;
+          border: 2px solid black;
+          text-align:center;
+          padding:20px;
+      }
+      ul{
+          list-style-type: none;
+      }
+      h1{
+          text-decoration: underline;
+      }
+      .col{
+          display:inline-block;
+      }
+      .left{
+          width:300px;
+      }
+      li{
+          display:block;
+      }
+  </style>
+</head>
+<body>
+    <div class="successBox">
+        The email address you entered ({{ session['email'] }}) is a VALID email address! Thank you!
+    </div>
+    <h1>Email Addresses Entered:</h1>
+    <ul>
+        {% for email in emails %}
+            <li>
+                <div class='col left'>{{ email.email }}</div>
+                <div class='col'>{{ email.formatted_date }}</div>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

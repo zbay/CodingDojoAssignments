@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>Books</title>
+  <style>
+  </style>
+</head>
+<body>
+<h1>My Books</h1>
+<table>
+    <thead>
+        <tr>
+            <td>Title</td>
+            <td>Author</td>
+            <td>Date Added</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tr>
+        {% for book in books %}
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.created_at }}}</td>
+            <td><a href="/destroy/{{book.id}}">Delete</a></td>
+        {% endfor %}
+    </tr>
+</table>
+<a href="/add"><button>Add a book</button></a>
+</body>
+</html>

@@ -1,0 +1,4 @@
+To-dos (optional):
+1. SQLZoo
+2. Bonus delete buttons for Email Validation w/ DB?
+3. Books "Hacker" challenge: update books?

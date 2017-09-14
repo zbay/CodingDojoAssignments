@@ -1,0 +1,41 @@
+<html>
+<head>
+  <title>Email Validation</title>
+  <style>
+    .errorBox{
+        color:white;
+        background-color:red;
+        border: 2px solid black;
+        padding:20px;
+        text-align:center;
+    }
+    .col{
+        display:inline-block;
+    }
+    .row{
+        margin-top:5px;
+        margin-bottom:5px;
+    }
+    body{
+        text-align: center;
+    }
+    form{
+        margin-top:50px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+  </style>
+</head>
+<body>
+    {% if session['error'] %}
+        <div class="errorBox">Email is not valid!</div>
+    {% endif %}
+    <div class='row'>
+        <form action='/emails' method='POST'>
+            <label for="email" class="col">Email Address:</label>
+            <input class='col' type='text' name='email' id='email' value="{{ session['email'] }}"/>
+            <input type='submit' value='Submit'/>
+        </form>
+    </div>
+</body>
+</html>

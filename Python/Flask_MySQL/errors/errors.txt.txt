@@ -1,0 +1,9 @@
+1. 'port': '4567': "Can't connect to MySQL server on '127.0.0.1' (10061)"
+	A. Fix by reverting to Port 3306
+2. 'password': 'durrrrp': (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+	A. Fix by reverting to the correct password
+3. 'user': 'fake_user':  (1045, "Access denied for user 'fake_user'@'localhost' (using password: YES)")
+	A. Fix by reverting to a real user
+4. 'host': 'ifjeffowejf': (No error. '127.0.0.1' is hardcoded in instead of using the 'host' property)
+5. 'database': dsaf: (global name 'dsaf' is not defined)
+	A. Revert to 'db'

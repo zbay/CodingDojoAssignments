@@ -6,7 +6,7 @@ function Node(val){
 function SLL(){
     this.head = undefined;
 
-    this.append = function(val){
+    this.addBack = function(val){
         var newNode = new Node(val);
         var runner = this.head;
         if(!head){
@@ -107,6 +107,71 @@ function SLL(){
         }
         return min;
     }
+
+    this.appendVal = function(val, after){
+        var newNode = new Node(val);
+        var prev;
+        var runner = this.head;
+        while(runner){
+            if(runner.value === after){
+                newNode.next = runer.next;
+                runner.next = newNode;
+                return this.head;
+            }
+            prev = runner;
+            runner = runner.next;
+        }
+        if(prev){
+            prev.next = newNode;
+        }
+        else{
+            this.head = newNode;
+        }
+        return this;
+    }
+
+    this.prependVal = function(val, before){
+        var newNode = new Node(val);
+        var runner = this.head;
+        if(!this.head){
+            return this.head;
+        }
+        if(this.head.value === before){
+            newNode.next = this.head;
+            this.head = newNode;
+            return this;
+        }
+        while(runner.next){
+            if(runner.next.value === val){
+                newNode.next = runner.next;
+                runner.next = newNode;
+                return this;
+            }
+            runner = runner.next;
+        }
+        runner.next = newNode;
+        return this;
+    }
+
+    this.removeVal = function(val){
+        var runner = this.head;
+        if(!this.head){
+            return this;
+        }
+        if(this.head.value === remove){
+            this.head = this.head.next;
+            return this;
+        }
+        while(runner.next){
+            if(runner.next.value === remove){
+                runner.next = runner.next.next;
+                return this;
+            }
+            runner = runner.next;
+        }
+        return this;
+    }
+
 }
 
 var list1 = new SLL();

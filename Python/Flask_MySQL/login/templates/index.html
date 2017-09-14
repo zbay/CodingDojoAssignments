@@ -1,0 +1,69 @@
+<html>
+<head>
+  <title>Login or register</title>
+  <style>
+      .col{
+          display:inline-block;
+          width: 200px;
+      }
+      .row{
+          display:block;
+      }
+      p{
+          background-color: red;
+          color:white;
+          border: 2px solid black;
+          padding: 5px;
+          text-align:center;
+      }
+  </style>
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<form action='/login' method='post'>
+    <h1>Log In</h1>
+    <div class='row'>
+        <label for='email' class='col'>Email:</label>
+        <input type='text' name='email' class="col"  value="{{session['email']}}"/>
+    </div>
+    <div class='row'>
+        <label for='password' class='col'>Password:</label>
+        <input type='password' name='password' class="col"/>
+    </div>
+    <br />
+    <input type='submit' value='Log In'/>
+</form>
+<hr />
+<form action='/register' method='post'>
+    <h1>Register</h1>
+    <div class='row'>
+        <label for='fname' class='col'>First Name:</label>
+        <input type='text' name='fname' class="col" value="{{session['fname']}}"/>
+    </div>
+    <div class='row'>
+        <label for='lname' class='col'>Last Name:</label>
+        <input type='text' name='lname' class="col" value="{{session['lname']}}"/>
+    </div>
+    <div class='row'>
+        <label for='email' class='col'>Email:</label>
+        <input type='text' name='email' class="col" value="{{session['email']}}"/>
+    </div>
+    <div class='row'>
+        <label for='password' class='col'>Password:</label>
+        <input type='password' name='password' class="col"/>
+    </div>
+    <div class='row'>
+        <label for='confirm_pw' class='col'>Confirm Password:</label>
+        <input type='password' name='confirm_pw' class="col"/>
+    </div>
+    <br />
+    <input type='submit' value='Register'/>
+</form>
+</body>
+</html>
