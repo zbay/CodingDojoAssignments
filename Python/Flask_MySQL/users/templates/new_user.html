@@ -1,0 +1,44 @@
+<html>
+<head>
+  <title>User</title>
+  <style>
+      .col{
+          display:inline-block;
+      }
+      .row{
+          display:block;
+      }
+      p{
+          background-color: red;
+          color:white;
+          border: 2px solid black;
+          padding: 5px;
+          text-align:center;
+      }
+      form > *{
+          display:flex;
+          flex-direction:column;
+      }
+  </style>
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<h1>Add a new user</h1>
+<form action="/users/create" method="post">
+    <label>First name:</label>
+    <input type="text" name="first_name" value="{{session['fname']}}"/>
+    <label>Last name:</label>
+    <input type="text" name="last_name" value="{{session['lname']}}"/>
+    <label>Email:</label>
+    <input type="text" name="email" value="{{session['email']}}"/>
+    <input type="submit" value="Create" />
+</form>
+<a href="/users">Go Back</a>
+</body>
+</html>

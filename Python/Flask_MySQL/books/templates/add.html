@@ -2,28 +2,32 @@
 <head>
   <title>Books</title>
   <style>
+      .row{
+          display:block;
+      }
+      .col{
+          display:inline-block;
+      }
+      .left{
+          width: 100px;
+      }
+      body{
+          text-align:center;
+      }
   </style>
 </head>
 <body>
-<h1>My Books</h1>
-<table>
-    <thead>
-        <tr>
-            <td>Title</td>
-            <td>Author</td>
-            <td>Date Added</td>
-            <td>Action</td>
-        </tr>
-    </thead>
-    <tr>
-        {% for book in books %}
-            <td>{{ book.title }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.created_at }}}</td>
-            <td><a href="/destroy/{{book.id}}">Delete</a></td>
-        {% endfor %}
-    </tr>
-</table>
-<a href="/add"><button>Add a book</button></a>
+<h1>Add a Book</h1>
+<form action="/confirmAdd" method="post">
+    <div class="row">
+        <label for="title" class="col left">Title</label>
+        <input type="text" name="title"/>
+    </div>
+    <div class="row">
+        <label for="author" class="col left">Author</label>
+        <input type="text" name="author"/>
+    </div>
+    <input type="submit" value="Add book!">
+</form>
 </body>
 </html>

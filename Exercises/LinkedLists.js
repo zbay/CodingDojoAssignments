@@ -172,6 +172,60 @@ function SLL(){
         return this;
     }
 
+    this.concat = function(list){
+        var runner = this.head;
+        if(!runner){
+            this.head = list.head;
+            return this;
+        }
+        while(runner.next){
+            runner = runner.next;
+        }
+        runner.next = list.head;
+        return this;
+    }
+
+    this.splitOnVal = function(val){
+        var runner = this.head;
+        var prev;
+        if(this.head.value === val){
+            return this;
+        }
+        while(runner){
+            if(runner.value === val){
+                prev.next = null;
+                var newList = new SLL();
+                newList.head = runner;
+                return newList;
+            }
+            prev = runner;
+            runner = runner.next
+        }
+        return this;
+    }
+
+    //how to do this in place? use pointers to beginning and end of a list?
+    this.partition = function(val){
+        var runner = this.head;
+        var lessList = new SLL();
+        var equalList = new SLL();
+        var greaterList = new SLL();
+
+        while(runner){
+            if(runner.val < val){
+                lessList.addBack(runner.val);
+            }
+            else if(runner.val === val){
+                equalList.addBack(runner.val);
+            }
+            else{ // runner.val > val
+                greaterList = new SLL();
+            }
+            runner = runner.next;
+        }
+        return lessList.concat(equalList.concat(greaterList));
+    }
+
 }
 
 var list1 = new SLL();

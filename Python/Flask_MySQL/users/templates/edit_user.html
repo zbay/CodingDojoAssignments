@@ -1,0 +1,44 @@
+<html>
+<head>
+  <title>User</title>
+  <style>
+      .col{
+          display:inline-block;
+      }
+      .row{
+          display:block;
+      }
+      p{
+          background-color: red;
+          color:white;
+          border: 2px solid black;
+          padding: 5px;
+          text-align:center;
+      }
+      form > *{
+          display:flex;
+          flex-direction:column;
+      }
+  </style>
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<h1>Edit User {{ user.id }}</h1>
+<form action="/users/{{user.id}}/edit" method="post">
+    <label>First name:</label>
+    <input type="text" name="first_name" value="{{user['first_name']}}"/>
+    <label>Last name:</label>
+    <input type="text" name="last_name" value="{{user['last_name']}}"/>
+    <label>Email:</label>
+    <input type="text" name="email" value="{{user['email']}}"/>
+    <input type="submit" value="Save Changes" />
+</form>
+<a href="/users">Go Back</a>
+</body>
+</html>

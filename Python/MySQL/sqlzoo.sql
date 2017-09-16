@@ -342,7 +342,7 @@ JOIN goal ON goal.matchid = game.id
 WHERE goal.teamid = 'GER'
 GROUP BY game.id, game.mdate;
 
-/* for each game, get the teams and the score for each team */
+/* for each game, get the teams and theage score for each team */
 SELECT  game.mdate, game.team1,
 	SUM(CASE WHEN goal.teamid=game.team1 THEN 1 ELSE 0 END) score1, 
 	game.team2,

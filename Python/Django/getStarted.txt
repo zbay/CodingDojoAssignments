@@ -1,0 +1,14 @@
+1. python -m virtualenv djangoEnv
+2. call djangoEnv/scripts/activate (repeat this as necessary)
+3. pip install django
+4. django-admin startproject main (or whatever you want to name your project besides main)
+5. cd main (the root of the project)
+7. mkdir apps
+8. cd apps
+9. Make an __init__.py
+10. python ../manage.py startapp first_app (creates an app in the folder)
+11. in projectName/settings.py, add the new application to the project in the INSTALLED_APPS list. 'apps.first_app',
+12. go to main, run 'python manage.py runserver' and check localhost:8080
+13. go to main, open urls.py and put this in url_patterns list: url(r'^', include('apps.first_app.urls'))
+14. Add urls.py file to first_app. Route to views.py in the urlpatterns file
+15. Create views in appName/views.py

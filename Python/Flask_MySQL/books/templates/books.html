@@ -2,6 +2,12 @@
 <head>
   <title>Books</title>
   <style>
+      table{
+          border-collapse:collapse:
+      }
+      td{
+          border: 1px solid black;
+      }
   </style>
 </head>
 <body>
@@ -15,14 +21,14 @@
             <td>Action</td>
         </tr>
     </thead>
-    <tr>
         {% for book in books %}
+        <tr>
             <td>{{ book.title }}</td>
             <td>{{ book.author }}</td>
-            <td>{{ book.created_at }}}</td>
+            <td>{{ book.created_at }}</td>
             <td><a href="/destroy/{{book.id}}">Delete</a></td>
+        </tr>
         {% endfor %}
-    </tr>
 </table>
 <a href="/add"><button>Add a book</button></a>
 </body>
