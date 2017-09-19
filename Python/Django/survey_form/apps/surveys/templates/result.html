@@ -1,0 +1,48 @@
+<html>
+        <head>
+            <title>Surveys</title>
+        </head>
+        <style>
+            .successBox{
+                background-color:lightgreen;
+            }
+            .successBox, .resultBox{
+                border: 2px solid black;
+                margin-left:auto;
+                margin-right:auto;
+                padding:20px;
+                margin-top:10px;
+            }
+            .col{
+                display:inline-block;
+            }
+            h1{
+                text-decoration:underline;
+            }
+        </style>
+        <body>
+            <div class="successBox">
+                Thanks for submitting this form! You have submitted the form {{counter}} times now.
+            </div>
+            <div class="resultBox">
+                <h1>Submitted Information</h1>
+                <p>
+                    <div class="col">Name:</div>
+                    <div class="col">{{name}}</div>
+                </p>
+                <p>
+                    <div class="col">Dojo Location:</div>
+                    <div class="col">{{location}}</div>
+                </p>
+                <p>
+                    <div class="col">Favorite Language:</div>
+                    <div class="col">{{fave_lang}}</div>
+                </p>
+                <p>
+                    <div class="col">Comment:</div>
+                    <div class="col">{{comment}}</div>
+                </p>
+                <a href="/"><button>Go Back</button></a>
+            </div>
+        </body>
+    </html

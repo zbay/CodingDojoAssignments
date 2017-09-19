@@ -226,6 +226,43 @@ function SLL(){
         return lessList.concat(equalList.concat(greaterList));
     }
 
+    this.minToFront = function(){
+        if(this.head){
+            return this;
+        }
+        var runner = this.head;
+        var prev;
+        while(runner.next){
+            if(runner.next.value < min.value){
+                min = runner.next;
+                prev = runner;
+            }
+            runner = runner.next;
+        }
+        return this;
+    }
+
+    this.maxToBack = function(){
+        if(!this.head){
+            return this;
+        }
+        var runner = this.head;
+        var previous = this.head
+        var max = this.head;
+        var maxPrevious = this.head;
+        while(runner){
+            if(current.val > max.val){
+                max = current;
+                maxPrevious = previous;
+            }
+            previous = current;
+            current = current.next;
+        }
+        maxprevious.next = max.next;
+        previous.next = max;
+        max.next = null;
+        return this;
+    }
 }
 
 var list1 = new SLL();

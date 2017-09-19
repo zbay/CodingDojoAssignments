@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <title>Ninja Gold</title>
+    </head>
+    <style>
+        .col{
+            display:inline-block;
+            vertical-align: top;
+        }
+        .green{
+            color:green;
+        }
+        .red{
+            color:red;
+        }
+        .activityBox{
+                overflow-y: scroll;
+                padding:5px;
+                padding-left:20px;
+                padding-right:20px;
+                text-align:left;
+                border: 1px solid black;
+                max-height:500px;
+                width:80%;
+                margin-left:auto;
+                margin-right:auto;
+        }
+        .locations .col{
+            padding:20px;
+            width:20%;
+            margin-left:1%;
+            border: 1px solid black;
+        }
+        .infobox{
+            padding-left:10px;
+            padding-right:10px;
+            margin-top:30px;
+            border: 1px solid black;
+            margin-left:10px;
+        }
+        .indent{
+            margin-left:9%;
+        }
+    </style>
+    <body>
+        <div class="yourGold">
+            <h1 class="col">Your Gold:</h1>
+            <div class="col infobox">{{gold}}</div>
+        </div>
+        <div class="locations">
+            <div class="col">
+                <h1>Farm</h1>
+                <p>(earns 10-20 golds)</p>
+                <form action="process_money/farm" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Find Gold!"/>
+                </form>
+            </div>
+            <div class="col">
+                <h1>Cave</h1>
+                <p>(earns 5-10 golds)</p>
+                <form action="process_money/cave" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Find Gold!"/>
+                </form>
+            </div>
+            <div class="col">
+                <h1>House</h1>
+                <p>(earns 2-5 golds)</p>
+                <form action="process_money/house" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Find Gold!"/>
+                </form>
+            </div>
+            <div class="col">
+                <h1>Casino</h1>
+                <p>(earns/takes 0-50 golds)</p>
+                <form action="process_money/casino" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Find Gold!"/>
+                </form>
+            </div>
+        </div>
+        <h1 class="indent">Activities:</h1>
+        <div class="activityBox">
+            {% for activity in activities %}
+                {% if activity.lost == False %}
+                    <p class="green">Earned {{ activity.gold }} golds from the {{ activity.location }} ({{ activity.time }})</p>
+                {% endif %}
+                {% if activity.lost == True %}
+                    <p class="red">Entered a casino and lost {{ activity.gold }} golds... Ouch.. ({{ activity.time }})</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </body>
+</html

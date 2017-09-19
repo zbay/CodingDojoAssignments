@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Random word!</title>
+        <style>
+            body{
+                padding-top:40px;
+                text-align:center;
+                margin-left:auto;
+                margin-right:auto;
+            }
+            .wordBox{
+                margin-bottom:20px;
+                padding:20px;
+                border: 2px solid black;
+                font-size:300%;
+                width:60%;
+                margin-left:auto;
+                margin-right:auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Random Word (attempt #{{count}})</h1>
+        <div class="wordBox">{{random_word}}</div>
+        <form action="/random_word" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Generate"/>
+        </form>
+    </body>
+</html>

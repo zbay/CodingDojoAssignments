@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Surveys</title>
+    </head>
+    <style>
+        form{
+            margin-top: 20px;
+            margin-left:auto;
+            margin-right:auto;
+            padding:10px;
+            width:70%;
+            border: 2px solid black;
+            padding-bottom:30px;
+        }
+        label{
+            display: flex;
+            flex-direction: column;
+        }
+        textarea{
+            width:80%;
+            display:block;
+        }
+        input[type="submit"]{
+            float:right;
+        }
+    </style>
+    <body>
+        <form action="surveys/process" method="post">
+            {% csrf_token %}
+            <label for="name" class="left">Your Name:</label><input type="text" name="name"/>
+            <label for="location" class="left">Dojo Location:</label>
+            <select name="location">
+                <option value="Mountain View">Mountain View</option>
+                <option value="Tysons">Tysons</option>
+            </select>
+            <label for="fave_lang" class="left">Favorite Language:</label>
+            <select name="fave_lang">
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+            </select>
+            <label for="comment">Comment (optional)</label>
+            <textarea name="comment"></textarea>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html

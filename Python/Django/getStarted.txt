@@ -1,14 +1,28 @@
+0. virtual venv, followed by source venv/bin/activate
 1. python -m virtualenv djangoEnv
 2. call djangoEnv/scripts/activate (repeat this as necessary)
 3. pip install django
-4. django-admin startproject main (or whatever you want to name your project besides main)
-5. cd main (the root of the project)
+4. django-admin startproject projectName
+5. cd projectName
 7. mkdir apps
 8. cd apps
-9. Make an __init__.py
-10. python ../manage.py startapp first_app (creates an app in the folder)
-11. in projectName/settings.py, add the new application to the project in the INSTALLED_APPS list. 'apps.first_app',
-12. go to main, run 'python manage.py runserver' and check localhost:8080
-13. go to main, open urls.py and put this in url_patterns list: url(r'^', include('apps.first_app.urls'))
-14. Add urls.py file to first_app. Route to views.py in the urlpatterns file
+9. Make an __init__.py, that gives manage.py access to apps
+10. python ../manage.py startapp appName(creates an app in the folder)
+11. in projectName/projectName/settings.py, add the new application to the project in the INSTALLED_APPS list. 'apps.appName',
+12. go to projectName run 'python manage.py runserver' and check localhost:8080 or 8000
+13. go to projectName/projectName open urls.py and put this in url_patterns list: url(r'^', include('apps.appName.urls')) and import the include function
+14. Add urls.py file to appName Route to views.py in the urlpatterns list
 15. Create views in appName/views.py
+16. Set up session: python manage.py makemigrations, python manage.py migrate
+17. Make sure to include {% csrf_token %} inside any form.
+18. session lists can only be reassigned all at once. no appending
+
+Adding ORM models
+1. Make a models.py file in the app(?)
+2. Migrate like for sessions
+
+
+Shortcuts
+1. python manage.py shell
+2. from apps.{{app_name}}.models import *
+3. Run ORM commands to CRUD in model directly
