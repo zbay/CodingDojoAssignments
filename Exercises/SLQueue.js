@@ -64,3 +64,66 @@ function SLQueue(){
 
 }
 
+function SLStack(){
+    top = undefined;
+
+    this.pop = function(){
+        if(!top){
+            return top;
+        }
+        var returnThis = top.val;
+        top = top.next;
+        return returnThis;
+    }
+
+    this.push = function(val){
+        var newNode = new SLNode(val);
+        newNode.next = top;
+        top = newNode;
+    }
+
+    this.contains = function(val){
+        if(!top){
+            return false;
+        }
+        var buffer = new SLStack();
+        var isFound = false;
+        while(top && !isFound){
+            if(top.val === val){
+                isFound = true;
+            }
+            buffer.push(this.pop());
+        }
+        while(!buffer.empty()){
+            this.push(buffer.pop());
+        }
+        return isFound;
+    }
+
+    this.top = function(){
+        if(top){
+            return top.val;
+        }
+        return top;
+    }
+
+    this.empty = function(){
+        return !top;
+    }
+
+    this.size = function(){
+        if(!top){
+            return 0;
+        }
+        var count = 0;
+        var buffer = new SLStack();
+        while(top){
+            buffer.push(this.pop());
+            count++;
+        }
+        while(!buffer.empty){
+            this.push(buffer.pop);
+        }
+        return count;
+    }
+}

@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Add Book and Review</title>
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <div>
+            <a href="/">Home</a> | <a href="/logout">Logout</a>
+        </div>
+        <h1>{{book.title}}</h1>
+        <p>Author: {{book.author.name}}</p>
+        <div class="col">
+            <h2>Reviews:</h2>
+            {% for review in reviews %}
+            <p>Rating:{{review.stars}}</p>
+            <p>
+                <a href="/users/{{review.reviewer.id}}">{{review.reviewer.alias}}</a> says: {{ review.text }}
+            </p>
+            <p>
+                Posted on: {{review.created_at}} | 
+                {% if review.reviewer.id == user_id %}
+                    <a href="/books/{{book.id}}/delete/{{review.id}}">Delete this Review</a>
+                {% endif %}
+            </p>
+        {% endfor %}
+        </div>
+        <div class="col">
+                <h2>Add a Review</h2>
+                <form action="/books/{{book.id}}/new_review" method="post">
+                    {% csrf_token %}
+                    <textarea name="review"></textarea>
+                    <div>
+                        <label for="stars" class="col">Rating:</label>
+                        <select class="col" name="stars">
+                            <option value="5">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="user_id" value="{{user_id}}"/>
+                    <input type="submit" value="Submit Review" />
+                </form>
+            </div>
+    </body>
+</html>
