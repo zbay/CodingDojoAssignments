@@ -1,4 +1,5 @@
 To-dos (optional):
-1. SQLZoo
-2. In-place partitioning of SLL
-3. https://regexone.com/
+* Sports ORM I and II 
+* SQLZoo
+* In-place partitioning of SLL
+* https://regexone.com/

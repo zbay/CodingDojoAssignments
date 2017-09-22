@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>Login & Reg | Home</title>
+        <style>
+            .col{
+                display:inline-block;
+                min-width:150px;
+                margin-left:5px;
+            }
+            .row{
+                margin-top:5px;
+                margin-bottom:5px;
+                text-align:left;
+            }
+            label{
+                text-align:right;
+            }
+            li{
+                color:red;
+            }
+        </style>
+    </head>
+    <body>
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <h1>Registration</h1>
+        <form action="/register" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <label class="col" for="first_name">First Name:</label>
+                <input class="col" type="text" name="first_name" value="{{first_name}}" />
+            </div>
+            <div class="row">
+                <label class="col" for="last_name">Last Name:</label>
+                <input class="col" type="text" name="last_name" value="{{last_name}}" />
+            </div>
+            <div class="row">
+                <label class="col" for="email">Email:</label>
+                <input class="col" type="text" name="email" value="{{email}}" />
+            </div>
+            <div class="row">
+                    <label class="col" for="birthday">Birthday:</label>
+                    <input class="col" type="text" name="birthday" value="{{birthday}}" />
+            </div>
+            <div class="row">
+                <label class="col" for="password">Password:</label>
+                <input class="col" type="password" name="password" />
+            </div>
+            <div class="row">
+                <label class="col" for="confirm_password">Confirm Password:</label>
+                <input class="col" type="password" name="confirm_password" />
+            </div>
+            <input type="submit" value="Register" />
+        </form>
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <label class="col" for="email">Email:</label>
+                <input class="col" type="text" name="email" value="{{email}}" />
+            </div>
+            <div class="row">
+                <label class="col" for="password">Password:</label>
+                <input class="col" type="password" name="password" />
+            </div>
+            <input type="submit" value="Login">
+        </form>
+    </body>
+</html>

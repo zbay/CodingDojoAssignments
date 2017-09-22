@@ -1,0 +1,101 @@
+1. Create 3 dojos
+	A. Dojo.objects.create(name="CodingDojo Silicon Valley", city="Mountain View", state="CA")
+	B. Dojo.objects.create(name="CodingDojo Seattle", city="Seattle", state="WA")
+	C. Dojo.objects.create(name="CodingDojo New York", city="New York", state="NY")
+2. Delete the three dojos you created (e.g. Dojo.objects.get(id=1).delete())
+	A. Dojo.objects.all().delete()
+3. Create 3 additional dojos by using Dojo.objects.create
+	A. Same as #1
+4. Create 3 ninjas that belong to the first dojo you created.
+	A. Ninja.objects.create(dojo=Dojo.objects.get(id=4), first_name="Zach", last_name="Williams")   
+	B. Ninja.objects.create(dojo=Dojo.objects.get(id=4), first_name="Wach", last_name="Zilliams")   
+	C. Ninja.objects.create(dojo=Dojo.objects.get(id=4), first_name="Lach", last_name="Lilliams")   
+5. Create 3 more ninjas and have them belong to the second dojo you created.
+	A. Ninja.objects.create(dojo=Dojo.objects.get(id=5), first_name="Ach", last_name="Illiams")   
+	B. Ninja.objects.create(dojo=Dojo.objects.get(id=5), first_name="Bach", last_name="Billiams")   
+	C. Ninja.objects.create(dojo=Dojo.objects.get(id=5), first_name="Cach", last_name="Cilliams")   
+6. Create 3 more ninjas and have them belong to the third dojo you created.
+	A. Ninja.objects.create(dojo=Dojo.objects.get(id=6), first_name="Dach", last_name="Dilliams")   
+	B. Ninja.objects.create(dojo=Dojo.objects.get(id=6), first_name="Fach", last_name="Filliams")   
+	C. Ninja.objects.create(dojo=Dojo.objects.get(id=6), first_name="Gach", last_name="Gilliams")   
+7. Be able to retrieve all ninjas that belong to the first Dojo
+	A. Ninja.objects.filter(dojo_id=4)
+8. Be able to retrieve all ninjas that belong to the last Dojo
+	A. Ninja.objects.filter(dojo_id=6)
+9. Add a new field in the Dojo class (found in your models.py) called 'desc'.
+   Allow 'desc' to hold long text (more than 255 characters).
+   To forward engineer the change, run the appropriate migration commands. 
+   Successfully run the migration files and check the records to make sure the new field was added successfully.
+	A. I set "" as the default value, in the shell
+
+
+1. Create 5 books with the following names: C sharp, Java, Python, PHP, Ruby
+	A. Book.objects.create(name="C sharp")
+	B. Book.objects.create(name="Java")
+	C. Book.objects.create(name="Python")
+	D. Book.objects.create(name="PHP")
+	E. Book.objects.create(name="Ruby")
+2. Create 5 different authors: Mike, Speros, John, Jadee, Jay
+	A. Author.objects.create(first_name="Mike")
+	B. Author.objects.create(first_name="Speros")
+	C. Author.objects.create(first_name="John")
+	E. Author.objects.create(first_name="Jadee")
+	F. Author.objects.create(first_name="Jay")
+3. Add a new field in the authors table called 'notes'.  Make this a TextField.  Successfully create and run the migration files.
+	A. Set default value to ""
+4. Change the name of the 5th book to C#
+	A. b = Book.objects.get(id=5)
+	B. b.name = "C#"
+	C. b.save() 
+5. Change the first_name of the 5th author to Ketul
+	A. a = Author.objects.get(id=5)
+	B. a.first_name = "Ketul"
+	C. a.save()
+6. Assign the first author to the first 2 books
+	A. a1 = Author.objects.get(id=1)
+	B. b1 = Book.objects.get(id=1)
+	C. b2 = Book.objects.get(id=2)
+	D. a1.books.add(b1)
+	E. a1.books.add(b2)
+	F. a1.save()
+7. Assign the second author to the first 3 books
+	A. a2 = Author.objects.get(id=2)
+	B. b3 = Book.objects.get(id=3)
+	C. a2.books.add(b1)
+	D. a2.books.add(b2)
+	E. a2.books.add(b3)
+	F. a2.save()
+8. Assign the third author to the first 4 books
+	A. a3 = Author.objects.get(id=3)
+	B. b4 = Book.objects.get(id=4)
+	C. a3.books.add(b1)
+	D. a3.books.add(b2)
+	E. a3.books.add(b3)
+	F. a3.books.add(b4)
+	G. a3.save()
+9. Assign the fourth author to the first 5 books (or in other words, all the books)
+	A. a4 = Author.objects.get(id=4)
+	B. b5 = Book.objects.get(id=5)
+	C. a4.books.add(b1)
+	D. a4.books.add(b2)
+	E. a4.books.add(b3)
+	F. a4.books.add(b4)
+	G. a4.books.add(b5)
+	H. a4.save()
+10. For the 3rd book, retrieve all the authors
+	A. Book.objects.get(id=3).authors.all()
+11. For the 3rd book, remove the first author
+	A. b3 = Book.objects.get(id=3)
+	A. b3authors = b3.authors.all()
+	B. first_author = b3authors.first()
+	C. b3.authors.remove(first_author)
+12. For the 2nd book, add the 5th author as one of the authors
+	A. b2 = Book.objects.get(id=2)
+	B. a5 = Author.objects.get(id=5)
+	C. b2.authors.add(a5)
+13. Find all the books that the 3rd author is part of
+	A. a3 = Author.objects.get(id=3)
+	B. a3.books.all()
+14. Find all the books that the 2nd author is part of
+	A. a2 = Author.objects.get(id=2)
+	B. a2.books.all()

@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <style>
+        .col{
+            display:inline-block;
+            width:100px;
+        }
+        li{
+            color:red;
+        }
+        table{
+            border-collapse:collapse;
+        }
+        tr, td{
+            border: 1px solid black;
+        }
+        input{
+            min-width:200px;
+        }
+        </style>
+    </head>
+    <body>
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <h1>Add a new course</h1>
+        <form action="/courses/create" method="POST">
+            {% csrf_token %}
+            <div>
+                <label class="col" for="name">Name:</label>
+                <input type="text" name="name" class="col" value="{{name}}"/>
+            </div>
+            <div>
+                <label class="col">Description: </label>
+                <input class="col" name="description" value="{{description}}"/>
+            </div>
+            <br />
+            <input type="submit" value="Add"/>
+            </div>
+        </form>
+        <h1>Courses</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td>Course Name</td>
+                    <td>Description</td>
+                    <td>Date Added</td>
+                    <td>Delete?</td>
+                    <td>Comments</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                    <tr>
+                        <td>{{course.name}}</td>
+                        <td>{{course.description.text}}</td>
+                        <td>{{course.created_at}}</td>
+                        <td><a href="/courses/destroy/{{course.id}}">Delete</a></td>
+                        <td><a href="/courses/comments/{{course.id}}"><button>Comments</button></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

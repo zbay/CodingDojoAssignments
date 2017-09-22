@@ -1,0 +1,52 @@
+<html>
+        <head>
+            <style>
+            .col{
+                display:inline-block;
+                width:100px;
+            }
+            table{
+                border-collapse:collapse;
+            }
+            tr, td{
+                border: 1px solid black;
+            }
+            </style>
+        </head>
+        <body>
+            {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            <h1>Comments about {{name}}</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Comment</td>
+                        <td>Date Added</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comment in comments %}
+                        <tr>
+                            <td>{{comment.text}}</td>
+                            <td>{{comment.created_at}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h1>Add a new comment</h1>
+            <form action="/courses/comments/{{id}}/create" method="POST">
+                {% csrf_token %}
+                <div>
+                    <label class="col">Comment: </label>
+                    <textarea class="col" name="comment" value="{{comment}}"></textarea>
+                </div>
+                <input type="submit" value="Add"/>
+                </div>
+            </form>
+        </body>
+    </html>

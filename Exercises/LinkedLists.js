@@ -263,6 +263,75 @@ function SLL(){
         max.next = null;
         return this;
     }
+
+    this.secondLargest = function(){
+        if(!this.head || !this.head.next){
+            return undefined;
+        }
+        var largest = this.head.value;
+        var secondLargest = this.head.value;
+        var runner = this.head.next;
+        while(runner){
+            if(runner.val > largest){
+                secondLargest = largest;
+                largest = runner.value;
+            }
+            else{
+                if(runner.val > secondLargest){
+                    secondLargest = runner.value;
+                }
+            }
+            runner = runner.next;
+        }
+        return secondLargest;
+    }
+
+    this.copy = function(){
+        if(!this.head){
+            return this;
+        }
+        var runner = this.head;
+        var newList = new SLL();
+        while(runner){
+            newList.addBack(runner.value);
+            runner = runner.next;
+        }
+        return newList;
+    }
+
+    this.secondToLast = function(){
+        if(!this.head || !this.head.next){
+            return undefined;
+        }
+        var runner = this.head;
+        while(runner){
+            if(!runner.next.next){
+                return runner.value;
+            }
+            runner = runner.next;
+        }
+    }
+
+    this.removeNegative = function(){
+        if(!this.head){
+            return this;
+        }
+        var prev;
+        while(this.head && this.head.val > 0){
+            this.head = this.head.next
+        }
+        var runner = this.head;
+        while(runner){
+            if(runner.value < 0){
+                prev.next = runner.next;
+            }
+            else{
+                prev = runner;
+            }
+            runner = runner.next;
+        }
+        return this;
+    }
 }
 
 var list1 = new SLL();

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>
+    {% if is_admin %}
+        Edit user #{{user.id}}
+    {% else %}
+        Edit profile
+    {% endif %}
+    </h1>
+    
+    {% if not is_admin %}
+        <h2>Edit Information</h2>
+        <form action="/information" method="post">
+            {% csrf_token %}
+            <label for="email">Email Address:</label>
+            <input type="text" name="email" value="{{email}}"/>
+            <label for="first_name">Email Address:</label>
+            <input type="text" name="first_name" value="{{first_name}}"/>
+            <label for="last_name">Email Address:</label>
+            <input type="text" name="last_name" value="{{last_name}}"/>
+            <input type="hidden" name="id" value="{{id}}"/>
+            <input type="submit" value="Save"/>
+        </form>
+
+        <h2>Change Password</h2>
+        <form action="/password" method="post">
+            {% csrf_token %}
+            <label for="password">Password:</label>
+            <input type="password" name="password"/>
+            <label for="confirm_password">Password Confirmation:</label>
+            <input type="password" name="confirm_password"/>
+            <input type="hidden" name="id" value="{{id}}"/>
+            <input type="submit" value="Update Password"/>
+        </form>
+
+        <h2>Edit Description</h2>
+        <form action="/description" method="POST">
+            {% csrf_token %}
+            <input name="description" value="{{description}}"/>
+            <input type="submit" value="Save"/>
+        </form>
+    {% endif %}
+
+{% endblock %}

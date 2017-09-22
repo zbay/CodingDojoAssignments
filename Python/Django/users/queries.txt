@@ -1,0 +1,20 @@
+1. Know how to retrieve all users.
+	A. Users.objects.all()
+2. Know how to get the last user.
+	A. Users.objects.last()
+3. Create a few records in the users
+	A. Users.objects.create(first_name="Zachary", last_name="Williams", email_address="zlwilliams1@gmail.com", age="160")
+	B. Users.objects.create(first_name="Wachary", last_name="Zilliams", email_address="wlzilliams1@gmail.com", age="61")
+	C. Users.objects.create(first_name="Lachary", last_name="Lilliams", email_address="lllilliams1@neutronmail.com", age="52")
+Users.objects.create(first_name="Zachary", last_name="Williams", email_address="zlwilliams1@gmail.com", age="160")
+4. Know how to get the first user.
+	A. Users.objects.first()
+5. Know how to get the users sorted by their first name (order by first_name DESC)
+	A. Users.objects.order_by("-first_name")
+6. Get the record of the user whose id is 3 and UPDATE the person's last_name to something else.
+   Know how to do this directly in the console using .get and .save.
+	A. user = Users.objects.get(id=3)
+	B. user.last_name = "Lee"
+	C. user.save()
+7. Know how to delete a record of a user whose id is 4 (use something like User.objects.get(id=2).delete...).
+	A. Users.objects.get(id=4).delete()

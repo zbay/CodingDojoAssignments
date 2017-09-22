@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Add a new user</h1>
+    <a href="/dashboard/admin"><button>Return to Dashboard</button></a>
+    <form action="/new" method="post">
+        {% csrf_token %}
+        <label for="email">Email Address:</label>
+        <input type="text" name="email" value="{{email}}"/>
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name" value="{{first_name}}"/>
+        <label for="last_name">Last Name:</label>
+        <input type="text" name="last_name" value="{{last_name}}"/>
+        <label for="password">Password:</label>
+        <input type="password" name="password"/>
+        <label for="confirm_password">Password Confirmation:</label>
+        <input type="text" name="confirm_password"/>
+        <input type="submit" value="Create"/>
+    </form>
+{% endblock %}

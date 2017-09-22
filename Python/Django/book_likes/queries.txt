@@ -1,0 +1,39 @@
+Create 3 different user accounts
+User.objects.create(first_name="Zachary", last_name="Williams", email="zlwilliams1@gmail.com")
+User.objects.create(first_name="Wachary", last_name="Zilliams", email="wlzilliams1@gmail.com")
+User.objects.create(first_name="Lachary", last_name=":illiams", email="lllilliams1@gmail.com")
+
+Have the first user create 2 books.
+Book.objects.create(name="Bible", desc="Old and New Testaments", uploader_id=1)
+Book.objects.create(name="Algorithm Challenges", desc="Coding Dojo algo book", uploader_id=1)
+
+Have the second user create 2 other books.
+Book.objects.create(name="Javascript", desc="textbook", uploader_id=2)
+Book.objects.create(name="Python", desc="reference book", uploader_id=2)
+
+Have the third user create 2 other books.
+Book.objects.create(name="Java", desc="reference title", uploader_id=3)
+Book.objects.create(name="SQL", desc="big textbook", uploader_id=3)
+
+Have the first user like the last book and the first book
+User.objects.first().liked_books.add(Book.objects.first())
+User.objects.first().liked_books.add(Book.objects.last())
+
+Have the second user like the first book and the third book
+User.objects.get(id=2).liked_books.add(Book.objects.first())
+User.objects.get(id=2).liked_books.add(Book.objects.get(id=3))
+
+Have the third user like all books
+User.objects.get(id=3).liked_books = Book.objects.all()
+
+Display all users who like the first book
+Book.objects.first().liked_users.all()
+
+Display the user who uploaded the first book
+Book.objects.first().uploader
+
+Display all users who like the second book
+Book.objects.get(id=2).liked_users.all()
+
+Display the user who uploaded the second book
+Book.objects.get(id=2).uploader
