@@ -1,16 +1,28 @@
 <html>
     <head>
         <title>Books Home</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/general.css">
         <style>
             .col{
                 display:inline-block;
-                vertical-align:top;
-                margin-left:20px;
+                vertical-align: top;
+                min-width:40%;
+                max-width:80%;
+                margin-left:4%;
+                margin-right:4%;
             }
             .scrollbox{
                 overflow-y: scroll;
                 max-height: 500px;
                 border: 1px solid black;
+                padding: 5px 20px 5px 20px;
+            }
+            .book{
+                border-bottom:2px solid black;
+            }
+            h1{
+                position:relative;
+                top:-20px;
             }
         </style>
     </head>
@@ -23,12 +35,14 @@
             <div class="col">
                 <h2>Recent Book Reviews</h2>
                 {% for review in reviews %}
-                    <p><a href="/books/{{review.book.id}}">{{review.book.title}}</a></p>
-                    <p>Rating:{{review.stars}}</p>
-                    <p>
-                        <a href="/users/{{review.reviewer.id}}">{{review.reviewer.alias}}</a> says: {{ review.text }}
-                    </p>
-                    <p>Posted on: {{review.created_at}}</p>
+                    <div class="book">
+                        <p><a href="/books/{{review.book.id}}">{{review.book.title}}</a></p>
+                        <p>Rating: {{review.stars}}</p>
+                        <p>
+                            <a href="/users/{{review.reviewer.id}}">{{review.reviewer.alias}}</a> says: {{ review.text }}
+                        </p>
+                        <p>Posted on: {{review.created_at}}</p>
+                    </div>
                 {% endfor %}
             </div>
             <div class="col">

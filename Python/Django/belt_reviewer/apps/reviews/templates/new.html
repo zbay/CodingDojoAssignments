@@ -1,15 +1,33 @@
 <html>
     <head>
         <title>Add Book and Review</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/general.css">
         <style>
             .col{
                 display:inline-block;
                 vertical-align:top;
+                min-width:100px;
+            }
+            .right{
+                text-align:right;
+                margin-right:30px;
+            }
+            form > *{
+                display:flex;
+                flex-direction:column;
+                margin-top:30px;
+                margin-bottom:30px;
+            }
+            form{
+                margin-left: 30px;
+            }
+            .indent{
+                margin-left:30px;
             }
         </style>
     </head>
     <body>
-        <div>
+        <div class="right">
             <a href="/">Home</a> | <a href="/logout">Logout</a>
         </div>
         <h1>Add a New Book Title and a Review:</h1>
@@ -27,10 +45,11 @@
                     <label for="title" class="col">Book Title:</label>
                     <input type="text" name="title" class="col" value="{{title}}"/>
                 </div>
+                <br />
                 <div>
                     <label>Author:</label>
                 </div>
-                <div>
+                <div class="indent">
                     <span class="col">Choose from the list:</span>
                     <select class="col" name="existing_author" value="anonymous">
                             <option value="anonymous">Anonymous</option>
@@ -39,16 +58,19 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div>
+                <br />
+                <div class="indent">
                     <span class="col">Or add a new author:</span>
                     <input type="text" class="col" name="new_author" value="{{new_author}}"/>
                 </div>
+                <br />
                 <div>
-                    <label for="review">Review:</label>
-                    <textarea name="review">{{review}}</textarea>
+                    <label for="review" class="col">Review:</label>
+                    <textarea name="review" class="col">{{review}}</textarea>
                 </div>
+                <br />
                 <div>
-                    <label for="stars" class="col">Rating</label>
+                    <label for="stars" class="col">Rating:</label>
                     <select class="col" name="stars" value="{{stars}}">
                         <option value="5">5</option>
                         <option value="4">4</option>

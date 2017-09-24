@@ -1,4 +1,3 @@
-0. virtual venv, followed by source venv/bin/activate
 1. python -m virtualenv djangoEnv
 2. call djangoEnv/scripts/activate (repeat this as necessary)
 3. pip install django

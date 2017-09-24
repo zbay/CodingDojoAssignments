@@ -1,12 +1,19 @@
 <html>
     <head>
         <title>User Reviews</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/general.css">
         <style>
-            
+            .right{
+                text-align:right;
+                margin-right:30px;
+            }
+            .indent{
+                margin-left:30px;
+            }
         </style>
     </head>
     <body>
-        <div>
+        <div class="right">
             <a href="/">Home</a> | <a href="/books/add">Add Book and Review</a>  | <a href="/logout">Logout</a>
         </div>
         <h1>User Alias: {{user.alias}}</h1>
@@ -15,9 +22,11 @@
         <p>Total Reviews: {{count}}</p>
         <br />
         <h2>Posted Reviews on the following books:</h2>
-        {% for review in reviews %}
-            <a href="/books/{{review.book.id}}">{{review.book.title}}</a>
-            <br/>
-        {% endfor %}
+        <div class="indent">
+            {% for review in reviews %}
+                <a href="/books/{{review.book.id}}">{{review.book.title}}</a>
+                <br/>
+            {% endfor %}
+        </div>
     </body>
 </html>
