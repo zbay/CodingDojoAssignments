@@ -1,0 +1,76 @@
+<html>
+    <script>
+        class Deck{
+            constructor(){
+                const suits = ["c", "s", "h", "d"];
+                const vals = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14};
+                this.cards = [];
+                for(let i = 0; i < suits.length; i++){
+                    for(let val in vals){
+                        const url = "img/" + suits[i] + val + ".png";
+                        this.cards.push({'url': url, 'value': vals[val]});
+                    }
+                }
+                console.log(this.cards[0]);
+            }
+            shuffle(){
+                for(var i = 0; i < 208; i++){
+                    var random1 = Math.floor(Math.random() * 52);
+                    var random2 = random1;
+                    while(random2 === random1){
+                        random2 = Math.floor(Math.random() * 52);
+                    }
+                    var temp = this.cards[random1];
+                    this.cards[random1] = this.cards[random2];
+                    this.cards[random2] = temp;
+                }
+                return this;
+            }
+            reset(){ // the constructor again, basically
+                const suits = ["c", "s", "h", "d"];
+                const vals = {"2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14};
+                this.cards = []
+                for(let i = 0; i < suits.length; i++){
+                    for(val in vals){
+                        const url = "img/" + suits[i] + val;
+                        cards.push({'url': url, 'value': vals[val]});
+                    }
+                }    
+                return this;
+            }
+            deal(){ // I'm electing to deal the top card, not a random card. That's what the shuffle method is for!
+                return this.cards.shift();   
+            }
+
+        }
+    
+    class Player{
+        constructor(name){
+            this.name = name;
+            this.deck = new Deck();
+            this.hand = [];
+            this.deck.shuffle();
+            for(var i = 0; i < 5; i++){
+                this.take(this.deck.deal());
+            }
+        }
+        take(){
+            this.hand.push(this.deck.deal());
+            return this;
+        }
+        discard(cardIndex){
+            this.deck.cards.push(this.hand.splice(cardIndex, 1));
+            return this;
+        }
+    }
+
+    var playa = new Player("Zach");
+    console.log(playa.hand[0]);
+    playa.take();
+    console.log(playa.deck.cards[0]);
+    console.log(playa.hand[0]);
+    playa.discard(0);
+    console.log(playa.deck.cards[0]);
+    console.log(playa.hand[0]);
+    </script>
+</html>
