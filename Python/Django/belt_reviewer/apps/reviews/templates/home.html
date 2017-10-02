@@ -52,12 +52,8 @@
                         <input type="text" class="col" name="name" value="{{name}}"/>
                     </div>
                     <div>
-                        <label for="alias" class="col">Alias:</label>
-                        <input type="text" class="col" name="alias" value="{{alias}}"/>
-                    </div>
-                    <div>
-                        <label for="email" class="col">Email:</label>
-                        <input type="text" name="email" class="col" value="{{email}}"/>
+                        <label for="username" class="col">Username:</label>
+                        <input type="text" class="col" name="username" value="{{username}}"/>
                     </div>
                     <div>
                         <label for="password" class="col">Password:</label>
@@ -76,8 +72,8 @@
                 <form action="/login" method="post">
                     {% csrf_token%}
                     <div>
-                        <label for="email" class="col">Email:</label>
-                        <input type="text" name="email" class="col" value="{{email}}"/>
+                        <label for="username" class="col">Username:</label>
+                        <input type="text" name="username" class="col" value="{{username}}"/>
                     </div>
                     <div>
                         <label for="password" class="col">Password:</label>

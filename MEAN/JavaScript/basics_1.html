@@ -1,0 +1,46 @@
+a<html>
+    <script>
+        // basic 1
+        console.log("basic 1 ---");
+        var x = [];
+        console.log(x);
+        x.push("coding");
+        x.push("dojo");
+        x.push("rocks");
+        console.log(x);
+        x.pop(x);
+        console.log(x);
+        // basic 2
+        console.log("basic 2 ---");
+        const y = [];
+        console.log(y);
+        y.push(88);
+        console.log(y);
+        // basic 3
+        console.log("basic 3 ---");
+        var z = [9, 10, 6, 5, -1, 20, 13, 2];
+        for(let i = 0; i < z.length; i++){
+            console.log(z[i]);
+        }
+        for(let i = 0; i < z.length-1; i++){
+            console.log(z[i]);
+        }
+        // basic 4
+        console.log("basic 4 ---");
+        var names = ['Kadie', 'Joe', 'Fritz', 'Pierre', 'Alphonso'];
+        for(let i = 0; i < names.length; i++){
+            console.log(names[i].length);
+        }
+        for(let i = 0; i < names.length; i++){
+            if(names[i].length === 5){
+                console.log(names[i]);
+            }
+        }
+        // basic 5
+        console.log("basic 5 ---");
+        function yell(string){
+            return string.toUpperCase();
+        }
+        console.log(yell("testing"));
+    </script>
+</html>

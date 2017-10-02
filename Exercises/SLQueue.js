@@ -62,6 +62,30 @@ function SLQueue(){
         return count;
     }
 
+    this.reorderAbsolute = function(){
+        if(this.size < 2){
+            return this;
+        }
+        var buffer = new SLStack();
+        var queueSize = this.size();
+        for(var i = 0; i < queuesize; i++){
+            var temp = this.dequeue();
+            if(temp < 0){
+                buffer.push(temp);
+            }
+            else{
+                this.enqueue(temp);
+            }
+        }
+        var numPositives = this.size();
+        while(!buffer.empty()){
+            this.enqueue(buffer.pop());
+        }
+        for(i = 0; i < numPositives; i++){
+            this.enqueue(this.dequeue());
+        }
+        return this;
+    }
 }
 
 function SLStack(){
@@ -126,4 +150,142 @@ function SLStack(){
         }
         return count;
     }
+
+    this.isPalindrome = function(){
+        var buffer = new SLStack();
+        if(!this.front){
+            return true;
+        }
+        for(var i = 0; i < this.size(); i++){
+            var temp = tis.dequeue();
+            this.enqueue(temp);
+            buffer.push();
+        }
+        var symmetrical = true;
+        while(!buffer.isEmpty()){
+            var temp = this.dequeue();
+            if(temp.val !== buffer.pop().val){
+                symmetrical = false;
+            }
+            this.enqueue(temp);
+        }
+        return symmetrical;
+    }
+    this.removeMin = function(){
+        var buffer = new SLQueue();
+        if(this.top === undefined){
+            return this.top;
+        }
+        var min = this.top.val;
+        while(!this.empty()){
+            var popped = this.pop();
+            if(popped.val < min){
+                min = popped.val;
+            }
+            buffer.enqueue(popped);
+        }
+        while(!buffer.empty()){
+            var dq = buffer.dequeue();
+            if(dq.val !== min){
+                this.push(dq);
+            }
+        }
+        return this;
+    }
+    
+    this.partition = function(){
+        var buffer = new SLQueue();
+        if(this.top == undefined){
+            return this.top;
+        }
+        while(!this.empty()){
+            buffer.enqueue(this.pop());
+        }
+        var bufferLength = buffer.size();
+        for(var i = 0; i < bufferLength; i++){
+            var dq = buffer.dequeue();
+            if(dq.val > 0){
+                this.push(dq);
+            }
+            else{
+                buffer.enqueue(dq);
+            }
+            while(!buffer.empty()){
+                this.push(buffer.dequeue());
+            }
+        }
+        return this;
+    }
+    
+    this.isSorted = function(){
+        if(this.size() < 2){
+            return true;
+        }
+        var buffer = new SLStack();
+        var sorted = true;
+        var prev = this.pop();
+        while(!this.empty()){
+            var next = this.pop();
+            buffer.push(prev);
+            if(prev > next){
+                sorted = false;
+                prev = next;
+                break;
+            }
+            prev = next;
+        }
+        this.push(prev);
+        while(!buffer.empty()){
+            this.push(buffer.pop());
+        }
+        return sorted;
+    }
+
+    this.switchPairs = function(){
+        if(this.size() < 2){
+            return this;
+        }
+        var buffer = new Queue();
+        while(!this.empty()){
+            buffer.enqueue(this.pop());
+        }
+        while(!buffer.empty()){
+            if(buffer.size() > 2){
+                rotations = buffer.size()-2;
+                for(var i = 0; i < rotations; i++){
+                    buffer.enqueue(buffer.dequeue());
+                }
+                this.push(buffer.dequeue());
+                this.push(buffer.dequeue());
+            }
+            else{
+                this.push(buffer.dequeue());
+            }
+        }
+        return this;
+    }
+
+    this.mirror = function(){
+        if(this.empty()){
+            return this;
+        }
+        var buffer = new Queue();
+        while(!this.empty()){
+            buffer.enqueue(this.pop());
+        }
+        for(var i = 0; i < buffer.size(); i++){
+            var temp = buffer.dequeue();
+            this.push(temp);
+            buffer.enqueue(temp);
+        }
+        while(!buffer.empty()){
+            for(var j = 0; j < buffer.size()-1; j++){
+                buffer.enqueue(buffer.dequeue());
+            }
+            this.push(buffer.dequeue());
+        }
+        return this;
+    }
 }
+
+// stack methods

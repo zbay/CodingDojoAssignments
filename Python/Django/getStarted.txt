@@ -1,3 +1,4 @@
+0. pip install virtualenv?
 1. python -m virtualenv djangoEnv
 2. call djangoEnv/scripts/activate (repeat this as necessary)
 3. pip install django
@@ -25,3 +26,5 @@ Shortcuts
 1. python manage.py shell
 2. from apps.{{app_name}}.models import *
 3. Run ORM commands to CRUD in model directly
+
+Deplyment: step 8, line 4 access_log_off

@@ -1,4 +1,3 @@
-# TODO: prettify, move all model logic to models.py, and deploy
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 import bcrypt
@@ -54,7 +53,7 @@ def books(request):
     init_session(request)
     if request.session['user_id'] == "":
         return redirect("/")
-    reviews = Review.objects.order_by("-created_at")[:3] # does this order need to be reversed???
+    reviews = Review.objects.order_by("-created_at")[:3]
     books = Book.objects.filter()
     context = {
         'alias': request.session['alias'],
@@ -106,7 +105,6 @@ def book(request, id):
         return redirect("/")  
     book = Book.objects.get(id=id)
     reviews = book.reviews.all()
-    print reviews
     context = {
         'book': book,
         'user_id': request.session['user_id'],
