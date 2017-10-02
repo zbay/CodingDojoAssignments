@@ -1,24 +1,18 @@
 Hoisting predictions
 1. undefined
 2. 'magnet'
-3. 
-    A. 'only okay'
-    B. 'only okay'
+3. 'super cool'
 4. 
     A. 'chicken'
     B. 'half-chicken'
-5.
-    A. "chicken"
-    B. "fish"
-    C. "chicken"
-    D. "chicken"
+5. Error (only the declaration has been hoisted, not the fact that it's a function)
 6. 
     A. undefined
     B. "rock"
     C. "r&b"
-    D. "rock"
+    D. "disco" (the global is NOT reassigned inside the for loop. the function-scope variable is)
 7. 
     A. "san jose"
     B. "seattle"
     C. "burbank"
-    D. "seattle"
+    D. "san jose"
