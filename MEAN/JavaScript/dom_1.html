@@ -1,0 +1,29 @@
+<html>
+        <body>
+            <h1>Students</h1>
+            <ul id="main">
+                <!-- this is empty-->
+            </ul> 
+        <script>
+            function appendList(array, id){
+                var appendTo = document.getElementById(id);
+                for(let i = 0; i < array.length; i++){
+                    let li = document.createElement("li");
+                    li.innerHTML = array[i];
+                    appendTo.appendChild(li);
+                }
+            };
+            function superAppend(array, element, id){
+                var appendTo = document.getElementById(id);
+                for(let i = 0; i < array.length; i++){
+                    let node = document.createElement(element);
+                    node.innerHTML = array[i];
+                    appendTo.appendChild(node);
+                }
+            };
+            let students = ["Jeff", "Jenny", "Javier", "Joslyn", "Joe", "Jane", "Django"];
+            let target_id = "main";
+            appendList(students, target_id);
+        </script>   
+        </body>
+        </html>
