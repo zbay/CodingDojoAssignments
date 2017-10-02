@@ -1,0 +1,24 @@
+Hoisting predictions
+1. undefined
+2. 'magnet'
+3. 
+    A. 'only okay'
+    B. 'only okay'
+4. 
+    A. 'chicken'
+    B. 'half-chicken'
+5.
+    A. "chicken"
+    B. "fish"
+    C. "chicken"
+    D. "chicken"
+6. 
+    A. undefined
+    B. "rock"
+    C. "r&b"
+    D. "rock"
+7. 
+    A. "san jose"
+    B. "seattle"
+    C. "burbank"
+    D. "seattle"
