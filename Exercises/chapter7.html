@@ -19,6 +19,28 @@
                 return balanceExists;
             }
 
+            function balancePoint(arr){
+                if(arr.length < 2){
+                    return false;
+                }
+                var index = 0;
+                while(index < arr.length){
+                    var sumLeft = 0;
+                    var sumRight = 0;
+                    for(var i = 0; i <= index; i++){
+                        sumLeft += arr[i];
+                    }
+                    for(i = index+1; i < arr.length; i++){
+                        sumRight += arr[i];
+                    }
+                    if(sumRight === sumLeft){
+                        return true;
+                    }
+                    index++
+                }
+                return false;
+            }
+
             function balanceIndex(arr){
                 var balanceExists = false;
                 for(var i = 0; i < arr.length; i++){
