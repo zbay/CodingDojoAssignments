@@ -3,14 +3,14 @@
         document.addEventListener("DOMContentLoaded", function(){
             $Dojo = function(id){
                 let element = document.getElementById(id);
-                function click(callback){
+                this.click = function(callback){
                     element.addEventListener("click", callback);
                 }
-                function hover(callbackOn, callbackOff){
+                this.hover = function(callbackOn, callbackOff){
                     element.addEventListener("mouseover", callbackOn);
                     element.addEventListener("mouseout", callbackOff);
                 }
-                return {click, hover};
+                return this;
             }
             $Dojo("someIdForSomeButton").click(function() { console.log("The button was clicked!") });
             $Dojo("someOtherIdForSomeOtherButton").hover(
