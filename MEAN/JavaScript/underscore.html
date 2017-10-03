@@ -1,0 +1,45 @@
+<html>
+    <script>
+        var _ = {
+            map: function(arr, callback) {
+              for(let i = 0; i < arr.length; i++){
+                arr[i] = callback(i);
+              }
+            },
+            reduce: function(arr,  callback, memo){
+                for(let i = 0; i < arr.length; i++){
+                    memo += callback(memo, arr[i]);
+                }
+                return memo;
+            },
+            find: function(arr, callback) {   
+              for(let i = 0; i < arr.length; i++){
+                if(callback(arr[i])){
+                    return arr[i];
+                }
+              }
+              return undefined;
+            },
+            filter: function(arr, callback) { 
+              let arr2 = [];
+              for(let i = 0; i < arr.length; i++){
+                if(callback(arr[i])){
+                    arr2.push(arr[i]);
+                }
+              }
+              return arr2;
+            },
+            reject: function(arr, callback) { 
+                let arr2 = [];
+                for(let i = 0; i < arr.length; i++){
+                  if(!callback(arr[i])){
+                      arr2.push(arr[i]);
+                  }
+                }
+                return arr2;
+              },
+          }
+        var evens = _.filter([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+        console.log(evens); // if things are working right, this will return [2,4,6].
+        </script>
+</html>
