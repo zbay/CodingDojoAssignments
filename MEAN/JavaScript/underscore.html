@@ -1,14 +1,14 @@
 <html>
     <script>
-        var _ = {
+        const _ = {
             map: function(arr, callback) {
               for(let i = 0; i < arr.length; i++){
-                arr[i] = callback(i);
+                arr[i] = callback(arr[i]);
               }
             },
             reduce: function(arr,  callback, memo){
                 for(let i = 0; i < arr.length; i++){
-                    memo += callback(memo, arr[i]);
+                    memo = callback(arr[i], memo);
                 }
                 return memo;
             },
