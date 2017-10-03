@@ -1,0 +1,26 @@
+<html>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            $Dojo = function(id){
+                let element = document.getElementById(id);
+                function click(callback){
+                    element.addEventListener("click", callback);
+                }
+                function hover(callbackOn, callbackOff){
+                    element.addEventListener("mouseover", callbackOn);
+                    element.addEventListener("mouseout", callbackOff);
+                }
+                return {click, hover};
+            }
+            $Dojo("someIdForSomeButton").click(function() { console.log("The button was clicked!") });
+            $Dojo("someOtherIdForSomeOtherButton").hover(
+                function() { console.log("The button was hovered on to!"); }, 
+                function() { console.log("The button was hovered off of!"); });
+        });
+
+    </script>
+    <body>
+        <button id="someIdForSomeButton">Click me</button>
+        <button id="someOtherIdForSomeOtherButton">Hover me</button>
+    </body>
+</html>
