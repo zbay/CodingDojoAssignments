@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <style>
+            body{
+                margin:10px;
+            }
+            .quote{
+                border-bottom: 2px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Here are the awesome quotes!</h1>
+        <% for(var i = 0; i < quotes.length; i++){ %>
+            <div class="quote">
+                <p>"<%= quotes[i].quote %>""</p>
+                <p>-<%= quotes[i].name %> at <%= quotes[i].createdAt %></p>
+            </div>
+        <% } %>
+        <a href="/"><button>Home</button></a>
+    </body>
+</html>

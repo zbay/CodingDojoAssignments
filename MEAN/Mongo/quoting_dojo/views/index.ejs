@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <style>
+            body{
+                margin:10px;
+            }
+            .col{
+                display:inline-block;
+            }
+            .error{
+                color:red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Welcome to QuotingDojo</h1>
+        <% if(typeof(errors) != 'undefined' ) { %>
+            <% for (var x in errors) { %>
+             <h3 class="error"><%= errors[x].message %></h3>
+            <% } %>
+        <% } %>
+        <form action="/quotes" method="post">
+            <div>
+                <label class="col" for="name">Your name:</label>
+                <input type="text" name="name" class="col" value="<%= name %>"/>
+            </div>
+            <div>
+                <label class="col" for="quote">Your quote:</label>
+                <input type="text" name="quote" class="col" value="<%= quote %>"/>
+            </div>
+            <div>
+                <input type="submit" class="col" value="Add quote"/>
+            </div>
+        </form>
+        <a href="/quotes"><button>Skip to quotes</button></a>
+    </body>
+</html>
