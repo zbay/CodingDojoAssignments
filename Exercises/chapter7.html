@@ -193,10 +193,18 @@
                 }
                 return flattened;
             }
-            //console.log(flatten([1, [2, 3], 4, []]));
+            console.log(flatten([1, [2, 3], 4, []]));
 
-            function flattenInPlace(arr){ 
-                // HOW DO I DO THIS????
+            function flattenInPlace(flat){
+                for(var i = 0; i < flat.length; i++) {
+                    if(Array.isArray(flat[i])) {
+                        flat.splice(i, 1, ...flat[i]);
+                        i--;  
+                        // ... deconstructs array into constituent parts. ES6
+                        // i-- allows you to go back and test each element of the array to see if it's an array
+                    }
+                }
+                return flat;
             }
 
             /*var arr = [1, [2, 3], 4, []];

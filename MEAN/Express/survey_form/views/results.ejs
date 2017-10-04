@@ -1,0 +1,81 @@
+<html>
+        <head>
+           <title>Dojo Survey</title>
+           <style>
+                form, .resultBox{
+                    margin-left:auto;
+                    margin-right:auto;
+                    margin-top:50px;
+                    padding: 30px 30px 60px 30px;
+                    border: 2px solid black ;
+                }
+                
+                p, .inlineBlock{
+                    display:inline-block;
+                    width: 200px;
+                }
+                
+                textarea{
+                    width:100%;
+                    display:block;
+                    margin-top:20px;
+                }
+                
+                .row{
+                    margin-top:10px;
+                    margin-bottom:10px;
+                }
+                
+                input[type='submit']{
+                    display:block;
+                    margin-top:30px;
+                    margin-left:auto;
+                    margin-right:auto
+                }
+                
+                .resultBox div{
+                    margin-left:20px;
+                }
+                
+                .resultBox a{
+                    display:block;
+                    float:right;
+                    padding-bottom:30px !important;
+                }
+                
+                .resultBox h1{
+                    text-decoration: underline;
+                }
+                
+                .error{
+                    color:red;
+                    display: block;
+                    text-align:center !important;
+                    position: relative;
+                    top:20px;
+                }
+                </style>
+        </head>
+        <body>
+            <div class="resultBox">
+                <h1>Submitted Info</h1>
+                <div>
+                    <p>Name:</p>
+                    <p><%= name %></p>
+                </div>
+                <div>
+                    <p>Dojo Location:</p>
+                    <p><%= location %></p>
+                </div>
+                <div>
+                    <p>Favorite Language:</p>
+                    <p><%= fave_lang %></p>
+                </div>
+                <div>
+                    <p>Comment:</p>
+                    <p><%= comment %></p>
+                </div>
+                <a href="../"><button>Go Back</button></a>
+            </div>
+        </body>
+    </html>

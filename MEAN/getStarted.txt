@@ -16,6 +16,7 @@ Todo:
 1. Optional Bind, Call, and Apply assignment (JS advanced)
 2. Optional Content Module (Node)
 3. Socket.io module
+4. FIGURE OUT FLATTEN ARRAYS IN PLACE JAVASCRIPT. Use concat()
 
 Notes:
 1. Set PATH for node modules...
