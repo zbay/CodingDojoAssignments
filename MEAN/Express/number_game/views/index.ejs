@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <style>
+            .wrong{
+                color:white;
+                background-color:red;
+            }
+            .correct{
+                color:white;
+                background-color:green;
+            }
+            div{
+                padding:30px;
+                text-align:center;
+            }
+            </style>
+    </head>
+    <body>
+        <h1>Welcome to the Great Number Game!</h1>
+        <p>I am thinking of a number between 1 and 100.</p>
+        <p>Take a guess!</p>
+        <% if(guess !== undefined) {%>
+            <% if(guess < actual) { %>
+                <div class="wrong"><%= guess %>? Too low!</div>
+            <% } else if(guess > actual) { %>
+                <div class="wrong"><%= guess %>? Too high!</div>
+            <% } else { %>
+                <div class="correct">
+                    <p><%= actual %> was the number!</p>
+                    <a href="/reset"><button>Play again!</button></a>
+                </div>
+        <% }} %>
+        <form action="/guess" method="post">
+            <input type="text" name="guess"/>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
