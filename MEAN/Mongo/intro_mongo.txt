@@ -1,0 +1,65 @@
+1. Create db
+use my_first_db
+
+2. Create collection
+db.createCollection('students')
+
+3. Create 5 students
+db.students.insert({name: "Zach Williams", home_state: "VA", lucky_number: 21, birthday: {month: 1, day: 1, year: 2016}})
+db.students.insert({name: "Wach Zilliams", home_state: "WV", lucky_number: 12, birthday: {month: 1, day: 1, year: 2017}})
+db.students.insert({name: "Bach Billiams", home_state: "NC", lucky_number: 420, birthday: {month: 4, day: 20, year: 2016}})
+db.students.insert({name: "Dach Dilliams", home_state: "SC", lucky_number: 666, birthday: {month: 11, day: 1, year: 2016}})
+db.students.insert({name: "Fach Filliams", home_state: "GA", lucky_number: 33, birthday: {month: 1, day: 10, year: 2016}})
+
+4. Get all students
+db.students.find()
+
+5. Retrieve all students from WV
+db.students.find({home_state: "WV"})
+
+6. Get all students whose lucky number is greater than 100
+db.students.find({lucky_number: {$gt: 100}})
+
+7. All students lucky number less than or equal to 33
+db.students.find({lucky_number: {$lte: 33}})
+
+8. All students with lucky number between 12 and 21
+db.students.find({lucky_number: {$lte: 21, $gte: 12}})
+
+9. Add interests [] field to all students in one command
+db.students.update({}, {$set: {interests: ['coding', 'brunch', 'MongoDB']}}, false, true)
+
+10. Add some unique interests
+db.students.update({home_state: "VA"}, {$addToSet: {interests: 'commuting'}})
+db.students.update({home_state: "WV"}, {$addToSet: {interests: 'squatching'}})
+db.students.update({home_state: "SC"}, {$addToSet: {interests: 'mudding'}})
+
+11. Add 'taxes' as an interest for somebody
+db.students.update({name: "Zach Williams"}, {$addToSet: {interests: 'taxes'}})
+
+12. Remove taxes interest
+db.students.update({name: "Zach Williams"}, {$pull: {interests: 'taxes'}})
+
+13. Remove all students from GA
+db.students.remove({home_state: "GA"})
+
+14. Remove a student by name
+db.students.remove({name: "Dach Dilliams"})
+
+15. Remove one student whose lucky number is greater than 5
+db.students.remove({lucky_number: {$gt: 5}}, true)
+
+16. Add a field to each student collection called number_of_belts and set it to 0
+db.students.update({}, {$set: {number_of_belts: 0}}, false, true)
+
+17. Increment belt field by 1 for all students in WV
+db.students.update({home_state: "WV"}, {$inc: {number_of_belts: 1}})
+
+18. Rename number_of_belts to belts_earned
+db.students.update({}, {$rename: {'number_of_belts': 'belts_earned'}}, false, true)
+
+19. Remove lucky_number field
+db.students.update({}, {$unset: {lucky_number: 1}}, false, true)
+
+20. Add updated_on field. Set to current date for all.
+db.students.update({}, {$currentDate: {updated_on: true}}, false, true)
