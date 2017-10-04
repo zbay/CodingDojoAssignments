@@ -1,0 +1,22 @@
+1. Assume node is installed
+1.5. npm init -y
+2. npm install express
+3. npm install ejs
+	This is for templating
+4. npm install bower
+	This is for front-end libraries
+5. npm install body-parser
+	To handle post data
+6. npm install express-sessions
+	To handle sessions (optional)
+7. use --save after npm installs if you want to update package.json
+
+
+Todo:
+1. Optional Bind, Call, and Apply assignment (JS advanced)
+2. Optional Content Module (Node)
+3. Socket.io module
+
+Notes:
+1. Set PATH for node modules...
+	set PATH=%PATH%;C:\Users\zlwillia\AppData\Roaming\npm;

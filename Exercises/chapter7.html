@@ -393,6 +393,42 @@
 
             }
 
+            function binarySearch(arr, val){
+                var leftIndex = 0;
+                var rightIndex = arr.length-1;
+                while(leftIndex < rightIndex){
+                    var midIndex = (leftIndex + rightIndex) / 2;
+                    if(val === arr[midIndex]){
+                        return true;
+                    }
+                    else if(val > arr[midIndex]){
+                        leftIndex = midIndex+1;
+                    }
+                    else{ // val < arr[midIndex]
+                        rightIndex = midIndex-1;
+                    }
+                }
+                return false;
+            }
+            function minSorted(arr){
+                var leftIndex = 0;
+                var rightIndex = arr.length-1;
+                var midIndex = 0;
+                while(leftIndex < rightIndex){
+                    midIndex = (leftIndex + rightIndex) / 2;
+                    if(arr[leftIndex] > arr[midIndex]){
+                        rightIndex = midIndex;
+                    }
+                    else if(arr[rightIndex] < arr[midIndex]){
+                        leftIndex = midIndex;
+                    }
+                    else{ // arr[mid] == arr[left] == arr[right]
+                        rightIndex--;
+                    }
+                }
+                return midIndex;
+            }
+
             // pg. 85
             
         </script>
