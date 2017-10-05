@@ -17,6 +17,7 @@ npm install mongoose
 11. ./mongo or mongo.exe
 
 Todo:
+0. Fix Quoting Dojo to properly format the date (with Moment.js)
 1. Optional Bind, Call, and Apply assignment (JS advanced)
 2. Optional Content Module (Node)
 3. Socket.io module

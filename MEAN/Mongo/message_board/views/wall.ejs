@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <style>
+            h1{
+                border-bottom: 3px solid black;
+            }
+            .message{
+                font-size:1em;
+            }
+            .comment{
+                font-size:0.8em;
+            }
+            .comment, .commentForm{
+                position:relative;
+                left:30px;
+            }
+            form > *{
+                display:flex;
+                flex-direction:column;
+                margin-top:10px;
+                margin-bottom:10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>The Dojo Message Board</h1>
+        <% if(typeof(errors) != 'undefined' ) { %>
+            <% for (var x in errors) { %>
+             <h3 class="error"><%= errors[x].message %></h3>
+            <% } %>
+        <% } %>
+        <form action="/message" method="post">
+            <label for="author">Name:</label>
+            <input type="text" name="author" value="<%= author %>"/>
+            <label for="content">Message:</label>
+            <input type="text" name="content" value="<%= message %>" />
+            <input type="submit" value="Post message"/>
+        </form>
+        <div id="messages">
+            <% for(let i = 0; i < messages.length; i++){ %>
+                <div class="message">
+                    <p>Name: <%= messages[i].author %></p>
+                    <p>Message: <%= messages[i].content %></p>
+                    <% for(let j = 0; j < messages[i].comments.length; j++){%>
+                        <div class="comment">
+                            <p>Name: <%= messages[i].comments[j].author %></p>
+                            <p>Comment: <%= messages[i].comments[j].content %></p>
+                        </div>
+                    <% } %>
+                    <form action="/comment" method="post" class="commentForm">
+                        <label for="author">Name:</label>
+                        <input type="text" name="author" value="<%= author %>"/>
+                        <label for="content">Comment:</label>
+                        <input type="text" name="content" value="<%= comment %>" />
+                        <input type="hidden" name="parentId" value="<%= messages[i]._id %>">
+                        <input type="submit" value="Post message"/>
+                    </form>
+                </div>
+            <% } %>
+        </div>
+    </body>
+</html>
