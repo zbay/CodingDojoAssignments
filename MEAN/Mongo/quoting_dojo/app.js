@@ -3,10 +3,10 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 mongoose.Promise = global.Promise;
 
 app.use(bodyParser.urlencoded({ extended: true }));
-const path = require('path');
 app.use(express.static(path.join(__dirname, './static')));
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
@@ -37,10 +37,6 @@ app.post("/quotes", function(request, response){
             request.session.name = request.body.name;
             request.session.quote = request.body.quote;
             request.session.errors = newQuote.errors;
-            console.log(newQuote.errors);
-            for (var x in newQuote.errors) {
-                console.log(newQuote.errors[x].message);
-            }
             response.redirect("/");
         }
         else{
@@ -53,7 +49,6 @@ app.post("/quotes", function(request, response){
 });
 
 app.get("/quotes", function(request, response){
-    console.log("getting quotes");
     var error = undefined;
     Quote.find({}).sort({ createdAt: -1}).exec(function(err, quotes){
         if(err){

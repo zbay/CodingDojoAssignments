@@ -63,3 +63,5 @@ db.students.update({}, {$unset: {lucky_number: 1}}, false, true)
 
 20. Add updated_on field. Set to current date for all.
 db.students.update({}, {$currentDate: {updated_on: true}}, false, true)
+
+Note: {multi: true} instead of false, true works

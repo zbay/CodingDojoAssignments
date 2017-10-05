@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <style>
+            .col{
+                display:inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Pigeon <%= pigeon._id %></h1>
+        <p>Name: <%= pigeon.name %></p>
+        <p>Weight: <%= pigeon.weight %></p>
+        <p>Last Updated: <%= pigeon.updatedAt %></p>
+        <a href="/pigeons/edit/<%= pigeon.id %>" class="col">Edit Pigeon</a>
+        <form action="/pigeons/destroy/<%= pigeon._id %>" method="post" class="col">
+            <input type="submit" value="Delete Pigeon"/>
+        </form>
+    </body>
+</html>

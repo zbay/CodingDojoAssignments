@@ -9,6 +9,7 @@
 	To handle post data
 6. npm install express-sessions
 	To handle sessions (optional)
+npm install mongoose
 7. use --save after npm installs if you want to update package.json
 8. cd c:/"Program Files"/MongoDB/Server/3.4/bin/
 9. ./mongod (bash) or mongod.exe (cmd prompt)
@@ -19,7 +20,6 @@ Todo:
 1. Optional Bind, Call, and Apply assignment (JS advanced)
 2. Optional Content Module (Node)
 3. Socket.io module
-4. FIGURE OUT FLATTEN ARRAYS IN PLACE JAVASCRIPT. Use concat()
 
 Notes:
 1. Set PATH for node modules...

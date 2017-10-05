@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <style>
+            table{
+                border-collapse: collapse;
+            }
+            tr, td{
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Pigeon Dashboard</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Weight</td>
+                    <td>Last Updated</td>
+                    <td>Manage</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i = 0; i < pigeons.length; i++){ %>
+                    <tr>
+                        <td><%= pigeons[i].name %></td>
+                        <td><%= pigeons[i].weight %></td>
+                        <td><%= pigeons[i].updatedAt %></td>
+                        <td><a href="/pigeon/<%= pigeons[i]._id %>">Manage</a></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <a href="/pigeons/new">Add a pigeon</a>
+    </body>
+</html>

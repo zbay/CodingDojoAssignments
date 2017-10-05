@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <style>
+            .col{
+                display: inline-block;
+            }
+            .error{
+                color:red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>New Pigeon</h1>
+        <% if(typeof(errors) != 'undefined' ) { %>
+            <% for (var x in errors) { %>
+             <h3 class="error"><%= errors[x].message %></h3>
+            <% } %>
+        <% } %>
+        <form action="/new_pigeon" method="post">
+            <label for="name" class="col">Name:</label>
+            <input type="text" name="name" value="<%= name %>" class="col"/>
+            <label for="weight" class="col">Weight:</label>
+            <input type="number" name="weight" value="<%= weight %>" class="col"/>
+            <input type="submit" value="Save pigeon" />
+        </form>
+    </body>
+</html>
