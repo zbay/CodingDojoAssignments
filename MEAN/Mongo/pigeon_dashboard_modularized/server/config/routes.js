@@ -1,6 +1,4 @@
-var mongoose = require('mongoose');
-var Pigeon = mongoose.model('Pigeon');
-var pigeons = require('../controllers/pigeons');
+const pigeons = require('../controllers/pigeons');
 module.exports = function(app) {
     app.get("/", function(req, res){
         pigeons.getAll(req, res);

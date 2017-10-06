@@ -1,6 +1,6 @@
 "use strict";
-var mongoose = require('mongoose');
-var Pigeon = mongoose.model('Pigeon');
+const mongoose = require('mongoose');
+const Pigeon = mongoose.model('Pigeon');
 let self = module.exports = {
   getAll: function(req, res) {
     Pigeon.find({}).sort({ createdAt: -1}).exec(function(err, pigeons){

@@ -451,6 +451,32 @@
                 return midIndex;
             }
 
+            function matrixFind(bigM, smallM){ // O(n) * O(m)
+                for(let br = 0; br < bigM.length-smallM.length-1; br++){
+                    for(let bc = 0; bc < bigM[br].length; bc++){
+                        let found = true;
+                        let location = [-1, -1];
+                        for(let sr = 0; sr < smallM.length; sr++){
+                            for(let sc = 0; sc < smallM[sr].length; sc++){
+                                if(bigM[br+sr].length <= (bc+sc) || bigmM[br+sr][bc+sc] != smallM[sr][sc]){
+                                    found = false;
+                                    break;
+                                }
+                                else if(sr === 0 && sc === 0){
+                                    location = [br, bc];
+                                }
+                            }
+                            if(!found){
+                                break;
+                            }
+                        }
+                        if(found){
+                            return location;
+                        }
+                    }
+                }
+                return [-1, -1]];
+            }
             // pg. 85
             
         </script>
