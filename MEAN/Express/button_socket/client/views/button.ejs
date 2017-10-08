@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Button Clicker</title>
+        <style>
+            #counter{
+                padding:20px;
+                background-color:blue;
+                border-radius:10px;
+                color:white;
+            }
+            #reset{
+                float:right;
+                color:white;
+                background-color:red;
+            }
+        </style>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type ="text/javascript">
+            $(document).ready(function (){
+                let socket  = io.connect();
+                $("#counter").click(function(){
+                    socket.emit("increment", {});
+                });
+                $("#reset").click(function(){
+                    socket.emit("reset", {});
+                });
+                socket.on('update_counter', function (data){
+                    $("#count").text(data.count);
+                });
+            });
+           </script>
+    </head>
+    <body>
+        <h1>The button has been pushed <span id="count">0</span> time(s)</h1>
+        <p>Push the button to update the count.</p>
+        <button id="counter">Push the epic button</button>
+        <br />
+        <button id="reset">Reset count</button>
+    </body>
+</html>
