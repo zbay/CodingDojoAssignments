@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <style>
+            .column{
+                display:inline-block;
+                vertical-align: top;
+                min-width:40%;
+                max-width:90%;
+            }
+            form{
+                text-align: center;
+            }
+            form > *{
+                display:flex;
+                flex-direction: column;
+            }
+            .error{
+                color:red;
+                size:30px;
+                font-weight:bold;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="column">
+            <h1>Register</h1>
+            <% if (registration_errors) { %>
+                <% for (error in registration_errors.errors) { %>
+                    <p class="error"><%= registration_errors.errors[error].message %></p>
+                <% } %>
+            <% } %>
+            <form action="/register" method="post">
+                <div class="form-group">
+                    <label for="first_name" class="column">First Name:</label>
+                    <input type="text" name="first_name" value="<%= first_name %>" class="column" />
+                </div>
+                <div class="form-group">
+                    <label for="last_name" class="column">Last Name:</label>
+                    <input type="text" name="last_name" value="<%= last_name %>" class="column" />
+                </div>
+                <div class="form-group">
+                    <label for="email" class="column">Email:</label>
+                    <input type="text" name="email" value="<%= email %>" class="column"/>
+                </div>
+                <div class="form-group">
+                    <label for="birthday" class="column">Birth Date:</label>
+                    <input type="date" name="birthday" value="<%= birthday %>" class="column"/>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="column">Password:</label>
+                    <input type="password" name="password" class="column"/>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password" class="column">Confirm Password:</label>
+                    <input type="password" name="confirm_password" class="column"/>
+                </div>
+                <input type="submit" value="Register" />
+            </form>
+        </div>
+        <div class="column">
+            <h1>Login</h1>
+            <% if (login_errors) { %>
+                <% for (error in login_errors.errors) { %>
+                    <p class="error"><%= login_errors.errors[error].message %></p>
+                <% } %>
+            <% } %>
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label for="email" class="column">Email:</label>
+                    <input type="text" name="email" value="<%= email %>" class="column"/>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="column">Password:</label>
+                    <input type="password" name="password" class="column"/>
+                </div>
+                <input type="submit" value="Login" />
+            </form>
+        </div>
+    </body>
+</html>

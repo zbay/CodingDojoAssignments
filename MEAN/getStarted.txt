@@ -10,6 +10,8 @@
 6. npm install express-sessions
 	To handle sessions (optional)
 npm install mongoose
+npm install bcrypt-as-promised
+
 7. use --save after npm installs if you want to update package.json
 8. cd c:/"Program Files"/MongoDB/Server/3.4/bin/
 9. ./mongod (bash) or mongod.exe (cmd prompt)
