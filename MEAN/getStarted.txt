@@ -19,9 +19,7 @@ npm install bcrypt-as-promised
 11. ./mongo or mongo.exe
 
 Todo:
-1. Optional Bind, Call, and Apply assignment (JS advanced)
-2. Optional Content Module (Node)
-3. Socket.io module
+1. Socket.io module
 
 Notes:
 1. Set PATH for node modules...
