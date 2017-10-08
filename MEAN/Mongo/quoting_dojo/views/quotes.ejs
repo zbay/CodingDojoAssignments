@@ -14,7 +14,7 @@
         <% for(var i = 0; i < quotes.length; i++){ %>
             <div class="quote">
                 <p>"<%= quotes[i].quote %>""</p>
-                <p>-<%= quotes[i].name %> at <%= quotes[i].createdAt %></p>
+                <p>-<%= quotes[i].name %> at <%= moment(quotes[i].createdAt).format("llll") %></p>
             </div>
         <% } %>
         <a href="/"><button>Home</button></a>

@@ -3,6 +3,7 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const moment = require('moment');
 const path = require('path');
 mongoose.Promise = global.Promise;
 
@@ -54,7 +55,7 @@ app.get("/quotes", function(request, response){
         if(err){
             error = "Could not load quotes from database!"
         }
-        response.render("quotes", {quotes: quotes, error: error});
+        response.render("quotes", {quotes: quotes, error: error, moment: moment});
     });
 });
 
