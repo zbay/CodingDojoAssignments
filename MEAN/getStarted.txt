@@ -1,4 +1,4 @@
-1. Assume node is installed
+1. Assume node and @angular/cli are installed (globally)
 1.5. npm init -y
 2. npm install express
 3. npm install ejs
