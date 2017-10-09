@@ -1,0 +1,7 @@
+.box{
+    border: 1px dashed black;
+    width:100px;
+    height:100px;
+    display:inline-block;
+    margin-left:1px;
+}
