@@ -18,6 +18,8 @@ npm install bcrypt-as-promised
 10. cd c:/"Program Files"/MongoDB/Server/3.4/bin/ in another window
 11. ./mongo or mongo.exe
 
+12. ng new project_name
+
 Todo:
 1. Socket.io module
 
