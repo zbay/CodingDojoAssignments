@@ -332,6 +332,40 @@ function SLL(){
         }
         return this;
     }
+
+    this.reverse = function(){
+        let runner = this.head;
+        let prev;
+        while(runner){
+            /*
+            Save next node. Set node's next to prev. Set prev to current node and runner to the saved next node. Keep going while there's a next node
+            */
+            let temp = runner.next;
+            runner.next = prev;
+            prev = runner;
+            runner = temp;
+        }
+        return prev;
+    }
+
+    this.palindrome = function(){
+        if(this.size() < 2){
+            return true;
+        }
+        let runner = this.head;
+        let compareIndex = this.size()-1;
+        while(compareIndex >= Math.floor(this.size()/2)){
+            let compareRunner = this.head;
+            for(let i = 0; i < compareIndex; i++){
+                compareRunner = compareRunner.next;
+            }
+            if(runner.val !== compareRunner.value){
+                return false;
+            }
+            runner = runner.next;
+            compareIndex--;
+        }
+    }
 }
 
 var list1 = new SLL();

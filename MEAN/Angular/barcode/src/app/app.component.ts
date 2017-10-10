@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
 
-let backgroundColors = ["red", "blue", "green", "yellow", "purple", "pink", "black", "navy", "gray", "orange", "tan", "brown", "white", "cyan", "YellowGreen", "OrangeRed", "BlueViolet"];
-let randomColors = [];
-for(let i = 0; i < 10; i += 1){
-  randomColors.push(backgroundColors[Math.floor(Math.random() * backgroundColors.length)]);
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,5 +7,17 @@ for(let i = 0; i < 10; i += 1){
 })
 
 export class AppComponent {
-  backgrounds: any[] = randomColors;
+  backgrounds: any[] = [];
+
+  getColors(){
+    let backgroundColors = ["red", "blue", "green", "yellow", "purple", "pink", "black", "navy", "gray", "orange", "tan", "brown", "white", "cyan", "YellowGreen", "OrangeRed", "BlueViolet"];
+    let randomColors = [];
+    for(let i = 0; i < 10; i += 1){
+      this.backgrounds.push(backgroundColors[Math.floor(Math.random() * backgroundColors.length)]);
+    }
+  }
+
+  ngOnInit(){
+    this.getColors();
+  }
 }
