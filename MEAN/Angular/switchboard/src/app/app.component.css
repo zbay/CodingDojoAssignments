@@ -1,0 +1,25 @@
+.switchBox{
+    background-color: brown;
+    width: 100px;
+    height:100px;
+    display:inline-block;
+    border: 1px solid black;
+    margin-left:3px;
+    text-align:center;
+}
+.switch{
+    color:white;
+    width:80px;
+    height:80px;
+    margin-left:10px;
+    margin-right:10px;
+    margin-top:10px;
+    margin-bottom:10px;
+    background-color:red !important;
+}
+.on{
+    background-color:green !important;
+}
+.off{
+    background-color:red;
+}
