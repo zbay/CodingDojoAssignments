@@ -26,3 +26,5 @@ Todo:
 Notes:
 1. Set PATH for node modules...
 	set PATH=%PATH%;C:\Users\zlwillia\AppData\Roaming\npm;
+2. Angular: in brackets means it's going from .ts to .html. In parentheses it's going from .html to .ts. 
+When you have both, it's a two-way binding
