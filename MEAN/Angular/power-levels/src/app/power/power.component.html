@@ -1,0 +1,40 @@
+<div class="container">
+  <h1>PowerComponent</h1>
+  <form (submit)='onSubmit()'>
+    <label for="powerLevel">Initial Power Level</label>
+    <select [(ngModel)]="powerLevelTemp" name="powerLevel">
+      <option *ngFor="let num of powerLevels" [value]="num">{{num}}</option>
+    </select>
+    <input type="submit" value="Calculate Powers"/>
+  </form>
+  <div class="row">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-2">
+      <app-human [powerLevel]='powerLevel'></app-human>
+    </div>
+    <div class="col-xs-1"></div>
+    <div class="col-xs-2">
+        <app-saiyan [powerLevel]='powerLevel'></app-saiyan>
+    </div>
+    <div class="col-xs-1"></div>
+    <div class="col-xs-2">
+        <app-supersaiyan [powerLevel]='powerLevel'></app-supersaiyan>
+    </div>
+    <div class="col-xs-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-2">
+      <app-supersaiyantwo [powerLevel]='powerLevel'></app-supersaiyantwo>
+    </div>
+    <div class="col-xs-1"></div>
+    <div class="col-xs-2">
+      <app-supersaiyanthree [powerLevel]='powerLevel'></app-supersaiyanthree>
+    </div>
+    <div class="col-xs-1"></div>
+    <div class="col-xs-2">
+      <app-supersaiyanfour [powerLevel]='powerLevel'></app-supersaiyanfour>
+    </div>
+    <div class="col-xs-2"></div>
+  </div>
+</div>
