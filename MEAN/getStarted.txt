@@ -10,7 +10,7 @@
 6. npm install express-sessions
 	To handle sessions (optional)
 npm install mongoose
-npm install bcrypt-as-promised
+npm install bcrypt
 
 7. use --save after npm installs if you want to update package.json
 8. cd c:/"Program Files"/MongoDB/Server/3.4/bin/
@@ -21,7 +21,7 @@ npm install bcrypt-as-promised
 12. ng new project_name
 
 Todo:
-1. Socket.io module
+1. 
 
 Notes:
 1. Set PATH for node modules...

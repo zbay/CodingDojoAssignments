@@ -366,6 +366,37 @@ function SLL(){
             compareIndex--;
         }
     }
+
+    this.createLoop = function(numNodes, loopIndex){
+        let runner = this.head;
+        let joinNode;
+        for(let i = 0; i < numNodes; i++){
+            if(i === loopConnect){
+                joinNode = runner;
+            }
+            if(i !== numNodes-1){
+                runner = runner.next;
+            }
+        }
+        runner.next = joinNode;
+        return this;
+    }
+
+    this.hasLoop = function(){ // assumes that the values are unique. otherwise, do the breadcrumb method
+        let slowRunner = this.head;
+        let fastRunner = this.head;
+        while(fastRunner){
+            if(!fastRunner.next || !fastRunner.next.next){
+                return false;
+            }
+            slowRunner = slowRunner.next;
+            fastRunner = fastRunner.next.next;
+            if(slowRunner.val === fastRunner.val){
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 var list1 = new SLL();
