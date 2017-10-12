@@ -391,12 +391,59 @@ function SLL(){
             }
             slowRunner = slowRunner.next;
             fastRunner = fastRunner.next.next;
-            if(slowRunner.val === fastRunner.val){
+            if(slowRunner === fastRunner){
                 return true;
             }
         }
         return false;
     }
+
+    this.breakLoop = function(){ // the difference between distance from head to intersection and the size of the loop = number of times to increment runner before setting next to undefined
+        let slowRunner = this.head;
+        let fastRunner = this.head;
+        while(fastRunner){
+            if(!fastRunner.next || !fastRunner.next.next){
+                return this;
+            }
+            slowRunner = slowRunner.next;
+            fastRunner = fastRunner.next.next;
+            if(slowRunner === fastRunner){   
+                let loopSize = 0;
+                fastRunner = fastRunner.next;
+                while(fastRunner !== slowRunner){
+                    loopSize++;
+                    fastRunner = fastRunner.next;
+                }
+                let distToIntersection = 0;
+                let thirdRunner = this.head;
+                while(thirdRunner !== slowRunner){
+                    distToIntersection++;
+                    thirdRunner = thirdRunner.next;
+                }
+                let diff = Math.abs(distToIntersection-loopSize);
+                while(diff){
+                    slowRunner = slowRunner.next;
+                    diff--;
+                }
+                slowRunner.next = undefined;
+            }
+        }
+        return this;        
+    }
+
+    this.swapPairs = function(){
+        let runner = this.head;
+        while(runner && runner.next){
+            let nextRunner = runner.next.next;
+            let temp = runner.next;
+            temp.next = runner;
+            runner.next = nextRunner;
+            runner = nextRunner;
+        }
+        return this;
+    }
+
+
 }
 
 var list1 = new SLL();
