@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+input[name='quote']{
+    width:50%;
+}
+button{
+    width:100%;
+}
+body{
+    margin:10px;
+}
+.quote{
+    border: 2px solid black;
+    padding:5px;
+}
+.up{
+    background-color:green;
+    color:white;
+}
+.down{
+    background-color:red;
+    color:white;
+}
+.delete{
+    background-color:black;
+    color: white;
+}
+.error{
+    color:blue;
+}

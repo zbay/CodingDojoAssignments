@@ -20,8 +20,8 @@ npm install bcrypt
 
 12. ng new project_name
 
-Todo:
-1. 
+Todo (Quote Ranks):
+1. Go back and add bonus features to Quotes List (sort by votes)
 
 Notes:
 1. Set PATH for node modules...

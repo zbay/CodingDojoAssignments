@@ -1,0 +1,17 @@
+<form (submit)="onSubmit()">
+  <h1>Add a Quote</h1>
+  <input type="text" [(ngModel)]="newQuote.content" name="quote" required minlength="4" #content="ngModel"/>
+  <span *ngIf='content.errors && (content.errors.required || content.errors.minlength) && (content.touched || content.dirty)' class="error">
+    The quote must be at least 4 characters long!
+  </span>
+  <br /><br />
+  <div class="form-group">
+    <label for="author">Author </label>
+    <input type="text" [(ngModel)]="newQuote.author" name="author" required minlength="1" #author="ngModel"/>
+    <span *ngIf='author.errors && (author.errors.required || author.errors.minlength) && (author.touched || author.dirty)' class="error">
+      The author field is required!
+    </span>
+  </div>
+  <br />
+    <input type="submit" value="Add Quote" *ngIf="!author.errors && !content.errors"/>
+</form>
