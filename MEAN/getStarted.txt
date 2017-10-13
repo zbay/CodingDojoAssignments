@@ -18,7 +18,10 @@ npm install bcrypt
 10. cd c:/"Program Files"/MongoDB/Server/3.4/bin/ in another window
 11. ./mongo or mongo.exe
 
-12. ng new project_name
+12. ng new project_name --routing
+13. ng generate component component_name
+14. ng generate service service_name
+15. Make sure to include Http and FormModule
 
 Todo (Quote Ranks):
 1. Go back and add bonus features to Quotes List (sort by votes)
