@@ -26,7 +26,7 @@ let self = module.exports = {
                     if(req.body.password !== req.body.confirm_password){
                         req.session.registration_errors.errors['password_match'] = {message: "Your passwords do not match!"};
                     }
-                    res.redirect("/")
+                    res.redirect("/");
                 }
                 else{
                     req.session.logged_in = true;

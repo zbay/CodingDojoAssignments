@@ -1,0 +1,23 @@
+<h1>Edit Product</h1>
+<form (submit)="submitChanges()">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" name="title" [(ngModel)]="product.title" required minlength="4" #productTitle="ngModel"/>
+    <div *ngIf="productTitle.errors && (productTitle.errors.required || productTitle.errors.minlength)" class="error">
+      The product title must be at least 4 characters in length!
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input type="number" step="0.01" name="product.price" [(ngModel)]="price" required minvalue="0.0" #productPrice="ngModel"/>
+    <div *ngIf="productPrice.errors && productPrice.errors.required" class="error">
+        A product price is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="imageURL">Image URL:</label>
+    <input type="text" name="imageUrl" [(ngModel)]="product.imageUrl"/>
+  </div>
+  <button type="button" (click)="deleteProduct()">Delete</button>
+  <input type="submit" value="UPDATE" [disabled]="productTitle.errors || productPrice.errors"/>
+</form>

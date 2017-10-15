@@ -1,3 +1,16 @@
+Resume: noteform.component
+
+FULL STACK:
+1. Move Angular project into Express file directory, a sibling of server folder and server.js
+2. ng build -w, within the angular project folder. This generates dist folder.
+3. Edit server.js file to define 'dist' folder directory as the static folder.
+	A. app.use(express.static(path.join(__dirname, '/my-angular-app/dist')));
+4. Need bodyParser.json() to indicate that post requests will be json formatted
+5. Angular catch-all routing
+    app.all("*", (req,res,next) => {
+        res.sendFile(path.resolve("./public/dist/index.html"))
+    });
+
 1. Assume node and @angular/cli are installed (globally)
 1.5. npm init -y
 2. npm install express
@@ -23,8 +36,14 @@ npm install bcrypt
 14. ng generate service service_name
 15. Make sure to include Http and FormModule
 
+Todo (product-mgmt):
+1. Write markSelected in app.component.ts
+2. Setup service
+3. Write each component and update the service accordingly
+
 Todo (Quote Ranks):
 1. Go back and add bonus features to Quotes List (sort by votes)
+2. Refactor weather assignment to have bold clicked buttons and reorganization
 
 Notes:
 1. Set PATH for node modules...

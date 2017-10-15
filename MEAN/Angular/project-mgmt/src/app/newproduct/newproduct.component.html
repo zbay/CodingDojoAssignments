@@ -1,0 +1,22 @@
+<h1>Create a New Product</h1>
+<form (submit)="submitProduct()">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" name="title" [(ngModel)]="product.title" required minlength="4" #productTitle="ngModel"/>
+      <div *ngIf="productTitle.errors && (productTitle.errors.required || productTitle.errors.minlength) && (productTitle.dirty || productTitle.touched)" class="error">
+        The product title must be at least 4 characters in length!
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input type="number" step="0.01" name="price" [(ngModel)]="product.price" required minvalue="0.0" #productPrice="ngModel"/>
+      <div *ngIf="productPrice.errors && productPrice.errors.required" class="error">
+          A product price is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="imageURL">Image URL:</label>
+      <input type="text" name="imageUrl" [(ngModel)]="product.imageUrl"/>
+    </div>
+    <input type="submit" value="CREATE" [disabled]="productTitle.errors || productPrice.errors"/>
+  </form>

@@ -1,0 +1,9 @@
+<form (submit)="onSubmit(); form.reset()" class="whiteBox" #form="ngForm">
+  <label for="content">Note: </label>
+  <input type="text" name="content" [(ngModel)]="data.content" required minlength="1" #note="ngModel" />
+  <input type="submit" value="Add Note" [disabled]="note.errors"/>
+  <br />
+  <div *ngIf="note.errors && (note.errors.required || note.errors.minlength) && (note.dirty || note.touched)" class="error">
+    A blank note cannot be submitted!
+  </div>
+</form>

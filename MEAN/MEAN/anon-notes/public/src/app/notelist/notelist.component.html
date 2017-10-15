@@ -1,0 +1,6 @@
+<div class="whiteBox scrollVert">
+  <div class="whiteBox" *ngFor="let note of notes">
+    <p class="noteTime">Noted on: {{note.created_at | date:'medium'}}</p>
+    <p class="noteContent">{{note.content}}</p>
+  </div>
+</div>
