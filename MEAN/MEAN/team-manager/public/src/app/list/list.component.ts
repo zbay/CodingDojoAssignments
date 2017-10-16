@@ -25,8 +25,9 @@ export class ListComponent implements OnInit {
       });
   }
 
-  deletePlayer(id){
-    this._playersService.deletePlayer({_id: id})
+  deletePlayer(id, name){
+    if(confirm("Are you sure you want to delete " + name + "?")){
+      this._playersService.deletePlayer({_id: id})
       .catch( err => { 
         console.log( "Error: ListComponent: deletePlayer:", err ); 
       })
@@ -34,5 +35,5 @@ export class ListComponent implements OnInit {
         this.getPlayers();
       });
   }
-
+  }
 }
