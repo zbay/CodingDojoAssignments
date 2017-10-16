@@ -9,7 +9,6 @@ import { Note } from './note';
 })
 export class AppComponent {
   notes: Array<Note> = [];
-  freshForm: boolean = true;
   constructor(private _noteService: NoteService){}
 
   ngOnInit() {

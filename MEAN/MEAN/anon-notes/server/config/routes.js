@@ -1,4 +1,5 @@
 const notes = require('../controllers/notes');
+const path = require('path');
 module.exports = function(app) {
     app.post("/note", function(req, res){
         notes.newNote(req, res);

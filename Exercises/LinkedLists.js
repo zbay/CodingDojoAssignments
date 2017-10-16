@@ -444,6 +444,78 @@ function SLL(){
     }
 
 
+    //doubly linked lists
+    this.pushBack = function(val){
+        let newNode = newNode(val);
+        if(!this.head){
+            this.head = newNode;
+            this.tail = newNode;
+            return this;
+        }
+        this.tail.next = newNode;
+        newNode.prev = thisl.tail;
+        this.tail = newNode;
+        return this;
+    }
+    this.pushFront = function(val){
+        let newNode = newNode(val);
+        if(!this.head){
+            this.head = newNode;
+            this.tail = newNode;
+            return this;
+        }
+        newNode.next = this.head;
+        this.head.prev = newNode;
+        this.head = newNode;
+        return this;
+    }
+    this.popBack = function(){
+        if(!this.head){
+            return this;
+        }
+        let returnVal = this.tail.val;
+        if(this.head === this.tail){
+            this.tail = undefined;
+            this.head = undefined;
+            return returnVal;
+        }
+        this.tail = this.tail.prev;
+        this.tail.next = undefined;
+        return returnVal;
+    }
+    this.popFront = function(){
+        if(!this.head){
+            return this;
+        }
+        let returnVal = this.tail.val;
+        if(this.head === this.tail){
+            this.tail = undefined;
+            this.head = undefined;
+            return returnVal;
+        }
+        this.head = this.head.next;
+        this.head.prev = undefined;
+        return returnVal;       
+    }
+    this.contains = function(val){
+        let runner = this.head;
+        while(runner){
+            if(runner.val === val){
+                return true;
+            }
+            runner = runner.next;
+        }
+        return false;
+    }
+    this.size = function(){
+        let runner = this.head;
+        let count = 0;
+        while(runner){
+            count++;
+            runner = runner.next;
+        }
+        return count;
+    }
 }
 
 var list1 = new SLL();

@@ -36,14 +36,14 @@ npm install bcrypt
 14. ng generate service service_name
 15. Make sure to include Http and FormModule
 
-Todo (product-mgmt):
-1. Write markSelected in app.component.ts
-2. Setup service
-3. Write each component and update the service accordingly
+Todo (team-manager):
+1. Routes module
+2. Service
+3. Components
 
 Todo (Quote Ranks):
 1. Go back and add bonus features to Quotes List (sort by votes)
-2. Refactor weather assignment to have bold clicked buttons and reorganization
+
 
 Notes:
 1. Set PATH for node modules...
