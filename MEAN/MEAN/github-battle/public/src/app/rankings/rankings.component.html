@@ -1,0 +1,7 @@
+<div class="whiteBox">
+  <div class="whiteBox" *ngFor="let user of users; let idx = index">
+    <div class="col">{{idx+1}}</div>
+    <app-userbox [user]="user" class="col"></app-userbox>
+    <div class="col">Score: {{user.score}}</div>
+  </div>
+</div>

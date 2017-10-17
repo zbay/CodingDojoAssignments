@@ -1,0 +1,21 @@
+<form *ngIf="!userOne.username" (submit)="addUser(1)" #formOne="ngForm" class="whiteBox col">
+  <h1>Player 1</h1>
+  <div class="form-group">
+    <label for="usernameOne">GitHub Username</label>
+    <input type="text" name="usernameOne" [(ngModel)]="usernameOne" required/>
+  </div>
+  <div *ngIf="notFoundOne" class="redtext">{{usernameOne}} does not exist, try again!</div>
+  <input type="submit" value="Get User" [disabled]="!formOne.valid"/>
+</form>
+<app-userbox *ngIf="userOne.username" [user]="userOne"></app-userbox>
+<form *ngIf="!userTwo.username" (submit)="addUser(2)" #formTwo="ngForm" class="whiteBox col">
+  <h1>Player 2</h1>
+  <div class="form-group">
+    <label for="usernameTwo">GitHub Username</label>
+    <input type="text" name="usernameTwo" [(ngModel)]="usernameTwo" required/>
+  </div>
+  <div *ngIf="notFoundTwo" class="redtext">{{usernameTwo}} does not exist, try again!</div>
+  <input type="submit" value="Get User" [disabled]="!formTwo.valid"/>
+</form>
+<app-userbox *ngIf="userTwo.username" [user]="userTwo"></app-userbox>
+<a *ngIf="userTwo.username && userOne.username" [routerLink]="['results']"><button>BATTLE!</button></a>

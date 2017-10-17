@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+.col{
+    display:inline-block;
+    vertical-align: top;
+}
+.whiteBox{
+    border: 1px solid black;
+}
+img{
+    width:400px;
+    height:400px;
+}
+
+.greentext{
+    color:green;
+}
+.redtext{
+    color:red;
+}

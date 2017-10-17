@@ -1,0 +1,13 @@
+<div class="col">
+  <div class="greentext">
+    <h2>1st Place</h2>
+    {{userOne.username}} (Score: {{userOne.score}})
+  </div>
+  <div class="redtext">
+    <h2>2nd Place</h2>
+    {{userTwo.username}} (Score: {{userTwo.score}})
+  </div>
+</div>
+<app-userbox class="col" [user]="userOne"></app-userbox>
+<br />
+<a [routerLink]="['/']"><button>Reset</button></a>
