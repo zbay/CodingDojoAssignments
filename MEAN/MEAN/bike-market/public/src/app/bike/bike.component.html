@@ -1,0 +1,12 @@
+<div class="whiteBox">
+  <img [src]="bike.imgURL" alt="Bicycle" class="col"/>
+  <div>
+    <h3>{{bike.title}}</h3>
+  </div>
+  <div>
+    <div style="font-weight:bold">${{bike.price}}</div>
+    <div>{{bike.location}}</div>
+    <button *ngIf="interactive && bike.mine" (click)="deleteBike()">DELETE</button>
+    <button *ngIf="interactive && !bike.mine" (click)="contactAlert()">Contact</button>
+  </div>
+</div>

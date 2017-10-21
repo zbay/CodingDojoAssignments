@@ -1,0 +1,12 @@
+<app-nav [clicked]="Browse"></app-nav>
+<form #form="ngForm" (submit)="nothing()">
+    <div class="form-group">
+      <label for="search">Search:</label>
+      <input type="text" name="title" [(ngModel)]="filter" #title="ngModel" required minlength="1" />
+    </div>
+    <input type="submit" value="Search" [disabled]="true" class="hide">
+  </form>
+<div *ngIf="bikes">
+    <app-bike *ngFor="let bike of bikes" [ngClass]="{'hide': filter.length > 0 && bike.title.indexOf(filter) === -1}" [interactive]="true" [bike]="bike" (refreshEmitter)="refresh($event)">
+    </app-bike>
+</div>

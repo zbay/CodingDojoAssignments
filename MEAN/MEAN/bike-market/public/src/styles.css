@@ -1,0 +1,25 @@
+.whiteBox{
+    padding:5px;
+    border: 2px solid black;
+}
+.greyBox{
+    padding:5px;
+    border: 2px solid black;
+    background-color:grey;    
+}
+.col{
+    display:inline-block;
+    vertical-align: top;
+}
+.error{
+    color:red;
+}
+.bold{
+    font-weight:bold;
+}
+img{
+    width:200px;
+}
+.hide{
+    display:none;
+}

@@ -1,0 +1,11 @@
+<app-nav [clicked]="MyListings"></app-nav>
+<div class="greyBox">
+    <h2>Create Listing</h2>
+    <app-bikeform (refreshEmitter)="refresh($event)"></app-bikeform>
+</div>
+<div class="greyBox">
+    <h2>Edit/Delete Listings</h2>
+    <div *ngIf="bikes">
+        <app-bikeformexisting *ngFor="let bike of bikes" (refreshEmitter)="refresh($event)" [origBike]="bike"></app-bikeformexisting>
+    </div>
+</div>
