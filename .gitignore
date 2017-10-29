@@ -1,4 +1,5 @@
 Python/MyEnvironments
 Python/Django/djangoEnv
 *.zip
+*.class
 node_modules/
