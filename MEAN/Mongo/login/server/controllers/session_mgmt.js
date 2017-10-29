@@ -1,7 +1,7 @@
 "use strict";
 let self = module.exports = {
     init_session: function(req, res, next){
-        if(req.session.first_name === undefined){
+        if(req.session.logged_in === undefined){
             self.reset_session(req);
         }
         next();

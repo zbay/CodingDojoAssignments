@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BikeService } from '../bike.service';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
@@ -24,6 +24,10 @@ export class BrowseComponent implements OnInit {
   ngOnInit() {
     this.getBikes();
   }
+
+  /*ngOnDestroy(){
+    this._loginService.loggedInObservable.unsubscribe();
+  }*/
 
   nothing(){}
 

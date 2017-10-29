@@ -1,5 +1,7 @@
-// todo: search bar AND 5 strikes yer out
 const express = require('express');
+/*const multer = require('multer');
+var DIR = './public/';
+const upload = multer({ dest: 'uploads/' })*/
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');

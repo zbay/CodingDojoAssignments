@@ -44,6 +44,13 @@ Todo (team-manager):
 Todo (Quote Ranks):
 1. Go back and add bonus features to Quotes List (sort by votes)
 
+Deploy (in addition to what's there):
+1. Root level
+2. sudo chwon -R $USER:$(id -gn $USER) /home/ubuntu/.config
+3. sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
+4. sudo npm install @angular/cli
+5. Go to project/public, sudo npm install, and ng build
+
 
 Notes:
 1. Set PATH for node modules...

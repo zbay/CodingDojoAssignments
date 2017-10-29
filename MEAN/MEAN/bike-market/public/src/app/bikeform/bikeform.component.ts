@@ -26,5 +26,4 @@ export class BikeformComponent implements OnInit {
         console.log(this.errorMsg);
       });
   }
-
 }

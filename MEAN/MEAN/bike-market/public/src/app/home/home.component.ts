@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BikeService } from '../bike.service';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,13 @@ export class HomeComponent implements OnInit {
   randomBike: {};
   bikeLoaded: boolean = false;
 
-  constructor(private _router: Router, private _bikeService: BikeService, private _loginService: LoginService) { }
+  constructor(private _router: Router, private _bikeService: BikeService, private _loginService: LoginService) {
+    this._loginService.loggedInObservable.subscribe((isLoggedIn) => {
+      if(isLoggedIn){
+        this._router.navigate(['/browse']);
+      }
+    }); 
+   }
 
   ngOnInit() {
     console.log("home component");
@@ -24,5 +30,9 @@ export class HomeComponent implements OnInit {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  ngOnDestroy(){
+    this._loginService.loggedInObservable.unsubscribe();
   }
 }

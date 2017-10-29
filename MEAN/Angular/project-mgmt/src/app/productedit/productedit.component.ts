@@ -6,8 +6,7 @@ import { Product } from '../Product';
 @Component({
   selector: 'app-productedit',
   templateUrl: './productedit.component.html',
-  styleUrls: ['./productedit.component.css'],
-  providers: [ProductsService]
+  styleUrls: ['./productedit.component.css']
 })
 export class ProducteditComponent implements OnInit {
   products: Array<Product>;

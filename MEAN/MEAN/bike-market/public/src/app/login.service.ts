@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class LoginService { // rewrite with callbacks instead of promises?
+export class LoginService {
   loggedInObservable = new BehaviorSubject(false);
 
   constructor(private _http: Http) { }

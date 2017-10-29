@@ -6,8 +6,7 @@ import { Product } from './../product';
 @Component({
   selector: 'app-newproduct',
   templateUrl: './newproduct.component.html',
-  styleUrls: ['./newproduct.component.css'],
-  providers: [ProductsService]
+  styleUrls: ['./newproduct.component.css']
 })
 export class NewproductComponent implements OnInit {
   product: Product = new Product();

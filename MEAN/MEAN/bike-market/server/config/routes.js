@@ -24,6 +24,9 @@ module.exports = function(app) {
     app.post("/api/deleteBike", (req, res) => {
         bikes.deleteBike(req, res);
     });
+    /*app.post("/api/addPhoto", (req, res) => {
+        bikes.addPhoto(req, res);
+    });*/
     app.post("/api/user", (req, res) => { // add a new user
         users.newUser(req, res);
     });

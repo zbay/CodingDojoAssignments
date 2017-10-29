@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema({
         required: [true, "A password is required!"],
     },
     bikes: [{type: Schema.Types.ObjectId, ref: 'Bike'}],
-    last_login_attempt: {type: Date},
+    last_login_attempt: {type: Number}, // utc timestamp
     strikes: {type: Number, default: 0}
 });
 

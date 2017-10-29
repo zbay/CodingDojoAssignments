@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BikeService } from '../bike.service';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
@@ -24,6 +24,10 @@ export class MylistingsComponent implements OnInit {
     this.getBikes();
   }
 
+  /*ngOnDestroy(){
+    this._loginService.loggedInObservable.unsubscribe();
+  }*/
+
   getBikes(){
     this._bikeService.getMine().subscribe((response) => { 
       this.bikes = response.bikes; // OnDelete: call this.bikes!
@@ -31,20 +35,6 @@ export class MylistingsComponent implements OnInit {
   (err) => {
     this.errorMsg = JSON.parse(err._body).error;
   });
-   /* .then((bikes) => {
-        this.bikes = bikes.bikes;
-        console.log(this.bikes);
-        if(bikes.length === 0){
-          this.errorMsg = "No bikes are in the database! Maybe you should add one."
-        }
-        else{
-          this.errorMsg = undefined;
-        }
-    })
-    .catch((err) => {
-      this.errorMsg = JSON.parse(err._body).error;
-      console.log(this.errorMsg);
-    });*/
   }
 
   refresh(blank){

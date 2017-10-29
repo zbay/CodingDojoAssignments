@@ -20,7 +20,7 @@ export class RegisterformComponent implements OnInit {
   register(){
     this._loginService.register(this.user)
     .then((user) => {
-      this._router.navigate(['browse']);
+      this._router.navigate(['/browse']);
       this._loginService.setLoginStatus(true);
     })
     .catch((err) => {

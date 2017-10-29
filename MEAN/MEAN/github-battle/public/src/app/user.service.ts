@@ -20,21 +20,19 @@ export class UserService {
         githubData.score = response.followers + response.public_repos;
         githubData.username = username;
         githubData.avatarURL = response.avatar_url;
-        console.log("posting new player, maybe?");
         this._http.post('/player', githubData)
           .map((response) => response.json())
           .toPromise();
         callback(githubData);
       },
       (error)=>{
-        console.log(error);
         githubData.score = undefined;
         githubData.username = undefined;
         githubData.avatarURL = undefined;
         callback(error);
       }
     );
-  }
+  } 
 
   getAll(){
     return this._http.get("/players")

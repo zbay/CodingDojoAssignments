@@ -11,7 +11,7 @@
       <label for="price">Price</label>
       <input type="number" step="0.01" name="price" [(ngModel)]="product.price" required minvalue="0.0" #productPrice="ngModel"/>
       <div *ngIf="productPrice.errors && productPrice.errors.required" class="error">
-          A product price is required
+          A product price is required!
       </div>
     </div>
     <div class="form-group">
