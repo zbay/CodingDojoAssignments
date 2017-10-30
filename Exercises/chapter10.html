@@ -2,7 +2,29 @@
     <head>
         <title>Chapter 10: Strings II</title>
         <script>
+            function rotateString(str, rotations){
+                if(rotations <= 0){
+                    return str;
+                }
+                str = str.charAt(str.length-1) + str.slice(0, str.length-1);
+                return rotateString(str, rotations-1);
+            }
 
+            function isRotation(str1, str2){
+                if(str1.length !== str2.length){
+                    return false;
+                }
+                rotate(str1, str2, 0);
+                function rotate(str1, str2, count){
+                    if(str1 == str2){
+                        return true;
+                    }
+                    if(count >= str1.length){
+                        return false;
+                    }
+                    return rotate(rotateString(str1, 1), str2, count+1);
+                }
+            }
         </script>
     </head>
     <body></body>
