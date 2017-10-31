@@ -1,0 +1,11 @@
+1. Setting up Apache Tomcat:
+	A. Build Path
+	B. PROJECTNAME/WebContent/WEB-INF/classes
+	C. Apply
+	D. Right click Java Resources/src, click New -> Servlet
+	E. Name package com.<<yourname>>.web
+	F. Name Class name
+	G. Modify Home.java file
+	H. Right click Home.java and choose Run As -> Run On Server. Navigate to localhost:8080/HelloWorld/Home
+	I. Add web.xml to WEB-INF to allow XML configuration
+	J. Static files are served from WebContent folder
