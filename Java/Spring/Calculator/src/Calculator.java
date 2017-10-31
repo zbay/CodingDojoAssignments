@@ -19,10 +19,10 @@ public class Calculator implements java.io.Serializable{
 	}
 
 	public void setOperandTwo(double operand) {
-		this.operandOne = operand;
+		this.operandTwo = operand;
 	}
 	
-	public void setOperator(char operation) {
+	public void setOperation(char operation) {
 		this.operation = operation;
 	}
 	

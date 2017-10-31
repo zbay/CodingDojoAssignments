@@ -1,5 +1,5 @@
 To-dos (optional):
-* Sports ORM I and II 
 * SQLZoo
 * In-place partitioning of SLL
 * https://regexone.com/
+* Calculator Part II (Java)

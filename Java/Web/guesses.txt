@@ -1,0 +1,5 @@
+web-app: Necessary enclosing root node
+display-name: Project title.
+servlet: A subproject
+servlet-mapping: Maps a url pattern (url-pattern) to a subproject by its name (servlet-name)
+welcome-file-list: Indicates a root file for display?
