@@ -1,8 +1,10 @@
 
 public abstract class PokeOperations implements PokeManager {
-	public void createPokemon(String name, int health, String type) {
-		Pokemon p = new Pokemon(name, health, type);
+	@Override
+	public Pokemon createPokemon(String name, int health, String type) {
+		return new Pokemon(name, health, type);
 	}
+	@Override
 	public void attackPokemon(Pokemon pokemon) {
 		pokemon.setHealth(pokemon.getHealth() - 10);
 	}

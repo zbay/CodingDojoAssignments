@@ -30,4 +30,10 @@ public class Pokemon {
 	public void setType(String type) {
 		this.type = type;
 	}
+	public static void setCount(int count) {
+		Pokemon.count = count;
+	}
+	public static int getCount() {
+		return count;
+	}
 }

@@ -25,6 +25,17 @@
                     return rotate(rotateString(str1, 1), str2, count+1);
                 }
             }
+
+            function badChars(str, bad){
+                let buffer = "";
+                for(let i = 0; i < str.length; i++){
+                    let currentChar = str.charAt(i);
+                    if(bad.indexOf(currentChar) === -1){
+                        buffer += currentChar;
+                    }
+                }
+                return buffer.
+            }
         </script>
     </head>
     <body></body>

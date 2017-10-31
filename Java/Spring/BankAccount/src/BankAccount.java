@@ -1,23 +1,27 @@
 import java.util.Random;
 public class BankAccount {
-	private int accountNumber;
+	private long accountNumber;
 	private double checkingBalance;
 	private double savingsBalance;
 	private static int numAccounts;
 	private static int moneySum;
 	
-	private BankAccount() {
+	public BankAccount() {
 		this.accountNumber = randomNum();
 		numAccounts++;
 	}
 	
-	private int randomNum() {
+	private long randomNum() {
 		Random random = new Random();
 		String numString = "";
 		for(int i = 0; i < 10; i++){
 			numString += random.nextInt(10);
 		}
-		return Integer.parseInt(numString);
+		return Long.parseLong(numString);
+	}
+	
+	public long getAccountNumber() {
+		return this.accountNumber;
 	}
 	
 	public double getCheckingBalance() {
@@ -34,6 +38,7 @@ public class BankAccount {
 		else {
 			this.savingsBalance += amount;
 		}
+		BankAccount.moneySum += amount;
 	}
 	
 	public void withdraw(double amount, boolean checking) {
@@ -43,9 +48,13 @@ public class BankAccount {
 		else {
 			this.savingsBalance -= amount;
 		}
+		BankAccount.moneySum -= amount;
 	}
 	
 	public double getTotalBalance() {
 		return this.checkingBalance + this.savingsBalance;
+	}
+	public double allTheMoney() {
+		return BankAccount.moneySum;
 	}
 }
