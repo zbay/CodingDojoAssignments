@@ -1,11 +1,21 @@
-1. Setting up Apache Tomcat:
+Setting up Spring:
+	1. Right click, new, Spring Starter Project
+	2. Select "Web" dependency
+
+Setting up Apache Tomcat:
 	A. Build Path
 	B. PROJECTNAME/WebContent/WEB-INF/classes
 	C. Apply
 	D. Right click Java Resources/src, click New -> Servlet
 	E. Name package com.<<yourname>>.web
-	F. Name Class name
+	F. Name Class name (Home?)
 	G. Modify Home.java file
 	H. Right click Home.java and choose Run As -> Run On Server. Navigate to localhost:8080/HelloWorld/Home
 	I. Add web.xml to WEB-INF to allow XML configuration
 	J. Static files are served from WebContent folder
+	K. Add servlet and servlet-mapping tags to web.xml, to add routes
+	L. Put .jsp files in WEB-INF/views folder
+	M. Models and controllers inside the package "folder"?
+	N. JSTL.jar in the tomcat/lib directory. User JSTL prefix in every JSP file
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+

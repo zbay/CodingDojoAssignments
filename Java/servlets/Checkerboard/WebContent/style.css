@@ -1,0 +1,15 @@
+	.row{
+		height:50px;
+		display:block;
+	}
+	.col{
+		height:50px;
+		width:50px;
+		display:inline-block;
+	}
+	.row:nth-child(odd) .col:nth-child(even), .row:nth-child(even) .col:nth-child(odd){
+		background-color: black;
+	}
+	.row:nth-child(odd) .col:nth-child(odd), .row:nth-child(even) .col:nth-child(even){
+		background-color:red;
+	}

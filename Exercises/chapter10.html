@@ -36,6 +36,40 @@
                 }
                 return buffer.
             }
+
+            function removeDupes(){ // revise: do recursively
+                let deduped = "";
+                for(let i = str.length-1; i >= 0; i--){
+                    let currentChar = str.charAt(i);
+                    if(!deduped.includes(currentChar)){
+                        deduped = currentChar + deduped;
+                    }
+                }
+                return deduped;
+            }
+
+            function numToText(num){ // revise: do recursively, and supporting fractions
+                let text = "";
+                let dict = {}; //fill with appropriate numbers and their string equivalent
+                // can easily add higher powers
+                if(num > 1000){
+                    text += dict[Math.floor(num/1000)] + " thousand ";
+                    num = num % 1000;
+                }
+                if(num > 100){
+                    test += dict[Math.floor(num/100)] + " hundred ";
+                    num = num % 100;
+                }
+                if(num >= 20){
+                    test += dict[Math.floor(num/10)*10];
+                    num = num % 10;
+                }
+                if(num > 0){
+                    text += dict[num];
+                    num = 0;
+                }
+                return text;
+            }
         </script>
     </head>
     <body></body>

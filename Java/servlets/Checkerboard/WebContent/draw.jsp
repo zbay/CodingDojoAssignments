@@ -4,24 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel='stylesheet' type='text/css' href='style.css'>
 <title>Checkerboard</title>
-<style>
-	.row{
-		height:50px;
-		display:block;
-	}
-	.col{
-		height:50px;
-		width:50px;
-		display:inline-block;
-	}
-	.row:nth-child(odd) .col:nth-child(even), .row:nth-child(even) .col:nth-child(odd){
-		background-color: black;
-	}
-	.row:nth-child(odd) .col:nth-child(odd), .row:nth-child(even) .col:nth-child(even){
-		background-color:red;
-	}
-</style>
 </head>
 <body>
     <!-- getting the value for the name parameter -->
