@@ -2,7 +2,15 @@ Setting up Spring:
 	1. Right click, new, Spring Starter Project
 	2. Select "Web", "Devtools" dependencies.
 	Also, "tomcat-embed-jasper" and "jstl" for JSP.
-	Dependencies can be added in pom.xml
+	Dependencies can be added in pom.xml.
+        <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>javax.servlet</groupId>
+        	<artifactId>jstl</artifactId>
+        </dependency>
 	3. Create src/main/webapp folder
 	Create src/main/webapp/WEB-INF
 	In src/main/resources/applications.properties, add spring.mvc.view.prefix: /WEB-INF/
