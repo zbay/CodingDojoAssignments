@@ -70,6 +70,60 @@
                 }
                 return text;
             }
+
+            function isPangram(str){
+                let alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                str = str.toUppercase();
+                if(str.length < 26){
+                    return false;
+                }
+                for(let i = 0; i < alpha.length; i++){
+                    if(!str.includes(alpha.charAt(i))){
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            function allPermutations(str){ // failure: redo using the below pseudocode!
+                let perms = [];
+                str = str.split("");
+                let copy = str.slice();
+                //let permsLen = factorial(str.length);
+
+                function factorial(n){
+                    let product = 1;
+                    while(n > 1){
+                        product *= 1;
+                        n--;
+                    }
+                    return product;
+                }
+
+                function helper(perm, chars){
+                    if(perm.length === str.length){
+                        perms.push(perm);
+                    }
+                    for(let i = 0; i < chars.length; i++){
+                        return helper(perm + chars.splice(i, 1), chars);
+                    }
+                }
+                helper("", copy);
+                return perms;
+            }
+            /*
+function getAllPermutations (string)
+  define results
+  if string is a single character
+    add the character to results
+    return results
+  for each char in string
+    define innerPermutations as a char of string
+    set innerPermutations to getAllPermutations (without next char)
+    foreach string in innerPermutations
+      add defined char and innerPermutations char
+  return results
+  */
         </script>
     </head>
     <body></body>

@@ -1,9 +1,17 @@
 Setting up Spring:
 	1. Right click, new, Spring Starter Project
-	2. Select "Web", "Devtools" dependencies
-	3. Right click on project after it's built. Click "Spring Boot App" tor run
-	4. Make controllers package com.zbay.<<projectname>>.controllers
+	2. Select "Web", "Devtools" dependencies.
+	Also, "tomcat-embed-jasper" and "jstl" for JSP.
+	Dependencies can be added in pom.xml
+	3. Create src/main/webapp folder
+	Create src/main/webapp/WEB-INF
+	In src/main/resources/applications.properties, add spring.mvc.view.prefix: /WEB-INF/
+	Add JSPs (test:  <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+    	<c:out value="${2+2}"/> ). return .jsp filestring instead of .html filestring
+	3. Right click on project after it's built. Click "Spring Boot App" to run
+	4. Make controllers package com.zbay.<<projectname>>.controllers under the src/main/java folder
 	5. Put HTML, CSS, and JS in src/main/resources/static folder
+	6. 
 	Note. @RestController is a combo of @Controller and @ResponseBody
 
 Setting up Apache Tomcat:
