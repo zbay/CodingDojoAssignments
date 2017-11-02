@@ -1,6 +1,10 @@
 Setting up Spring:
 	1. Right click, new, Spring Starter Project
-	2. Select "Web" dependency
+	2. Select "Web", "Devtools" dependencies
+	3. Right click on project after it's built. Click "Spring Boot App" tor run
+	4. Make controllers package com.zbay.<<projectname>>.controllers
+	5. Put HTML, CSS, and JS in src/main/resources/static folder
+	Note. @RestController is a combo of @Controller and @ResponseBody
 
 Setting up Apache Tomcat:
 	A. Build Path
