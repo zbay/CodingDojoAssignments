@@ -18,6 +18,7 @@ Setting up Spring:
     	<c:out value="${2+2}"/> ). return .jsp filestring instead of .html filestring
 	3. Right click on project after it's built. Click "Spring Boot App" to run
 	4. Make controllers package com.zbay.<<projectname>>.controllers under the src/main/java folder
+	And, com.zbay.<<projectname>>.models
 	5. Put HTML, CSS, and JS in src/main/resources/static folder
 	6. 
 	Note. @RestController is a combo of @Controller and @ResponseBody
