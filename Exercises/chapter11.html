@@ -2,7 +2,76 @@
     <head>
         <title>Chapter 11: Trees</title>
         <script>
+            function BTNode(value){
+                this.val = value;
+                this.left = null;
+                this.right = null;
+            }
+            function BST(){
+                this.root = null;
 
+                this.add = function(val){
+                    if(!this.root){
+                        this.root = new BTNode(val);
+                        return this;
+                    }
+                    else{
+                        return rAdd(this.root);
+                    }
+
+                    function rAdd(current){
+                        if(!current.left && val < node.value){
+                            current.left = new Node(val);
+                            return this;
+                        }
+                        else if(!current.right && val >= node.value){
+                            current.right = new Node(val);
+                            return this;
+                        }
+                        else if(current.value < val){
+                            rAdd(current.left);
+                        }
+                        else{ // current.value >= val
+                            rAdd(current.right);
+                        }
+                    }
+
+                    this.max = function(){
+                        let current = this.root;
+                        while(current.right){
+                            current = current.right;
+                        }
+                        return current.value;
+                    }
+
+                    this.min = function(){
+                        let current = this.root;
+                        while(current.left){
+                            current = current.left;
+                        }
+                        return current.value;
+                    }
+
+                    this.contains = function(val){
+                        return rContains(this.root);
+
+                        function rContains(current){
+                            if(current.value === val){
+                                return true;
+                            }
+                            else if(current.left && current.value > val){
+                                return rContains(current.left);
+                            }
+                            else if(current.right && current.value <= val){
+                                return rContains(current.right);
+                            }
+                            else{
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
         </script>
     </head>
     <body></body>
