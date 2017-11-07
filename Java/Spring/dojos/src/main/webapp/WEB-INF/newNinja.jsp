@@ -27,14 +27,14 @@
 			</form:select>
 		</div>
 		<div class="form-group">
-			<form:label path="first_name">First Name: </form:label>
-			<form:errors path="first_name" class="error"/>
-			<form:input path="first_name"/>
+			<form:label path="firstName">First Name: </form:label>
+			<form:errors path="firstName" class="error"/>
+			<form:input path="firstName"/>
 		</div>
 		<div class="form-group">
-			<form:label path="last_name">Last Name: </form:label>
-			<form:errors path="last_name" class="error"/>
-			<form:input path="last_name"/>
+			<form:label path="lastName">Last Name: </form:label>
+			<form:errors path="lastName" class="error"/>
+			<form:input path="lastName"/>
 		</div>
 		<div class="form-group">
 			<form:label path="age">Age: </form:label>

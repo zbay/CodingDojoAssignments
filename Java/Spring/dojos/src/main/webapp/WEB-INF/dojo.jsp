@@ -17,7 +17,7 @@
 	</style>
 </head>
 <body style="text-align: center">
-	<h1><c:out value="${dojo.getName()}"></c:out>Location Ninjas</h1>
+	<h1><c:out value="${dojo.getName()}"></c:out> Location Ninjas</h1>
 	<table>
 		<thead>
 			<tr>
