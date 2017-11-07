@@ -3,7 +3,7 @@
         <title>Chapter 11: Trees</title>
         <script>
             function BTNode(value){
-                this.val = value;
+                this.value = value;
                 this.left = null;
                 this.right = null;
             }
@@ -13,6 +13,7 @@
                 this.add = function(val){
                     if(!this.root){
                         this.root = new BTNode(val);
+                        console.log("Added: " + val);
                         return this;
                     }
                     else{
@@ -20,19 +21,65 @@
                     }
 
                     function rAdd(current){
-                        if(!current.left && val < node.value){
-                            current.left = new Node(val);
+                        if(!current){
+                            return;
+                        }
+                        console.log(current.value);
+                        if(!current.left && val < current.value){
+                            console.log("Added: " + val);
+                            current.left = new BTNode(val);
                             return this;
                         }
-                        else if(!current.right && val >= node.value){
-                            current.right = new Node(val);
+                        else if(!current.right && val >= current.value){
+                            console.log("Added: " + val);
+                            current.right = new BTNode(val);
                             return this;
                         }
                         else if(current.value < val){
-                            rAdd(current.left);
+                            rAdd(current.right);
                         }
                         else{ // current.value >= val
-                            rAdd(current.right);
+                            rAdd(current.left);
+                        }
+                    }
+                }
+
+                    this.isEmpty = function(){
+                        return this.root === null;
+                    }
+
+                    this.size = function(){
+                        if(this.root === null){
+                            return 0;
+                        }
+                        return rSize(this.root);
+
+                        function rSize(node){
+                            if(!node.left && !node.right){
+                                return 1;
+                            }
+                            else if(!node.left){
+                                return 1 + rSize(node.right);
+                            }
+                            else if(!node.right){
+                                return 1 + rSize(node.left);
+                            }
+                            else{
+                                return 1 + rSize(node.left) + rSize(node.right);
+                            }
+                        }
+                    }
+
+                    this.display = function(){
+                        rShow(this.root);
+                        function rShow(current){
+                            if(!current){
+                                //console.log("The BST is empty!");
+                                return "The BST is empty!";
+                            }
+                            console.log(current.value);
+                            rShow(current.left);
+                            rShow(current.right);
                         }
                     }
 
@@ -71,7 +118,19 @@
                         }
                     }
                 }
-            }
+
+            let bst = new BST();
+            //console.log(bst.isEmpty());
+            bst.add(20);
+            bst.add(10);
+            bst.add(30);
+            bst.add(15);
+            bst.add(5);
+            //console.log(bst.max());
+            //console.log(bst.min());
+            //console.log(bst.isEmpty());
+            bst.display();
+            console.log(bst.size());
         </script>
     </head>
     <body></body>
