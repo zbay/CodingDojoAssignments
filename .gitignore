@@ -3,4 +3,4 @@ Python/Django/djangoEnv
 *.zip
 *.class
 node_modules/
-src/main/resources/application.properties
+*src/main/resources/application.properties
