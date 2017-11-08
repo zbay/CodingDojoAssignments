@@ -117,6 +117,48 @@
                             }
                         }
                     }
+
+                    this.height = function(){
+                        if(!this.root){
+                            return 0;
+                        }
+                        return rHeight(this.root);
+
+                        function rHeight(current){
+                            if(!current){
+                                return 0;
+                            }
+                            let leftHeight = rHeight(current.left);
+                            let rightHeight = rHeight(current.right);
+                            if(!current.left && !current.right){
+                                return 1;
+                            }
+                            else if(current.right && current.left){
+                                return(leftHeight >= rightHeight ? 1 + leftHeight : 1 + rightHeight);
+                            }
+                            else if(current.right){
+                                return 1 + rightHeight;
+                            }
+                            else{ // current.left
+                                return 1 + leftHeight;
+                            }
+                        }
+                    }
+
+                    this.isBalanced = function(){
+                        let heightFunc = this.height;
+                        if(!this.root){
+                            return true;
+                        }
+                        return rBalanced(this.root);
+
+                        function rBalanced(cur){
+                            if(!cur){
+                                return true;
+                            }
+                            return (Math.abs(heightFunc(cur.left) - heightFunc(cur.right)) < 2) && rBalanced(cur.left) && rBalanced(cur.right);
+                        }
+                    }
                 }
 
             let bst = new BST();
@@ -131,6 +173,14 @@
             //console.log(bst.isEmpty());
             bst.display();
             console.log(bst.size());
+            console.log(bst.height()); // 3
+            console.log(bst.isBalanced()); // true
+            bst.add(3);
+            console.log(bst.isBalanced()); // false
+            console.log(bst.height());
+            bst.add(1);
+            console.log(bst.height());
+            console.log(bst.isBalanced());
         </script>
     </head>
     <body></body>
