@@ -17,6 +17,32 @@ import com.zbay.overflow.services.QuestionService;
 
 @Controller
 public class MainController {
+	
+	/*
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	
+		// where class of desired input is List, and named tags, convert from String element to something of List type
+        binder.registerCustomEditor(List.class, "tags", new CustomCollectionEditor(List.class) {                
+	               
+	        public void setAsText(String element) {
+	        	// information coming from the form
+	        	String[] listOfTagString = element.split(", ");
+	        	List<Tag> listOfTags = new ArrayList<Tag>();
+	        	
+	        	int maxLength = listOfTagString.length > 2 ? 3 : listOfTagString.length;
+	        	
+	        	for(int i = 0; i < maxLength; i++) {
+	        		listOfTags.add(tagService.findOrCreateTag(listOfTagString[i]));
+	        	}
+	        	
+	        	// set the value of the element to be a list of tags
+	        	setValue(listOfTags);
+	        }
+        }); 
+	}
+	 */
+	
 	private final QuestionService questionService;
 	
 	public MainController(QuestionService questionService) {

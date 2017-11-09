@@ -1,5 +1,3 @@
-//wednesday: keys => templates => repos => services => controllers
-
 package com.zbay.overflow.models;
 
 import java.util.Date;
