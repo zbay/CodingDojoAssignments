@@ -35,6 +35,10 @@ Setting up Spring:
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-jpa</artifactId>
 </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
 	3. Create src/main/webapp folder
 	Create src/main/webapp/WEB-INF
 	In src/main/resources/applications.properties, add 
@@ -52,7 +56,9 @@ Setting up Spring:
 	4. Make controllers package com.zbay.<<projectname>>.controllers under the src/main/java folder
 	And, com.zbay.<<projectname>>.models
 	And, .services
-	And, .repositories
+	And, .repositories.
+	And, .config.
+	And, .validator
 	5. Put HTML, CSS, and JS in src/main/resources/static folder
 	6. Connect to MySQL (in MAMP?)
 
