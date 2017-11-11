@@ -43,4 +43,7 @@ public class Role {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+    public boolean equals(Role role) {
+    	return this.name == role.name;
+    }
 }

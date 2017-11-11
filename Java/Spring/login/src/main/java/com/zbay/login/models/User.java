@@ -73,6 +73,10 @@ public String getLastName() {
 	return lastName;
 }
 
+public String getFullName() {
+	return this.firstName + " " + this.lastName;
+}
+
 public void setLastName(String lastName) {
 	this.lastName = lastName;
 }
@@ -121,6 +125,24 @@ public void setEmail(String email) {
  public void setRoles(List<Role> list) {
      this.roles = list;
  }
+ 
+ public boolean isAdmin() {
+	 for(Role role: this.roles) {
+		 if(role.getName().equals("ROLE_ADMIN")) {
+			 return true;
+		 }
+	 }
+	 return false;
+ }
+ 
+ public boolean isSuperAdmin() {
+	 for(Role role: this.roles) {
+		 if(role.getName().equals("ROLE_SUPERADMIN")) {
+			 return true;
+		 }
+	 }
+	 return false;	 
+}
  
  @PrePersist
  protected void onCreate(){

@@ -1,14 +1,17 @@
 package com.zbay.login.controllers;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +34,7 @@ public class UserController {
     public String home(Principal principal, Model model, HttpSession session) {
     	session.setAttribute("successReg", false);
         String email = principal.getName();
-        User user = userService.findByEmail(email);
+        User user = userService.findByEmail(email).get(0);
         this.userService.update(user);
         model.addAttribute("currentUser", user);
         return "dashboard";
@@ -50,11 +53,6 @@ public class UserController {
     	model.addAttribute("user", new User());
         return "loginRegistration";
     }
-	
-    /*@RequestMapping(value="/logout")
-    public String logout() {
-    	return "redirect:/login";
-    }*/
     
     @PostMapping("/registration")
     public String register(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, HttpSession session) {
@@ -63,10 +61,36 @@ public class UserController {
     		return "loginRegistration";
     	}
     	else{
-    		this.userService.saveUser(user);
+    		if(this.userService.adminExists()) {
+    			this.userService.saveWithUserRole(user);	
+    		}
+    		else {
+    			this.userService.saveWithSuperAdminRole(user);	
+    		}
     		session.setAttribute("successReg", true);
     		return "redirect:/login";
         }
     }
- 
+    
+    @RequestMapping("/admin")
+    public String adminPage(Principal principal, Model model) {
+        String email = principal.getName();
+        model.addAttribute("currentUser", userService.findByEmail(email).get(0));
+        List<User> users = this.userService.findAll();
+        model.addAttribute("users", users);
+        return "adminPage";
+    }
+    
+    @PostMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") long id) {
+    	this.userService.deleteUserById(id);
+    	return "redirect:/admin";
+    }
+    
+    @PostMapping("/make_admin/{id}")
+    public String makeAdmin(@PathVariable("id") long id) {
+    	this.userService.makeAdminById(id);
+    	return "redirect:/admin";
+    }
+    
 }

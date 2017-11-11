@@ -13,11 +13,11 @@ import com.zbay.login.services.UserService;
 @Component
 public class UserValidator implements Validator {
 	
-	/*private UserService userService;
+	private UserService userService;
 	
 	public UserValidator(UserService userService) {
 		this.userService = userService;
-	}*/
+	}
 	
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
     	    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -38,6 +38,10 @@ public class UserValidator implements Validator {
         
         if (!validEmail.find()) {
         	errors.rejectValue("email", "EmailFormat");
+        }
+        
+        if(this.userService.findByEmail(user.getEmail()).size() > 0) {
+        	errors.rejectValue("email", "TakenEmail");
         }
     }
 }
