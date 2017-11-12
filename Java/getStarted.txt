@@ -39,6 +39,7 @@ Setting up Spring:
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-security</artifactId>
 </dependency>
+
 	3. Create src/main/webapp folder
 	Create src/main/webapp/WEB-INF
 	In src/main/resources/applications.properties, add 
