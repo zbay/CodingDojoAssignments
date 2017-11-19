@@ -24,7 +24,7 @@ public class License {
     private Long id;
     
     @Column
-    @Size(min=6, max=6, message="Number must be 5 digits long!")
+    @Size(min=6, max=6, message="Number must be 6 digits long!")
     private String number;
     
     @Column
