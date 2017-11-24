@@ -8,7 +8,7 @@
             //quickSort(arr, 0, arr.length-1);
             //console.log(arr);
             mergeSort(arr);
-            console.log(mergeSort(arr));
+            //console.log(mergeSort(arr));
             //console.log(combine([1, 5, 10, 20, 25], [2, 6, 7, 12, 23, 28]));
             function bubbleSort(arr){
                 let swapped = true;
@@ -130,6 +130,33 @@ function mergeSort(arr){
     array[i] = array[j];
     array[j] = temp;
 }
+
+function radixSort(arr){
+    let radix = 1;
+    while(true){
+        let buckets = [[], [], [], [], [], [], [], [], [], []];
+        let populatedBuckets = 0;
+        for(let i = 0; i < arr.length; i++){
+            let remainder = Math.floor(arr[i] / radix) % 10;
+            buckets[remainder].push(arr[i]);
+            if(buckets[remainder].length === 1){
+                populatedBuckets++;
+            }
+        }
+        if(populatedBuckets <= 1){
+            return arr;
+        }
+        let newArr = [];
+        for(let i = 0; i < buckets.length; i++){
+            for(let j = 0; j < buckets[i].length; j++){
+                newArr.push(buckets[i][j]);
+            }
+        }
+        arr = newArr;
+        radix *= 10;
+    }
+}
+//console.log(radixSort([5, 20, 31, 822, 1, 726, 40]));
   
         </script>
     </head>

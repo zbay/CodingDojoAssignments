@@ -2,7 +2,30 @@
     <head>
         <title>Chapter 13: Sets and Priority Queues</title>
         <script>
+            function interleave(arr1, arr2){
+                let newArr = [];
+                let shorter = arr1.length < arr2.length ? arr1: arr2;
+                let longer = arr1.length >= arr2.length ? arr1 : arr2;
+                for(let i = 0; i < shorter.length; i++){
+                    newArr.push(arr1[i]);
+                    newArr.push(arr2[i]);
+                }
+                for(let i = shorter.length; i < longer.length; i++){
+                    newArr.push(longer[i]);
+                }
+                return newArr;
+            }
+            //console.log(interleave([77,22,11,22], [2,6,7,2,6,2]));
 
+            function smallestArrayRange(arrs){
+                // revisit once you know priority queues and heaps????
+            }
+           /*let arrs1 = [[1, 2, 4, 5, 15], [3, 10, 12], [5, 10, 13, 17, 23]];
+            let arrs2 = [[40, 50, 60], [1, 4, 6], [10, 12, 45], [0, 5, 23, 56]];
+            let arrs3 = [[1, 23, 45, 56], [6, 8, 34], [56, 59, 90]]
+            console.log(smallestArrayRange(arrs1));
+            console.log(smallestArrayRange(arrs2));
+            console.log(smallestArrayRange(arrs3));*/
         </script>
     </head>
     <body></body>

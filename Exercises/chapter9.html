@@ -265,10 +265,98 @@ function generateAnagrams(str){
         }
     }
 }
-console.log(generateAnagrams("lim"));
-console.log(generateAnagrams("zachary"));
+/*console.log(generateAnagrams("lim"));
+console.log(generateAnagrams("zachary"));*/
 
-// resume with climbing stairs (103)
+function climbingStairs(steps){
+    let paths = [];
+    stairHelper(steps, []);
+    return paths;
+
+    function stairHelper(numSteps, path){
+        if(numSteps > 0){
+            if(numSteps >= 2){
+                let newPath = path.slice();
+                newPath.push(2);
+                stairHelper(numSteps-2, newPath.slice());
+            }
+            if(numSteps >= 1){
+                let newPath = path.slice();
+                newPath.push(1);
+                stairHelper(numSteps-1, newPath.slice());
+            }
+        }
+        else{
+            let newPath = path.slice();
+            if(newPath.length % 2 === 0){ // return only ones that end with "right" steps
+                paths.push(path.slice());
+            }
+        }
+    }
+}
+
+//console.log(climbingStairs(4));
+
+function sumOfSquares(num){ // assume num >= 0
+    let sums = [];
+    ssHelper(num, 1, []);
+    return sums;
+
+    function ssHelper(remaining, num, added){
+        if(remaining === 0 && added.length > 0){
+            sums.push(added);
+        }
+        let square = num*num;
+        if(remaining <= 0 || square > remaining){
+            return;
+        }
+        let addedCopy1 = added.slice();
+        let addedCopy2 = added.slice();
+        addedCopy1.push(square);
+        ssHelper(remaining-square, num+1, addedCopy1);
+        ssHelper(remaining, num+1, addedCopy2);
+    }
+}
+
+//console.log(sumOfSquares(10));
+//console.log(sumOfSquares(30));
+
+
+function validParenPairs(n){
+    let parenOrders = [];
+    parenHelper("", 0);
+    return parenOrders;
+
+    function parenHelper(str, numOpen){
+        if(str.length === n*2 && numOpen == 0){
+            parenOrders.push(str);
+        }
+        if(((n*2)-str.length) > numOpen){
+            parenHelper(str+"(", numOpen+1);
+        }
+        if(numOpen > 0){
+            parenHelper(str+")", numOpen-1);
+        }
+    }
+}
+/*console.log(validParenPairs(2));
+console.log(validParenPairs(3));*/
+
+function towersOfHanoi(height){
+    towerHelper(height, "A", "B", "C");
+
+    function towerHelper(height, start, end, buffer){
+        if(height >= 1){
+            towerHelper(height-1, start, buffer, end);
+            console.log("Moved disc from tower " + start + " to tower " + end);
+            towerHelper(height-1, buffer, end, start);
+        }
+    }
+}
+
+towersOfHanoi(3);
+
+// resume with IP addresses (104)
 
 function generateAllCoinChange(cents){
     let combos = [];
