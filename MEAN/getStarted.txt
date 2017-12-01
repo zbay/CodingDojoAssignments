@@ -23,37 +23,31 @@ FULL STACK:
 6. npm install express-sessions
 	To handle sessions (optional)
 npm install mongoose
-npm install bcrypt
+npm install bcrypt-nodejs
 
 7. use --save after npm installs if you want to update package.json
 8. cd c:/"Program Files"/MongoDB/Server/3.4/bin/
 9. ./mongod (bash) or mongod.exe (cmd prompt)
 10. cd c:/"Program Files"/MongoDB/Server/3.4/bin/ in another window
 11. ./mongo or mongo.exe
-
 12. ng new project_name --routing
 13. ng generate component component_name
 14. ng generate service service_name
 15. Make sure to include Http and FormModule
 
-Todo (team-manager):
-1. Routes module
-2. Service
-3. Components
-
-Todo (Quote Ranks):
-1. Go back and add bonus features to Quotes List (sort by votes)
-
 Deploy (in addition to what's there):
-1. Root level
-2. sudo chwon -R $USER:$(id -gn $USER) /home/ubuntu/.config
+1. At root
+2. sudo chown -R $USER:$(id -gn $USER) /home/ubuntu/.config
 3. sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
 4. sudo npm install @angular/cli
 5. Go to project/public, sudo npm install, and ng build
 
 
 Notes:
-1. Set PATH for node modules...
-	set PATH=%PATH%;C:\Users\zlwillia\AppData\Roaming\npm;
+1. Set PATH for node modules...	set PATH=%PATH%;C:\Users\zlwillia\AppData\Roaming\npm;
 2. Angular: in brackets means it's going from .ts to .html. In parentheses it's going from .html to .ts. 
 When you have both, it's a two-way binding
+
+
+REACT:
+1. Need react and react-dom npm libraries

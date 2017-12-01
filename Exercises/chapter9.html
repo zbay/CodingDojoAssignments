@@ -354,9 +354,60 @@ function towersOfHanoi(height){
     }
 }
 
-towersOfHanoi(3);
+//towersOfHanoi(3);
 
-// resume with IP addresses (104)
+//challenge: add zeroes to get all possible
+function ipAddresses(num){
+    if(num.length > 12){
+        return;
+    }
+    let addresses = [];
+    ipHelper(0, 0, num.charAt(0), num);
+    return addresses;
+
+    function ipHelper(index, numDecimals, sinceLastDecimal, number){
+        if(numDecimals === 3 && (number.length - index) <= 3 && parseInt(number.slice(index-sinceLastDecimal.length+1)) <= 255){ // 3 decimals, decimal not at very end, and last number valid
+            addresses.push(number);
+        }
+        if(number.charAt(number.length-1) === "." || index === number.length-1 || numDecimals > 3){
+            return;
+        }
+        if(sinceLastDecimal.length > 0 && sinceLastDecimal.length <= 3 && parseInt(sinceLastDecimal) <= 255 && index < number.length){
+            let newNumber = number.slice(0, index+1) + "." + number.slice(index+1);
+            ipHelper(index+2, numDecimals+1, newNumber.charAt(index+2), newNumber);
+        }
+        ipHelper(index+1, numDecimals, sinceLastDecimal + number.charAt(index), number.slice());
+    }
+}
+
+//console.log(ipAddresses("255255255"));
+
+function unevenDigits(num){
+    num = num + "";
+    let idx = 0;
+    if(num.charAt(0) === "-"){
+        idx++;
+    }
+    return unevenHelper(num, idx);
+
+    function unevenHelper(strNum, index){
+        if(index >= strNum.length){
+            return strNum;
+        }
+        if(parseInt(strNum.charAt(index)) % 2 === 0){
+            strNum = strNum.slice(0, index) + strNum.slice(index+1);
+        }
+        else{
+            index++;
+        }
+        return unevenHelper(strNum, index);
+    }
+}
+
+/*console.log(unevenDigits(-1845));
+console.log(unevenDigits(79));
+console.log(unevenDigits(20));
+console.log(unevenDigits(-92));*/
 
 function generateAllCoinChange(cents){
     let combos = [];
@@ -386,6 +437,17 @@ function generateAllCoinChange(cents){
         }
     }
 }
+
+function isChessMoveSafe(intendedMove, queen){
+    return (intendedMove[0] !== queen[0]) && (intendedMove[1] !== queen[1]) && (intendedMove[0]-queen[0] !== intendedMove[1]-queen[1]);
+}
+
+/*console.log(isChessMoveSafe([2, 3], [2, 5])); // false, same row
+console.log(isChessMoveSafe([2, 3], [4, 3])); // false, same col
+console.log(isChessMoveSafe([2, 1], [3, 5])); // true
+console.log(isChessMoveSafe([2, 3], [6, 7])); // false, diagonal*/
+
+// resume with all safe chess squares (105)
         </script>
     </head>
     <body></body>

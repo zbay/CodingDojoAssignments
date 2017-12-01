@@ -1,0 +1,12 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <p>The time is <span id="time"></span></p>
+    </body>
+    <script>
+        setInterval(function(){
+            document.getElementById("time").innerHTML = new Date().toLocaleTimeString();
+        }, 1000);
+    </script>
+</html>

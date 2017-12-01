@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <script src="node_modules/react/umd/react.development.js"></script>
+        <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+    </head>
+    <body>
+        <p>The time is <span id="time"></span></p>
+    </body>
+    <script>
+        function setTime(){
+            const theTime = React.createElement('span', null, new Date().toLocaleTimeString());
+            ReactDOM.render(theTime, document.getElementById('time'));
+        }
+        setTime();
+        setInterval(setTime, 1000);   
+    </script>
+</html>
