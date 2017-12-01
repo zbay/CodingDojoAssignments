@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <script src="../node_modules/react/umd/react.development.js"></script>
+        <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    </head>
+    <body>
+        <div id="app"></div>
+    </body>
+    <script>
+        const h1 = React.createElement('h1', null, "Hello Dojo!");
+        const h2 = React.createElement('h2', null, "Things I need to do:");
+        const li1 = React.createElement('li', null, "Learn React");
+        const li2 =  React.createElement('li', null, "Climb Mt. Everest");
+        const li3 = React.createElement('li', null, "Run a marathon");
+        const li4 = React.createElement('li', null, "Feed the dogs");
+        const ul = React.createElement('ul', null, [li1, li2, li3, li4]);
+        const container = React.createElement('div', null, [h1, h2, ul]);
+        ReactDOM.render(container, document.getElementById('app'));
+    </script>
+</html>
