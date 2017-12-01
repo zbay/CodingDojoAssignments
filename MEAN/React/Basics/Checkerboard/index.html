@@ -1,0 +1,45 @@
+<html>
+        <head>
+            <script src="../node_modules/react/umd/react.development.js"></script>
+            <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+        </head>
+        <body>
+            <div id="app"></div>
+        </body>
+        <script>
+            let size = prompt("How big a checkerboard do you want, fam?");
+            function CheckerBoard (props) {
+                let rows = [];
+                for(let i = 0; i < props.size; i++){
+                    rows.push(React.createElement(Row, {size: props.size, evenRow: i % 2 === 0}));
+                }
+                return React.createElement("div", null, rows);
+            }
+            function Row (props) {
+                let cells = [];
+                for(let i = 0; i < props.size; i++){
+                    console.log(i%2===0);
+                    cells.push(React.createElement(Cell, {evenRow: props.evenRow, evenCol: i % 2 === 0}));
+                }
+                return React.createElement("div", {style: this.styles.row}, cells);
+            }
+            function Cell (props) {
+                let propsObj = {style: {}};
+                Object.assign(propsObj.style, this.styles.cell); // deep-copies properties from this.styles.cell to propObjs.style
+                if(props.evenRow === props.evenCol){
+                    propsObj.style.backgroundColor = this.styles.colorA.backgroundColor;
+                }
+                else{
+                    propsObj.style.backgroundColor = this.styles.colorB.backgroundColor;
+                }
+                return React.createElement("div", propsObj, null);
+            }
+            var styles = {
+                row: {height: '20px'},
+                cell: {height: '20px', width: '20px', display:'inline-block'},
+                colorA: {backgroundColor: 'black'},
+                colorB: {backgroundColor: 'red'}
+            }
+            ReactDOM.render(new CheckerBoard({size: size}), document.getElementById('app'));
+        </script>
+</html>
