@@ -1,0 +1,22 @@
+<html>
+        <head>
+            <script src="../node_modules/react/umd/react.development.js"></script>
+            <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+        </head>
+        <body>
+            <div id="app"></div>
+        </body>
+        <script>
+            function Square(props) {
+                return React.createElement("div", {style:
+                    {color: props.color, backgroundColor: props.backgroundColor, 
+                    height: "200px", width: "200px", fontSize:"30px", display: "inline-block"}},
+                    props.color + " on " + props.backgroundColor);
+            }
+            let bwsquare = React.createElement(Square, {color: "white", backgroundColor: "blue"});
+            let rbsquare = React.createElement(Square, {color: "blue", backgroundColor: "red"});
+            let gpsquare = React.createElement(Square, {color: "green", backgroundColor: "pink"});
+            let app = React.createElement("div", null, [bwsquare, rbsquare, gpsquare]);
+            ReactDOM.render(app, document.getElementById('app'));
+        </script>
+    </html>
