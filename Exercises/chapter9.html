@@ -438,8 +438,88 @@ function generateAllCoinChange(cents){
     }
 }
 
-function isChessMoveSafe(intendedMove, queen){
-    return (intendedMove[0] !== queen[0]) && (intendedMove[1] !== queen[1]) && (intendedMove[0]-queen[0] !== intendedMove[1]-queen[1]);
+function isChessMoveSafe(intendedMove, queens){
+    for(let i = 0; i < queens.length; i++){
+        if((intendedMove[0] === queens[i][0]) || (intendedMove[1] === queens[i][1]) || (Math.abs(intendedMove[0]-queens[i][0]) === Math.abs(intendedMove[1]-queens[i][1]))){
+            return false;
+        }
+    }
+    return true;
+}
+
+function allSafeChessSquares(queens){
+    let safeSpaces = [[]];
+    for(let i = 0; i < 8; i++){
+        for(let j = 0; j < 8; j++){
+            safeSpaces[i][j] = isChessMoveSafe([i, j], queens);
+        }
+    }
+}
+
+function eightQueens(){
+    let queens = [];
+    eightQueensHelper(0, []);
+    return queens;
+
+    function eightQueensHelper(col, config){
+        //console.log(config);
+        let newConfig = config.slice();
+        if(config.length === 8){
+            queens.push(newConfig);
+        }
+        for(let row = 0; row < 8; row++){
+            if(isChessMoveSafe([row, col], newConfig)){
+                newConfig.push([row, col]);
+                if(eightQueensHelper(col+1, newConfig) === false){
+                    newConfig.pop();
+                }
+            }
+        }
+        return false;
+    }
+}
+/*
+1) Start in the leftmost column. 
+2) If all queens are placed 
+    return true
+3) Try all rows in the current column.  Do following for every tried row.
+    a) If the queen can be placed safely in this row then mark this [row, 
+        column] as part of the solution and recursively check if placing  
+        queen here leads to a solution.
+    b) If placing queen in [row, column] leads to a solution then return 
+        true.
+    c) If placing queen doesn't lead to a solution then umark this [row, 
+        column] (Backtrack) and go to step (a) to try other rows.
+3) If all rows have been tried and nothing worked, return false to trigger 
+    backtracking. CHECK
+*/
+
+function renderBoard(queens){
+    console.log("Start board");
+    for(let i = 0; i < 8; i++){
+        let rowStr = "";
+        for(let j = 0; j < 8; j++){
+            let queened = false;
+            for(let q = 0; q < queens.length; q++){
+                if(queens[q][0] === i && queens[q][1] === j){
+                    queened = true;
+                }
+            }
+            if(queened){
+                rowStr += "Q";
+            }
+            else{
+                rowStr += "B";
+            }
+        }
+        console.log(rowStr);
+    }
+    console.log("End board");
+}
+
+let configs = eightQueens();
+for(let i = 0; i < configs.length; i++){
+    renderBoard(configs[i]);
 }
 
 /*console.log(isChessMoveSafe([2, 3], [2, 5])); // false, same row

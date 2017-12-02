@@ -1,0 +1,41 @@
+<html>
+        <head>
+            <script src="../node_modules/react/umd/react.development.js"></script>
+            <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        </head>
+        <body>
+            <div id="app"></div>
+        </body>
+        <script type="text/babel">
+            const List = (props) => {
+
+                const alertVote = function(itemObj){
+                    itemObj.votes++;
+                    alert("Vote cast for " + itemObj.name + "! It has " + itemObj.votes + " votes.");
+                }
+                //this.alertVote = this.alertVote.bind(this);
+
+                const listItems = props.items.map((itemObj) => {
+                    return <div style={{minWidth:"50%", maxWidth:"80%", border:"3px solid black", padding:"5px"}} key={itemObj.name}>
+                        <div style={
+                            {border: "2px solid black", textAlign:"center", width:"20px", height:"20px", display:"inline-block", borderRadius:"50%", marginRight:"10px"}}>
+                            {itemObj.votes}
+                        </div>
+                        {itemObj.name}
+                        <button onClick={alertVote.bind(this, itemObj)} style={{backgroundColor:"green", color:"white", fontWeight:"bold", fontSize:"15px", float:"right"}}>+</button>
+                    </div>
+                });
+                return (
+                    <div>
+                        {listItems}
+                    </div>
+                )
+            }
+            ReactDOM.render(
+                <List items= { [{name: 'React', votes: 0}, {name: 'Vue', votes: 0},
+                 {name: 'Angular', votes: 0}, {name: 'Ember', votes : 0}] } />,
+                document.getElementById('app')
+            );
+        </script>
+    </html>

@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <script src="node_modules/react/umd/react.development.js"></script>
+        <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="content"></div>
+    </body>
+    <script type="text/babel">
+        const List = (props) => {
+            const listItems = props.items.map((itemString) => {
+                return <li key={itemString}>{itemString}</li>
+            });
+            return (
+                <ul>
+                    {listItems}
+                </ul>
+            )
+        }
+        ReactDOM.render(
+            <List items= { ['React', 'Redux', 'Node', 'Express'] } />,
+            document.getElementById('content')
+        );
+    </script>
+</html>
