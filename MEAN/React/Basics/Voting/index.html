@@ -8,33 +8,52 @@
             <div id="app"></div>
         </body>
         <script type="text/babel">
-            const List = (props) => {
-
-                const alertVote = function(itemObj){
-                    itemObj.votes++;
-                    alert("Vote cast for " + itemObj.name + "! It has " + itemObj.votes + " votes.");
+            class Framework extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state = {votes: 0};
                 }
-                //this.alertVote = this.alertVote.bind(this);
 
-                const listItems = props.items.map((itemObj) => {
-                    return <div style={{minWidth:"50%", maxWidth:"80%", border:"3px solid black", padding:"5px"}} key={itemObj.name}>
+                castVote(){
+                    alert("Vote cast for " + this.props.name + "! It now has " + parseInt(this.state.votes+1) + " votes.");
+                    this.setState({votes: this.state.votes+1});
+                }
+
+                render(){
+                    return (<div style={{minWidth:"50%", maxWidth:"80%", border:"3px solid black", padding:"5px"}}>
                         <div style={
                             {border: "2px solid black", textAlign:"center", width:"20px", height:"20px", display:"inline-block", borderRadius:"50%", marginRight:"10px"}}>
-                            {itemObj.votes}
+                            {this.state.votes}
                         </div>
-                        {itemObj.name}
-                        <button onClick={alertVote.bind(this, itemObj)} style={{backgroundColor:"green", color:"white", fontWeight:"bold", fontSize:"15px", float:"right"}}>+</button>
-                    </div>
-                });
-                return (
-                    <div>
-                        {listItems}
-                    </div>
-                )
+                        {this.props.name}
+                        <button onClick={() => {this.castVote()}} style={{backgroundColor:"green", color:"white", fontWeight:"bold", fontSize:"15px", float:"right"}}>+</button>
+                    </div>);
+                }
             }
+
+            class List extends React.Component{
+                constructor(props){
+                    super(props);
+                }
+                render(){
+                    const frameworks = this.props.items.map((item) => {
+                        return <Framework name={item} key={item}/>
+                    });
+                    return (<div>{frameworks}</div>);
+                }
+            }
+
+            class App extends React.Component{
+                constructor(props){
+                    super(props);
+                }
+                render(){
+                    return (<List items={["Angular", "React", "Vue", "Ember", "Backbone"]}/>);
+                }              
+            }
+
             ReactDOM.render(
-                <List items= { [{name: 'React', votes: 0}, {name: 'Vue', votes: 0},
-                 {name: 'Angular', votes: 0}, {name: 'Ember', votes : 0}] } />,
+                <List items={["Angular", "React", "Vue", "Ember", "Backbone"]}/>,
                 document.getElementById('app')
             );
         </script>
