@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <script src="../node_modules/react/umd/react.development.js"></script>
+        <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="app"></div>
+    </body>
+    <script type="text/babel">
+        class Counter extends React.Component{
+
+            constructor(props){
+                super(props);
+                this.state = {count: 0};
+            }
+
+            increment(){
+                this.setState({count: this.state.count+1});
+            }
+
+            decrement(){
+                this.setState({count: this.state.count-1});
+            }
+
+            render(){
+                return (<div style={{padding:"10px", border:"2px solid black"}}>
+                    <p>{this.state.count}</p>
+                    <div>
+                        <button onClick={() => {this.setState({count: this.state.count+1})}}>Increment</button> | 
+                        <button onClick={() => {this.setState({count: this.state.count-1})}}>Decrement</button>
+                    </div>
+                </div>);
+            }
+        }
+
+        class CounterList extends React.Component{
+            constructor(props){
+                super(props);
+            }
+
+            render(){
+                const counters = this.props.items.map((idx) => {
+                    return <li><Counter key={idx}/></li>
+                });
+                return (<ul>{counters}</ul>);
+            }
+        }
+
+        class App extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {counters: ["0"], count: "0"};
+            }
+
+            addCounter(){
+                this.setState({count: "" + parseInt(this.state.count + 1),
+                 counters: this.state.counters.concat(this.state.count)});
+            }
+            
+
+            render(){
+                console.log(this.state.counters);
+                return (<div>
+                <button onClick={() => 
+                    {this.addCounter()}}>
+                    Add Counter
+                </button>
+                <CounterList items={this.state.counters}/>
+                </div>);
+            }
+        }
+        
+        ReactDOM.render(
+            <App/>,
+            document.getElementById('app')
+        );
+    </script>
+</html>
