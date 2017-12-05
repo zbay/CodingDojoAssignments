@@ -24,7 +24,6 @@
                         if(!current){
                             return;
                         }
-                        console.log(current.value);
                         if(!current.left && val < current.value){
                             console.log("Added: " + val);
                             current.left = new BTNode(val);
@@ -49,7 +48,7 @@
                     }
 
                     this.size = function(){
-                        if(this.root === null){
+                        if(this.isEmpty()){
                             return 0;
                         }
                         return rSize(this.root);
@@ -74,8 +73,8 @@
                         rShow(this.root);
                         function rShow(current){
                             if(!current){
-                                //console.log("The BST is empty!");
-                                return "The BST is empty!";
+                                console.log("The BST is empty!");
+                                return;
                             }
                             console.log(current.value);
                             rShow(current.left);
@@ -159,11 +158,53 @@
                             return (Math.abs(heightFunc(cur.left) - heightFunc(cur.right)) < 2) && rBalanced(cur.left) && rBalanced(cur.right);
                         }
                     }
+
                 }
+                function arrayToBST(arr){
+                    let newBST = new BST();
+                    while(arr.length > 0){
+                        let mid = Math.floor(arr.length/2);
+                        newBST.add(arr.splice(mid, 1));
+                        mid = Math.floor(arr.length/2);
+                        if(mid > 0){
+                            let leftMid = Math.floor(mid/2);
+                            newBST.add(arr.splice(leftMid, 1));
+                        }
+                        mid = Math.floor(arr.length/2);
+                        if(mid < arr.length-1){
+                            let rightMid = Math.floor(mid+((arr.length-mid)/2));
+                            newBST.add(arr.splice(rightMid, 1)); 
+                        }
+                    }
+                    return newBST;
+                }
+
+                function closestCommonAncestor(bst, val1, val2){   
+                    if(!bst || !bst.root || !bst.root.value || !bst.contains(val1) || !bst.contains(val2)){
+                        return false;
+                    }
+                    let leftBST = new BST();
+                    let rightBST = new BST();
+                    leftBST.root = bst.root.left;
+                    rightBST.root = bst.root.right;
+                    if(leftBST.contains(val1) && leftBST.contains(val2)){
+                        return closestCommonAncestor(leftBST, val1, val2);
+                    }
+                    else if(rightBST.contains(val1) && rightBST.contains(val2)){
+                        return closestCommonAncestor(rightBST, val1, val2);
+                    }
+                    else{
+                        return bst.root.value;
+                    }
+                }
+
+            
+            //resume pg. 119: traverse pre-order
+
 
             let bst = new BST();
             //console.log(bst.isEmpty());
-            bst.add(20);
+           /* bst.add(20);
             bst.add(10);
             bst.add(30);
             bst.add(15);
@@ -180,7 +221,20 @@
             console.log(bst.height());
             bst.add(1);
             console.log(bst.height());
-            console.log(bst.isBalanced());
+            console.log(bst.isBalanced());*/
+
+            bst.add(10);
+            bst.add(3);
+            bst.add(20);
+            bst.add(1);
+            bst.add(5);
+            bst.add(15);
+            bst.add(30);
+            console.log(closestCommonAncestor(bst, 7, 12)); // false
+            console.log(closestCommonAncestor(bst, 1, 5)); // 3
+            console.log(closestCommonAncestor(bst, 15, 30)); // 20
+            console.log(closestCommonAncestor(bst, 20, 10)); // 10
+
         </script>
     </head>
     <body></body>

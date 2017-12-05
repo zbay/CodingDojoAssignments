@@ -1,0 +1,9 @@
+.navBar{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+}
+.selected{
+    background-color:white;
+    font-weight:bold;
+}

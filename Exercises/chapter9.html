@@ -478,6 +478,31 @@ function eightQueens(){
         return false;
     }
 }
+
+function nQueens(n, xSize, ySize){
+    let queens = [];
+    nQueensHelper(0, []);
+    return queens;
+
+    function nQueensHelper(col, config){
+        let newConfig = config.slice();
+        if(config.length === n){
+            queens.push(newConfig);
+        }
+        if(col >= xSize){
+            return false;
+        }
+        for(let row = 0; row < ySize; row++){
+            if(isChessMoveSafe([row, col], newConfig)){
+                newConfig.push([row, col]);
+                if(nQueensHelper(col+1, newConfig) === false){
+                    newConfig.pop();
+                }
+            }
+        }
+        return false;
+    }
+}
 /*
 1) Start in the leftmost column. 
 2) If all queens are placed 

@@ -1,0 +1,27 @@
+.checkCircle{
+    width:30px;
+    height:30px;
+    border:2px solid black;
+    text-align:center;
+    border-radius:50%;
+    margin-right:10px;
+}
+.todo div{
+    display:inline-block;
+    border-collapse:collapse;
+}
+.todo{
+    border: 3px solid black;
+    margin-top:-3px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+.show{
+    color:green;
+}
+.hide{
+    color:white;
+}
+.hidden{
+    display:none;
+}

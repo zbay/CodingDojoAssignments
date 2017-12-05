@@ -1,0 +1,13 @@
+.inputBar button{
+    display:inline-block;
+}
+
+.inputBar form{
+    display:inline-block;
+}
+.inputBar{
+    margin-bottom:3px;
+}
+.hidden{
+    display:none;
+}
