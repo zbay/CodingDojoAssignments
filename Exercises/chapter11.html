@@ -144,6 +144,27 @@
                         }
                     }
 
+                    this.minHeight = function(){
+                        if(!this.root){
+                            return 0;
+                        }
+                        return rMinHeight(this.root);
+
+                        function rMinHeight(current){
+                            if(!current){
+                                return 0;
+                            }
+                            let leftHeight = rMinHeight(current.left);
+                            let rightHeight = rMinHeight(current.right);
+                            if(!current.left || ! current.right){
+                                return 1;
+                            }
+                            else{
+                                return(leftHeight >= rightHeight ? 1 + rightHeight : 1 + leftHeight);
+                            }
+                        }
+                    }
+
                     this.isBalanced = function(){
                         let heightFunc = this.height;
                         if(!this.root){
@@ -182,6 +203,20 @@
                             postHelper(node.right);
                             console.log(node.value);
                         }
+                    }
+
+                    this.bst2Arr = function(){
+                        let arr = [];
+                        arrHelper(this.root);
+                        function arrHelper(node){
+                            if(!node){
+                                return;
+                            }
+                            arrHelper(node.left);
+                            arr.push(node.value);
+                            arrHelper(node.right);
+                        }
+                        return arr;
                     }
 
                 }
@@ -223,7 +258,7 @@
                     }
                 }
             
-            //resume pg. 119: bst to array
+            // resume pg. 119: traverse no recursion
 
 
             let bst = new BST();
@@ -254,11 +289,14 @@
             bst.add(5);
             bst.add(15);
             bst.add(30);
-            console.log(closestCommonAncestor(bst, 7, 12)); // false
+            bst.add(35)
+            /*console.log(closestCommonAncestor(bst, 7, 12)); // false
             console.log(closestCommonAncestor(bst, 1, 5)); // 3
             console.log(closestCommonAncestor(bst, 15, 30)); // 20
-            console.log(closestCommonAncestor(bst, 20, 10)); // 10
-
+            console.log(closestCommonAncestor(bst, 20, 10)); // 10*/
+            //console.log(bst.bst2Arr());
+            //console.log(bst.height());
+            //console.log(bst.minHeight());
         </script>
     </head>
     <body></body>
