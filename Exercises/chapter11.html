@@ -159,6 +159,31 @@
                         }
                     }
 
+                    this.preOrder = function(){
+                        preHelper(this.root);
+
+                        function preHelper(node){
+                            if(!node){
+                                return;
+                            }
+                            console.log(node.value);
+                            preHelper(node.left);
+                            preHelper(node.right);
+                        }
+                    }
+                    this.postOrder = function(){
+                        postHelper(this.root);
+
+                        function postHelper(node){
+                            if(!node){
+                                return;
+                            }
+                            postHelper(node.left);
+                            postHelper(node.right);
+                            console.log(node.value);
+                        }
+                    }
+
                 }
                 function arrayToBST(arr){
                     let newBST = new BST();
@@ -197,9 +222,8 @@
                         return bst.root.value;
                     }
                 }
-
             
-            //resume pg. 119: traverse pre-order
+            //resume pg. 119: bst to array
 
 
             let bst = new BST();

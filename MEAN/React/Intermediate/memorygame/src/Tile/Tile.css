@@ -1,0 +1,21 @@
+.tile{
+    width:24%;
+    height:100px;
+    display:inline-block;
+    border:2px solid black;
+}
+.blank{
+    background-color:grey;
+}
+.tp{
+    background-color:yellow;
+}
+.fp{
+    background-color:red;
+}
+.fn{
+    background-color:green;
+}
+.selected{
+    background-color:blue;
+}
