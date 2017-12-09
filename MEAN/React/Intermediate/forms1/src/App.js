@@ -26,7 +26,6 @@ class App extends Component {
   }
 
   onNameChange = (event) => {
-    console.log(event);
     this.setState({name: {value: event.target.value, touched: true}});
   }
 
