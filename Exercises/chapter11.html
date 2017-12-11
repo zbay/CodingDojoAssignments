@@ -73,7 +73,6 @@
                         rShow(this.root);
                         function rShow(current){
                             if(!current){
-                                console.log("The BST is empty!");
                                 return;
                             }
                             console.log(current.value);
@@ -219,6 +218,124 @@
                         return arr;
                     }
 
+                    this.inOrderNonRecursive = function(){
+                        if(!this.root){
+                            return;
+                        }
+                        let start = this.root;
+                        let stack = [start];
+                        pushLeft(start);
+
+                        while(stack.length > 0){
+                            let removed = stack.pop(); // remove at end
+                            console.log(removed.value);
+                            if(removed.right){
+                                stack.push(removed.right);
+                                pushLeft(removed.right);
+                            }
+                        }
+
+                        function pushLeft(current){
+                            while(current && current.left){
+                                current = current.left;
+                                stack.push(current); // insert at start
+                            }
+                        }
+                    }
+                    this.preOrderNonRecursive = function(){
+                        let current = this.root;
+                        let stack = [];
+                            while (true) {
+                                // First print the root node and then add left node
+                                while (current != null) {
+                                    console.log(current.value);
+                                    stack.push(current);
+                                    current = current.left;
+                                }
+                                // check if Stack is emtpy, if yes, exit from everywhere
+                                if (stack.length === 0) {
+                                    return;
+                                }
+                                // pop the element from the stack and go right to the tree
+                                current = stack.pop();
+                                current = current.right;
+                            }
+                    }
+
+                    this.remove = function(value){
+                        if(!this.contains(value)){
+                            return false;
+                        }
+                        let current = this.root;
+                        let parent = this.root;
+                        while(true){
+                            if(current.value === value){
+                                removeForReal();
+                                return this.root;
+                            }
+                            else if(current.value > value){
+                                parent = current;
+                                current = current.left;
+                            }
+                            else{
+                                parent = current;
+                                current = current.right;
+                            }
+                        }
+                        function removeForReal(){ // change the pointers to remove the node
+                            if(!current.left && !current.right){
+                                if(current === parent){
+                                    this.root = null;
+                                    return;
+                                }
+                                if(current.value <= parent.value){
+                                    parent.left = null;
+                                }
+                                else{
+                                    parent.right = null;
+                                }
+                            }
+                            else if(current.left && !current.right){
+                                if(current.value <= parent.value){
+                                    parent.left = current.left;
+                                }
+                                else{
+                                    parent.right = current.left;
+                                }
+                            }
+                            else if(!current.left && current.right){
+                                if(current.value <= parent.value){
+                                    parent.left = current.right;
+                                }
+                                else{
+                                    parent.right = current.right;
+                                }
+                            }
+                            else{ // current.left && current.right. Swap value with that of min in right subtree. delete that leaf
+                                parent = current;
+                                let minRightNode = current.right;
+                                let removeRight = true;
+                                while(minRightNode.left){
+                                    parent = minRightNode;
+                                    minRightNode = minRightNode.left;
+                                    removeRight = false;
+                                }
+                                let temp = minRightNode.value;
+                                minRightNode.value = current.value;
+                                current.value = temp;
+                                if(removeRight){
+                                    parent.right = null;
+                                }
+                                else{
+                                    parent.left = null;
+                                }
+                            }
+                        }
+                    }
+
+                    this.removeAll = function(){
+                        this.root = null;
+                    }
                 }
                 function arrayToBST(arr){
                     let newBST = new BST();
@@ -258,8 +375,8 @@
                     }
                 }
             
-            // resume pg. 119: traverse no recursion
-
+            // resume pg. 120: isValid
+                
 
             let bst = new BST();
             //console.log(bst.isEmpty());
@@ -282,7 +399,7 @@
             console.log(bst.height());
             console.log(bst.isBalanced());*/
 
-            bst.add(10);
+            bst.add(10);                   
             bst.add(3);
             bst.add(20);
             bst.add(1);
@@ -290,13 +407,17 @@
             bst.add(15);
             bst.add(30);
             bst.add(35)
-            /*console.log(closestCommonAncestor(bst, 7, 12)); // false
+            /*console.log(closestCommonAncestor(bst, 7, 12)); // false      
             console.log(closestCommonAncestor(bst, 1, 5)); // 3
             console.log(closestCommonAncestor(bst, 15, 30)); // 20
             console.log(closestCommonAncestor(bst, 20, 10)); // 10*/
             //console.log(bst.bst2Arr());
             //console.log(bst.height());
             //console.log(bst.minHeight());
+            //bst.preOrder();
+            //bst.preOrderNonRecursive();
+            //bst.remove(15);
+            bst.inOrderNonRecursive();
         </script>
     </head>
     <body></body>
