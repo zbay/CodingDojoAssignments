@@ -50,5 +50,6 @@ When you have both, it's a two-way binding
 
 
 REACT:
-1. Need react and react-dom npm libraries
+1. Need react, react-dom, and  npm libraries
 2. create-react-app {{your-project-name}}
+3. npm install react-router-dom
