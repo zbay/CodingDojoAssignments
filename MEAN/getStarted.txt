@@ -53,3 +53,5 @@ REACT:
 1. Need react, react-dom, and  npm libraries
 2. create-react-app {{your-project-name}}
 3. npm install react-router-dom
+4. npm install redux
+5. npm install react-redux

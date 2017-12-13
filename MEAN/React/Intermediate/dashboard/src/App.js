@@ -1,7 +1,3 @@
-//const headers = { 'Authorization': `Bearer ${token}` }
-// https://reacttraining.com/react-router/web/example/auth-workflow
-// https://auth0.com/blog/reactjs-authentication-tutorial/?utm_source=twitter&utm_medium=sc&utm_campaign=reactjs_authentication
-
 import React, { Component } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom';
