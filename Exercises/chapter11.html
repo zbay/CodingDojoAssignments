@@ -203,6 +203,18 @@
                             console.log(node.value);
                         }
                     }
+                    this.reverseOrder = function(){
+                        reverseHelper(this.root);
+
+                        function reverseHelper(node){
+                            if(!node){
+                                return;
+                            }
+                            reverseHelper(node.right);
+                            console.log(node.value);
+                            reverseHelper(node.left);
+                        }
+                    }
 
                     this.bst2Arr = function(){
                         let arr = [];
@@ -390,6 +402,33 @@
                         }
                     }
 
+                    this.valBefore = function(value){ 
+                        if(!this.root){
+                            return null;
+                        }
+                        let inOrderArr = [];
+                        rBefore(this.root);
+                        let validBefore = false;
+                        for(let i = 0; i < inOrderArr.length; i++){
+                            if(i > 0 && inOrderArr[i] === value || (inOrderArr[i] > value && inOrderArr[i-1] < value)){
+                                return inOrderArr[i-1];
+                            }
+                            if(inOrderArr[i] > value){
+                                return null;
+                            }
+                        }
+                        return false;
+
+                        function rBefore(node){
+                            if(!node){
+                                return null;
+                            }
+                            rBefore(node.left);
+                            inOrderArr.push(node.value);
+                            rBefore(node.right);
+                        }
+                    }
+
                 }
                 function arrayToBST(arr){
                     let newBST = new BST();
@@ -429,7 +468,7 @@
                     }
                 }
             
-            // resume pg. 120: Traverse in reverse
+            // resume pg. 121: Val after
                 
 
             let bst = new BST();
@@ -471,7 +510,10 @@
             //bst.preOrder();
             //bst.preOrderNonRecursive();
             //bst.remove(15);
-            bst.inOrderNonRecursive();
+            //bst.reverseOrder();
+            /*console.log(bst.valBefore(10));
+            console.log(bst.valBefore(15));
+            console.log(bst.valBefore(8));*/
         </script>
     </head>
     <body></body>

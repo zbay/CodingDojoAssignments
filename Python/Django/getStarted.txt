@@ -27,4 +27,4 @@ Shortcuts
 2. from apps.{{app_name}}.models import *
 3. Run ORM commands to CRUD in model directly
 
-Deplyment: step 8, line 4 access_log_off
+Deployment: step 8, line 4 access_log_off
