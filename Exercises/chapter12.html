@@ -83,17 +83,17 @@
                 return arr1;
             }
 
-function mergeSort(arr){
-    if(arr.length < 2){
-        return arr;
-    }
-                else{
-                    let middle = parseInt(arr.length/2);
-                    let left = arr.slice(0, middle);
-                    let right = arr.slice(middle, arr.length);
-                    return combine(mergeSort(left), mergeSort(right));
-                }
+        function mergeSort(arr){
+            if(arr.length < 2){
+                return arr;
             }
+            else{
+                let middle = parseInt(arr.length/2);
+                let left = arr.slice(0, middle);
+                let right = arr.slice(middle, arr.length);
+                return combine(mergeSort(left), mergeSort(right));
+            }
+        }
 
   function partition(arr, left, right){
     let pivot = Math.floor((left+right)/2);
@@ -117,10 +117,7 @@ function mergeSort(arr){
     if(left > right){
         return;
     }
-    console.log("Left: " + left);
-      console.log("Right: " + right);
     let pivot = partition(arr, left, right);
-    console.log("Pivot: " + pivot);
     quickSort(arr, left, pivot-1);
     quickSort(arr, pivot+1, right);
   }

@@ -68,7 +68,6 @@ WHERE capital LIKE CONCAT('%', name, '%') AND capital > name;
 
 
 
-
 /* Exercises 2: SELECT FROM world*/
 
 SELECT name, continent, population FROM world;
@@ -167,8 +166,8 @@ OR (subject = 'Literature' AND yr >= 2004);
 SELECT * FROM nobel
 WHERE winner = 'Peter Grünberg';
 
-SELECT * FROM nobel
-WHERE winner = 'Eugene O\'Neill';
+/*SELECT * FROM nobel
+WHERE winner = 'Eugene O\'Neill';*/
 
 SELECT winner, yr, subject
 FROM nobel
@@ -178,7 +177,7 @@ ORDER BY yr DESC, winner ASC;
 SELECT winner, subject
   FROM nobel
  WHERE yr=1984
- ORDER BY subject IN ('Physics','Chemistry'), subject, winner;
+ ORDER BY subject IN ('Physics','Chemistry') ASC, subject, winner;
  
 
 /* Exercises 4: SELECT within SELECT */

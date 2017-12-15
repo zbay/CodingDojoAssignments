@@ -2,10 +2,43 @@
     <head>
         <title>Chapter 11: Trees</title>
         <script>
+            // need to change add() (check?), and addWithoutDupes() to accommodate parent node
             function BTNode(value){
                 this.value = value;
                 this.left = null;
                 this.right = null;
+                this.parent = null;
+
+                this.nodeBefore = function(){
+                    if(!this.left){
+                        return this.parent;
+                    }
+                    else{
+                        let returnNode = this.left;
+                        while(returnNode.right){
+                            returnNode = returnNode.right;
+                        }
+                        return returnNode;
+                    }
+                }
+                this.nodeAfter = function(){
+                    if(this.right){
+                        return this.right;
+                    }
+                    else{
+                        let currentVal = this.value;
+                        let returnNode = this;
+                        while(true){
+                            if(!returnNode.parent){
+                                return null;
+                            }
+                            returnNode = returnNode.parent;
+                            if(returnNode.value > currentVal){
+                                return returnNode;
+                            }
+                        }
+                    }
+                }
             }
             function BST(){
                 this.root = null;
@@ -27,11 +60,13 @@
                         if(!current.left && val < current.value){
                             console.log("Added: " + val);
                             current.left = new BTNode(val);
+                            current.left.parent = current;
                             return this;
                         }
                         else if(!current.right && val >= current.value){
                             console.log("Added: " + val);
                             current.right = new BTNode(val);
+                            current.right.parent = current;
                             return this;
                         }
                         else if(current.value < val){
@@ -310,17 +345,21 @@
                             else if(current.left && !current.right){
                                 if(current.value <= parent.value){
                                     parent.left = current.left;
+                                    parent.left.parent = parent;
                                 }
                                 else{
                                     parent.right = current.left;
+                                    parent.right.parent = parent;
                                 }
                             }
                             else if(!current.left && current.right){
                                 if(current.value <= parent.value){
                                     parent.left = current.right;
+                                    parent.left.parent = parent;
                                 }
                                 else{
                                     parent.right = current.right;
+                                    parent.right.parent = parent;
                                 }
                             }
                             else{ // current.left && current.right. Swap value with that of min in right subtree. delete that leaf
@@ -386,11 +425,13 @@
                             else if(!current.left && val < current.value){
                                 console.log("Added: " + val);
                                 current.left = new BTNode(val);
+                                current.left.parent = current;
                                 return true;
                             }
                             else if(!current.right && val > current.value){
                                 console.log("Added: " + val);
                                 current.right = new BTNode(val);
+                                current.right.parent = current;
                                 return true;
                             }
                             else if(current.value < val){
@@ -426,6 +467,57 @@
                             rBefore(node.left);
                             inOrderArr.push(node.value);
                             rBefore(node.right);
+                        }
+                    }
+
+                    this.valAfter = function(value){
+                        if(!this.root){
+                            return null;
+                        }
+                        let inOrderArr = [];
+                        rAfter(this.root);
+                        let validBefore = false;
+                        for(let i = 0; i < inOrderArr.length; i++){
+                            if(i < inOrderArr.length-1 && inOrderArr[i] === value || (inOrderArr[i] < value && inOrderArr[i+1] > value)){
+                                return inOrderArr[i-1];
+                            }
+                            if(inOrderArr[i] > value){
+                                return null;
+                            }
+                        }
+                        return false;
+
+                        function rAfter(node){
+                            if(!node){
+                                return null;
+                            }
+                            rBefore(node.left);
+                            inOrderArr.push(node.value);
+                            rBefore(node.right);
+                        }
+                    }
+
+                    this.closestValue = function(value){
+                        let values = [];
+                        rClosest(this.root);
+                        if(values.length === 0){
+                            return null;
+                        }
+                        let closest = values[0];
+                        for(let i = 0; i < values.length; i++){
+                            if(Math.abs(value-values[i]) < closest){
+                                closest = values[i];
+                            }
+                        }
+                        return closest;
+
+                        function rClosest(current){
+                            if(!this.root){
+                                return;
+                            }
+                            rClosest(current.left);
+                            values.push(current.value);
+                            rClosest(current.right);
                         }
                     }
 
@@ -467,8 +559,34 @@
                         return bst.root.value;
                     }
                 }
+
+                function sumPaths(sum){ // pg. 121
+                    let paths = [];
+                    if(this.root){
+                        rPath(this.root, [], 0);
+                    }
+
+                    function rPath(node, path, total){
+                        let newPath = path.slice();
+                        newPath.push(node.value);
+                        let newTotal = total + node.value;
+                        if(!node.left && !node.right && total === sum){
+                            paths.push(newPath);
+                        }
+                        else if(!node.left && !node.right){
+                            return;
+                        }
+                        if(node.left){
+                            rPath(node.left, newPath, newTotal);
+                        }
+                        if(node.right){
+                            rPath(node.right, newPath, newTotal);
+                        }
+                    }
+                    return paths;
+                }
             
-            // resume pg. 121: Val after
+            // resume pg. 122: Left side binary tree, and sqlzoo chapter 5
                 
 
             let bst = new BST();
