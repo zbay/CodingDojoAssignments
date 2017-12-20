@@ -351,6 +351,69 @@ INNER JOIN goal ON game.id=goal.matchid
 GROUP BY game.mdate, goal.matchid, game.team1, game.team2;
 
 /* Exercises 7: More JOIN operators */
+SELECT id, title
+FROM movie
+WHERE yr=1962;
+
+SELECT yr
+FROM movie
+WHERE title LIKE 'Citizen Kane';
+
+SELECT id, title, yr
+FROM movie
+WHERE title LIKE '%Star Trek%'
+ORDER BY yr ASC;
+
+SELECT id
+FROM actor
+WHERE name LIKE 'Glenn Close';
+
+SELECT id
+FROM movie
+WHERE title LIKE 'Casablanca';
+
+/*Cast list for movie*/
+SELECT a.name
+FROM casting c JOIN actor a
+ON a.id = c.actorid
+WHERE c.movieid=11768;
+
+/*Cast list for Alien*/
+SELECT a.name
+FROM actor a
+JOIN casting c ON a.id = c.actorid
+JOIN movie m ON c.movieid = m.id
+WHERE m.title LIKE 'Alien';
+
+/*Harrison Ford movies*/
+SELECT m.title
+FROM actor a
+JOIN casting c
+   ON a.id = c.actorid
+JOIN movie m
+   ON m.id = c.movieid
+WHERE a.name LIKE 'Harrison Ford';
+
+/*Harrison Ford movies, non-starring*/
+SELECT m.title
+FROM actor a
+JOIN casting c
+   ON a.id = c.actorid
+JOIN movie m
+   ON m.id = c.movieid
+WHERE a.name LIKE 'Harrison Ford'
+AND c.ord <> 1;
+
+/*Stars for 1962 films*/
+SELECT m.title, a.name
+FROM movie m
+JOIN casting c
+   ON m.id = c.movieid
+JOIN actor a
+   ON a.id = c.actorid
+WHERE m.yr = 1962 AND c.ord = 1;
+
+/* Resume Part 7, exercise 11*/
 
 /* Exercises 8: Using null */
 
