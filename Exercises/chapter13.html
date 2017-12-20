@@ -17,15 +17,88 @@
             }
             //console.log(interleave([77,22,11,22], [2,6,7,2,6,2]));
 
-            function smallestArrayRange(arrs){
-                // revisit once you know priority queues and heaps????
+            function mergeSorted(arr1, arr2){
+                let idx1 = 0;
+                let idx2 = 0;
+                let arr3 = [];
+                while(idx1 < arr1.length || idx2 < arr2.length){
+                    if(idx1 >= arr1.length){
+                        while(idx2 < arr2.length){
+                            arr3.push(arr2[idx2]);
+                            idx2++;
+                        }
+                    }
+                    else if(idx2 >= arr2.length){
+                        while(idx1 < arr1.length){
+                            arr3.push(arr1[idx1]);
+                            idx1++;
+                        }
+                    }
+                    else if(arr1[idx1] <= arr2[idx2]){
+                        arr3.push(arr1[idx1]);
+                        idx1++;
+                    }
+                    else{
+                        arr3.push(arr2[idx2]);
+                        idx2++;
+                    }
+                }
+                return arr3;
             }
-           /*let arrs1 = [[1, 2, 4, 5, 15], [3, 10, 12], [5, 10, 13, 17, 23]];
+            /*console.log(mergeSorted([11,22,22,77], [2,2,2,6,6,7]));
+            console.log(mergeSorted([1,2,2,2,7], [2,2,6,6,7]));*/
+
+            function smallestArrayRange(arrs){
+                let arr1 = arrs[0], arr2 = arrs[1], arr3 = arrs[2];
+                let index1 = 0, index2 = 0, index3 = 0;
+                let range = Math.max(arr1[index1], arr2[index2], arr3[index3]) - Math.min(arr1[index1], arr2[index2], arr3[index3]);
+                let stillShrinking = true;
+                while(stillShrinking){  
+                    stillShrinking = false;
+                    if(index1 < arr1.length-1){
+                        index1++;
+                        newRange = Math.max(arr1[index1], arr2[index2], arr3[index3]) - Math.min(arr1[index1], arr2[index2], arr3[index3]);
+                        if(range > newRange){
+                            range = newRange;
+                            stillShrinking = true;
+                        }
+                        else{
+                            index1--;
+                        }
+                    }
+                    if(index2 < arr2.length-1){
+                        index2++;
+                        newRange = Math.max(arr1[index1], arr2[index2], arr3[index3]) - Math.min(arr1[index1], arr2[index2], arr3[index3]);
+                        if(range > newRange){
+                            range = newRange;
+                            stillShrinking = true;
+                        }
+                        else{
+                            index2--;
+                        }
+                    }
+                    if(index3 < arr3.length-1){
+                        index3++;
+                        newRange = Math.max(arr1[index1], arr2[index2], arr3[index3]) - Math.min(arr1[index1], arr2[index2], arr3[index3]);
+                        if(range > newRange){
+                            range = newRange;
+                            stillShrinking = true;
+                        }
+                        else{
+                            index3--;
+                        }
+                    }
+                }
+                return {"max": Math.max(arr1[index1], arr2[index2], arr3[index3]), "min": Math.min(arr1[index1], arr2[index2], arr3[index3])}
+            }
+            /*let arrs1 = [[1, 2, 4, 5, 15], [3, 10, 12], [5, 10, 13, 17, 23]];
             let arrs2 = [[40, 50, 60], [1, 4, 6], [10, 12, 45], [0, 5, 23, 56]];
             let arrs3 = [[1, 23, 45, 56], [6, 8, 34], [56, 59, 90]]
             console.log(smallestArrayRange(arrs1));
             console.log(smallestArrayRange(arrs2));
             console.log(smallestArrayRange(arrs3));*/
+
+            //resume pg. 136 (both)
         </script>
     </head>
     <body></body>

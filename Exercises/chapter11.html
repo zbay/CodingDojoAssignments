@@ -521,6 +521,23 @@
                         }
                     }
 
+                this.printLeft = function(){
+                    let leftMost = [];
+                    let depth = this.height();
+                    rLeft(this.root, 0);
+
+                    function rLeft(current, level){
+                        if(!current || leftMost.length >= depth){
+                            return;
+                        }
+                        if(current && !leftMost[level]){
+                            leftMost[level] = current.value;
+                        }
+                        rLeft(current.left, level+1);
+                        rLeft(current.right, level+1);
+                    }
+                    return leftMost;
+                }
                 }
                 function arrayToBST(arr){
                     let newBST = new BST();
@@ -632,6 +649,7 @@
             /*console.log(bst.valBefore(10));
             console.log(bst.valBefore(15));
             console.log(bst.valBefore(8));*/
+            console.log(bst.printLeft());
         </script>
     </head>
     <body></body>

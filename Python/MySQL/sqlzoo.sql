@@ -341,11 +341,11 @@ JOIN goal ON goal.matchid = game.id
 WHERE goal.teamid = 'GER'
 GROUP BY game.id, game.mdate;
 
-/* for each game, get the teams and theage score for each team */
+/* for each game, get the teams and the score for each team */
 SELECT  game.mdate, game.team1,
-	SUM(CASE WHEN goal.teamid=game.team1 THEN 1 ELSE 0 END) score1, 
+	SUM(CASE WHEN goal.teamid=game.team1 THEN 1 ELSE 0 END) AS score1, 
 	game.team2,
-	SUM(CASE WHEN goal.teamid=game.team2 THEN 1 ELSE 0 END) score2
+	SUM(CASE WHEN goal.teamid=game.team2 THEN 1 ELSE 0 END) AS score2
 FROM game
 INNER JOIN goal ON game.id=goal.matchid
 GROUP BY game.mdate, goal.matchid, game.team1, game.team2;
