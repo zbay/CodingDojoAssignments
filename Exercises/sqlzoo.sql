@@ -413,7 +413,35 @@ JOIN actor a
    ON a.id = c.actorid
 WHERE m.yr = 1962 AND c.ord = 1;
 
-/* Resume Part 7, exercise 11*/
+/*years where travolta was in more than 2 movies*/
+SELECT m.yr, COUNT(m.title) AS numMovies
+FROM movie m 
+JOIN casting c
+   ON m.id = c.movieid
+JOIN actor a
+   ON a.id = c.actorid
+WHERE a.name LIKE 'John Travolta'
+GROUP BY m.yr
+HAVING COUNT(m.title) > 2;
+
+/* All movies, with lead actor, where Julie Andrews is a cast member */
+SELECT DISTINCT m.title, a.name
+FROM movie m
+JOIN casting c
+   ON m.id = c.movieid
+JOIN actor a
+   ON a.id = c.actorid
+WHERE c.ord = 1
+AND m.id IN
+   (SELECT m2.id
+   FROM movie m2
+   JOIN casting c2
+      ON m2.id = c2.movieid
+   JOIN actor a2
+      ON a2.id = c2.actorid
+   WHERE a2.name = 'Julie Andrews');
+
+/* Resume Part 7, exercise 13*/
 
 /* Exercises 8: Using null */
 
