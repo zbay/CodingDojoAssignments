@@ -441,7 +441,35 @@ AND m.id IN
       ON a2.id = c2.actorid
    WHERE a2.name = 'Julie Andrews');
 
-/* Resume Part 7, exercise 13*/
+/* All actors with 30+ starring roles*/
+SELECT a.name
+FROM actor a
+JOIN casting c
+   ON c.actorid = a.id
+WHERE c.ord = 1
+GROUP BY a.name
+HAVING COUNT(*) >= 30
+ORDER BY a.name ASC;
+
+/* All 1978 movies, with actor count, and ordered */
+SELECT m.title, COUNT(c.actorid) AS actorcount
+FROM movie m
+JOIN casting c
+   ON c.movieid = m.id
+WHERE m.yr = 1978
+GROUP BY m.id, m.title
+ORDER BY COUNT(c.actorid) DESC, m.title ASC;
+
+/*All actors who worked with Art Garfunkel*/
+SELECT DISTINCT a.name
+FROM actor a
+JOIN casting c
+   ON c.actorid = a.id
+WHERE a.name <> 'Art Garfunkel' AND c.movieid IN
+(SELECT c2.movieid
+FROM actor a2
+JOIN casting c2 ON c2.actorid = a2.id
+WHERE a2.name = 'Art Garfunkel');
 
 /* Exercises 8: Using null */
 
