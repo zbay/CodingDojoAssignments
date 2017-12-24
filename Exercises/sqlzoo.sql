@@ -472,7 +472,109 @@ JOIN casting c2 ON c2.actorid = a2.id
 WHERE a2.name = 'Art Garfunkel');
 
 /* Exercises 8: Using null */
+SELECT name
+FROM teacher
+WHERE dept IS null;
+
+/*All teachers, with department, regardless of whether teacher has a department*/
+SELECT t.name, d.name
+FROM teacher t
+LEFT OUTER JOIN dept d
+ON t.dept = d.id;
+
+/*All departments, with teachers, regardless of whether dept has a teacher*/
+SELECT t.name, d.name
+FROM teacher t
+RIGHT OUTER JOIN dept d
+ON t.dept = d.id;
+
+/*All teachers with mobile umbers, with a default number*/
+SELECT t.name, COALESCE(t.mobile, '07986 444 2266')
+FROM teacher t;
+
+/*All teachers*/
+SELECT t.name, COALESCE(d.name, 'None')
+FROM teacher t
+LEFT JOIN dept d
+ON t.dept = d.id;
+
+SELECT COUNT(t.id), COUNT(t.mobile)
+FROM teacher t;
+
+/*Teacher count by dept*/
+SELECT d.name, COUNT(t.name)
+FROM teacher t
+RIGHT JOIN dept d
+   ON t.dept = d.id
+GROUP BY d.id, d.name;
+
+/* Group as science or art teachers*/
+SELECT t.name, 
+   CASE WHEN t.dept = 1 OR t.dept = 2 THEN 'Sci'
+   WHEN t.dept = 3 THEN 'Art'
+   ELSE 'None'
+   END AS type
+FROM teacher t
+LEFT JOIN dept d
+ON t.dept = d.id;
 
 /* Exercises 8+: Numeric examples */
+
+/*Percent who strongly agree on a question, meeting university and subject requirements*/
+SELECT A_STRONGLY_AGREE
+  FROM nss
+ WHERE question='Q01'
+   AND institution='Edinburgh Napier University'
+   AND subject='(8) Computer Science';
+
+SELECT institution, subject
+FROM nss
+WHERE question='Q15'
+AND score >= 100;
+
+SELECT institution,score
+FROM nss
+WHERE question='Q15'
+   AND score < 50
+   AND subject='(8) Computer Science';
+
+/*Number of responses for a question, for each of two departments*/
+SELECT subject, SUM(response)
+FROM nss
+WHERE question='Q22'
+   AND (subject='(8) Computer Science' 
+   OR subject='(H) Creative Arts and Design')
+GROUP BY subject;
+
+/*Total students who strongly agree to a question, by department*/
+SELECT subject, SUM(response*A_STRONGLY_AGREE/100)
+FROM nss
+WHERE question='Q22'
+   AND (subject='(H) Creative Arts and Design' 
+   OR subject='(8) Computer Science')
+GROUP BY subject;
+
+/*Percent who strongly agree, grouped by subject*/
+SELECT subject, ROUND(SUM(response * A_STRONGLY_AGREE) / SUM(response))
+FROM nss
+WHERE question='Q22'
+   AND (subject='(8) Computer Science'
+   OR subject='(H) Creative Arts and Design')
+GROUP BY subject;
+
+/*Avg scores for a question, by Manchester university*/
+SELECT institution, ROUND(AVG(score)) AS score
+FROM nss
+WHERE question='Q22'
+   AND (institution LIKE '%Manchester%')
+GROUP BY institution
+ORDER BY institution ASC;
+
+/*Show the institution, the total sample size and the number of computing students for institutions in Manchester for 'Q01'.*/
+SELECT institution, SUM(sample), SUM(CASE WHEN subject = '(8) Computer Science' THEN sample ELSE 0 END)
+FROM nss
+WHERE question='Q01'
+   AND institution LIKE '%Manchester%'
+GROUP BY institution;
 
 /* Exercises 9: Self join */
