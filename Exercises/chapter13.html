@@ -317,6 +317,155 @@
                 return false;
             }
 
+            function squareRootInt(num){ // accepts and returns integers. Use no math besides multiplication.
+                // with floats, you'd look for a value within a margin of error, after finding the nearest integer
+                if(num < 0){
+                    return undefined;
+                }
+                if(num === 1){
+                    return 1;
+                }
+                for(let i = 0; i < num/2; i++){
+                    if(i*i === num){
+                        return i;
+                    }
+                }
+            }
+
+            class PriQueue{
+                constructor(){
+                    this.head = null;
+                }
+
+                enqueue(val, pri){
+                    let newNode = new PriQNode(val, pri);
+                    if(!this.head){
+                        this.head = newNode;
+                    }
+                    else if(newNode.priority < this.head.priority){
+                        newNode.next = this.head;
+                        this.head = newNode;
+                    }
+                    else{
+                        let runner = this.head;
+                        while(runner.next && runner.next.priority <= newNode.priority){
+                            runner = runner.next;
+                        }
+                        newNode.next = runner.next;
+                        runner.next = newNode;
+                    }
+                    return newNode;
+                }
+                dequeue(){
+                    if(!this.head){
+                        return null;
+                    }
+                    let returnNode = this.head;
+                    this.head = returnNode.next;
+                    return returnNode;
+                }
+                front(){
+                    return this.head;
+                }
+                empty(){
+                    return !this.head;
+                }
+                contains(val){
+                    let runner = head;
+                    while(runner){
+                        if(runner.value === val){
+                            return true;
+                        }
+                        runner = runner.next;
+                    }
+                    return false;
+                }
+                size(){
+                    let runner = head, len = 0;
+                    while(runner){
+                        runner = runner.next;
+                        len++;
+                    }
+                    return len;
+                }
+            }
+            class PriQNode{
+                constructor(val, pri){
+                    this.value = val;
+                    this.priority = pri;
+                    this.next = null;
+                }
+            }
+
+            let messagePQ = new PriQueue();
+            function sequenceMessage(timestamp, msg){
+                messagePQ.enqueue(msg, timestamp);
+            }
+            function playMessages(){
+                let now = Date.now();
+                while(!messagePQ.empty() && messagePQ.front().priority < now){
+                    console.log(messagePQ.dequeue().value);
+                }
+            }
+
+            class MinHeap{
+                constructor(){
+                    this.heap = [];
+                }
+
+                size(){
+                    return Object.keys(this.heap).length;
+                }
+
+                empty(){
+                    return this.size() === 0;
+                }
+
+                top(){
+                    return this.heap[Object.keys(this.heap)[0]] || null;
+                }
+
+                contains(val){
+                    for(let value of this.heap){
+                        if(val === value){
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                insert(val){
+                    if(this.heap[1] !== undefined){
+                        this.heap[1] = val;
+                        return;
+                    }
+                    let index = 1, inserted = false;
+                    while(!inserted){
+                        if(this.heap[index] === undefined){
+                            this.heap[index] = val;
+                            inserted = true;
+                        }
+                        if(val <= this.heap[index]){
+                            index *= 2;
+                        }
+                        if(val > this.heap[index]){
+                            index = 2*index + 1;
+                        }
+                    }
+                    let promoting = true;
+                    while(promoting){
+                        if(val < this.heap[index/2]){
+                            this.heap[index] = this.heap[index/2];
+                            this.heap[index/2] = val;
+                            index /= 2;
+                        }
+                        else{
+                            promoting = false;
+                        }
+                    }
+                }
+            }
+            // resume p. 141
 
             /*let arrs1 = [[1, 2, 4, 5, 15], [3, 10, 12], [5, 10, 13, 17, 23]];
             let arrs2 = [[40, 50, 60], [1, 4, 6], [10, 12, 45], [0, 5, 23, 56]];
@@ -336,7 +485,12 @@
             /*console.log(subsetUnsorted([1, 2, 3, 4, 5], [3, 4, 5]));
             console.log(subsetUnsorted([1, 2, 3, 4, 5], [6, 7, 8]));
             console.log(subsetUnsorted([1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6]));*/
-            //resume pg. 138: Square root, and SList Priority Queue
+            
+            /*sequenceMessage(1234, "Msg 1");
+            sequenceMessage(2345, "Msg 2");
+            sequenceMessage(111111, "Msg 3");
+            sequenceMessage(Date.now()+400000, "Msg 4");
+            playMessages();*/
         </script>
     </head>
     <body></body>

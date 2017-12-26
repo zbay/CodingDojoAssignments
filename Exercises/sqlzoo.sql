@@ -578,3 +578,83 @@ WHERE question='Q01'
 GROUP BY institution;
 
 /* Exercises 9: Self join */
+
+SELECT COUNT(*)
+FROM stops;
+
+SELECT id
+FROM stops
+WHERE name = 'Craiglockhart';
+
+/*4 LRT service*/
+SELECT id, name
+FROM stops s
+JOIN route r
+WHERE r.stop = s.id
+AND num = 4
+AND company='LRT';
+
+/* Companies with stops at both stations requested*/
+SELECT company, num, COUNT(*)
+FROM route WHERE stop=149 OR stop=53
+GROUP BY company, num
+HAVING COUNT(*) = 2;
+
+/*All services from one specific destination to another*/
+SELECT a.company, a.num, a.stop, b.stop
+FROM route a JOIN route b ON
+  (a.company=b.company AND a.num=b.num)
+WHERE a.stop=53 AND b.stop=149;
+
+/*Same as the previous, except with names*/
+SELECT a.company, a.num, stopa.name, stopb.name
+FROM route a JOIN route b ON
+  (a.company=b.company AND a.num=b.num)
+  JOIN stops stopa ON (a.stop=stopa.id)
+  JOIN stops stopb ON (b.stop=stopb.id)
+WHERE stopa.name='Craiglockhart'
+AND stopb.name='London Road';
+
+/* #7 */
+SELECT DISTINCT a.company, a.num
+FROM route a 
+JOIN route b
+ON (a.company=b.company AND a.num=b.num)
+WHERE a.stop=115 AND b.stop=137; 
+
+/* #8 */
+SELECT a.company, a.num
+FROM route a
+JOIN route b
+ON (a.company=b.company AND a.num=b.num)
+WHERE a.stop=
+   (SELECT id FROM stops WHERE name = 'Craiglockhart')
+AND b.stop=
+   (SELECT id FROM stops WHERE name = 'Tollcross');
+
+/* #9 All stops that can be directly reached from Craiglockhart using the LRT line */
+SELECT DISTINCT s.name, r2.company, r2.num
+FROM route r1 JOIN route r2 
+   ON (r1.company = r2.company AND r1.num = r2.num)
+JOIN stops s 
+   ON r2.stop = s.id
+WHERE r1.company = 'LRT'
+AND r1.stop IN (SELECT id FROM stops s2 WHERE s2.name='Craiglockhart');
+
+/* #10. All two-bus trips from Craiglockhart to Sighthill */
+SELECT DISTINCT a.num, a.company, sb.name, c.num, c.company
+FROM route a
+JOIN route b
+   ON (a.company=b.company AND a.num=b.num)
+JOIN route d
+   ON (d.stop=b.stop)
+JOIN route c
+   ON (c.num=d.num AND c.company=d.company)
+JOIN stops sa
+   ON sa.id = a.stop
+JOIN stops sc
+   ON sc.id=c.stop
+JOIN stops sb 
+   ON sb.id=b.stop
+WHERE sa.name = 'Craiglockhart'
+AND sc.name = 'Sighthill';
