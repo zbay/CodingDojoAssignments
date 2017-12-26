@@ -410,19 +410,19 @@
 
             class MinHeap{
                 constructor(){
-                    this.heap = [];
+                    this.heap = [null];
                 }
 
                 size(){
-                    return Object.keys(this.heap).length;
+                    return this.heap.length-1;
                 }
 
                 empty(){
-                    return this.size() === 0;
+                    return this.size() === 1;
                 }
 
                 top(){
-                    return this.heap[Object.keys(this.heap)[0]] || null;
+                    return this.heap[1];
                 }
 
                 contains(val){
@@ -435,23 +435,8 @@
                 }
 
                 insert(val){
-                    if(this.heap[1] !== undefined){
-                        this.heap[1] = val;
-                        return;
-                    }
-                    let index = 1, inserted = false;
-                    while(!inserted){
-                        if(this.heap[index] === undefined){
-                            this.heap[index] = val;
-                            inserted = true;
-                        }
-                        if(val <= this.heap[index]){
-                            index *= 2;
-                        }
-                        if(val > this.heap[index]){
-                            index = 2*index + 1;
-                        }
-                    }
+                    this.heap.push(val);
+                    let index = this.heap.length-1;
                     let promoting = true;
                     while(promoting){
                         if(val < this.heap[index/2]){
