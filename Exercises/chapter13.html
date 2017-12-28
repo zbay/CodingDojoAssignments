@@ -418,7 +418,7 @@
                 }
 
                 empty(){
-                    return this.size() === 1;
+                    return this.size() <= 1;
                 }
 
                 top(){
@@ -449,8 +449,57 @@
                         }
                     }
                 }
+
+                extract(){
+                    if(this.empty()){
+                        return null;
+                    }
+                    if(this.size() === 1){
+                        return this.heap.pop();
+                    }
+                    let returnVal = this.heap[1];
+                    this.heap[1] = this.heap.pop();
+                    let demotionComplete = false;
+                    let swapIndex = 1;
+                    while(!demotionComplete){
+                        let left = swapIndex*2;
+                        let right = left+1;
+                        if(this.heap[left] === undefined && this.heap[right] === undefined
+                            || (this.heap[left] >= this.heap[swapIndex] && this.heap[right] >= this.heap[swapIndex])){
+                            demotionComplete = true;
+                        }
+                        else if(this.heap[left] === undefined && this.heap[right] < this.heap[swapIndex]){
+                            swap(right, swapIndex);
+                            swapIndex = right;
+                        }
+                        else if(this.heap[right] === undefined && this.heap[left] < this.heap[swapIndex]){
+                            swap(left, swapIndex);
+                            swapIndex = left;
+                        }
+                        else if(this.heap[right] !== undefined && this.heap[left] !== undefined){
+                            let lesserIndex = this.heap[right] < this.heap[left] ? left : right;
+                            if(this.heap[lesserIndex] > this.heap[swapIndex]){
+                                swap(lesserIndex, swapIndex);
+                                swapIndex = lesserIndex;
+                            }
+                        }
+                    }
+                    function swap(i1, i2){
+                        let temp = this.heap[i1];
+                        this.heap[i1] = this.heap[i2];
+                        this.heap[i2] = temp;
+                    }
+                }
+
+                heapify(arr){
+                    this.heap = [null];
+                    for(let i = 0; i < arr.length; i++){
+                        this.insert(arr[i]);
+                    }
+                    return this.heap;
+                }
             }
-            // resume p. 141
+            // resume p. 141, heap sort
 
             /*let arrs1 = [[1, 2, 4, 5, 15], [3, 10, 12], [5, 10, 13, 17, 23]];
             let arrs2 = [[40, 50, 60], [1, 4, 6], [10, 12, 45], [0, 5, 23, 56]];
