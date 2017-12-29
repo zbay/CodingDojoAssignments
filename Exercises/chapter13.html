@@ -436,13 +436,14 @@
 
                 insert(val){
                     this.heap.push(val);
-                    let index = this.heap.length-1;
+                    let index = this.size();
                     let promoting = true;
                     while(promoting){
-                        if(val < this.heap[index/2]){
-                            this.heap[index] = this.heap[index/2];
-                            this.heap[index/2] = val;
-                            index /= 2;
+                        let halvedIndex = Math.floor(index/2);
+                        if((index > 0) && (val < this.heap[halvedIndex])){
+                            this.heap[index] = this.heap[halvedIndex];
+                            this.heap[halvedIndex] = val;
+                            index = halvedIndex;
                         }
                         else{
                             promoting = false;
@@ -464,30 +465,40 @@
                     while(!demotionComplete){
                         let left = swapIndex*2;
                         let right = left+1;
-                        if(this.heap[left] === undefined && this.heap[right] === undefined
-                            || (this.heap[left] >= this.heap[swapIndex] && this.heap[right] >= this.heap[swapIndex])){
+                        if((this.heap[left] === undefined && this.heap[right] === undefined)
+                            || ((this.heap[left] >= this.heap[swapIndex]) && (this.heap[right] >= this.heap[swapIndex]))){
                             demotionComplete = true;
                         }
-                        else if(this.heap[left] === undefined && this.heap[right] < this.heap[swapIndex]){
-                            swap(right, swapIndex);
+                        if(this.heap[left] === undefined && this.heap[right] < this.heap[swapIndex]){
+                            swap(this.heap, right, swapIndex);
                             swapIndex = right;
+                            demotionComplete = true;
                         }
                         else if(this.heap[right] === undefined && this.heap[left] < this.heap[swapIndex]){
-                            swap(left, swapIndex);
+                            swap(this.heap, left, swapIndex);
                             swapIndex = left;
+                            demotionComplete = true;
                         }
                         else if(this.heap[right] !== undefined && this.heap[left] !== undefined){
-                            let lesserIndex = this.heap[right] < this.heap[left] ? left : right;
-                            if(this.heap[lesserIndex] > this.heap[swapIndex]){
-                                swap(lesserIndex, swapIndex);
+                            let lesserIndex = this.heap[right] > this.heap[left] ? left : right;
+                            if(this.heap[lesserIndex] < this.heap[swapIndex]){
+                                swap(this.heap, lesserIndex, swapIndex);
                                 swapIndex = lesserIndex;
                             }
+                            else{
+                                demotionComplete = true;
+                            }
+                        }
+                        else{
+                            demotionComplete = true;
                         }
                     }
-                    function swap(i1, i2){
-                        let temp = this.heap[i1];
-                        this.heap[i1] = this.heap[i2];
-                        this.heap[i2] = temp;
+                    return returnVal;
+
+                    function swap(heap, i1, i2){
+                        let temp = heap[i1];
+                        heap[i1] = heap[i2];
+                        heap[i2] = temp;
                     }
                 }
 
@@ -498,8 +509,28 @@
                     }
                     return this.heap;
                 }
+
+                heapSort(arr){
+                    let restoreHeap = this.heap.slice();
+                    let newHeap = this.heapify(arr);
+                    let newArr = [];
+                    while(!this.empty()){
+                        newArr.push(this.extract());
+                    }
+                    this.heap = restoreHeap;
+                    return newArr;
+                }
+
+                stringify(){
+                    return this.heap.join(", ");
+                }
             }
-            // resume p. 141, heap sort
+
+            /* queue with two stacks: Enqueue: push onto inbox. Dequeue: Pop from outbox, unless outbox is empty, in which
+            case you pop all from inbox and push to outbox, then pop.
+            */ 
+            /* Priority queue from two stacks: like queue from two stacks, but pops for proper insert point*/
+            
 
             /*let arrs1 = [[1, 2, 4, 5, 15], [3, 10, 12], [5, 10, 13, 17, 23]];
             let arrs2 = [[40, 50, 60], [1, 4, 6], [10, 12, 45], [0, 5, 23, 56]];
@@ -525,6 +556,16 @@
             sequenceMessage(111111, "Msg 3");
             sequenceMessage(Date.now()+400000, "Msg 4");
             playMessages();*/
+            let testArray = [73,6,57,88,60,34,83,72,48,85];
+            let newHeap = new MinHeap();
+            /*for(let i = 0; i < testArray.length; i++){
+                newHeap.insert(testArray[i]);
+                console.log(newHeap.stringify());
+            }*/
+            console.log(newHeap.heapSort(testArray));
+            //console.log(newHeap.stringify());
+            //newHeap.heapify(testArray);
+            //console.log(newHeap.stringify());
         </script>
     </head>
     <body></body>

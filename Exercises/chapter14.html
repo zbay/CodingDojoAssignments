@@ -2,7 +2,76 @@
     <head>
         <title>Chapter 14: Hashes</title>
         <script>
+            class HashMap{
+                constructor(capacity){
+                    this.capacity = capacity;
+                    this.table = []; // array of key:value to hold the first of each key
+                    this.overflow = []; // array of key:array to hold collisions
+                }
+                add(key, val){
+                    let hashCode = HashMap.mod(key.hashCode(), this.capacity).bind(this);
+                    if(this.table[hashCode] === undefined){
+                        this.table[hashCode] = val;
+                    }
+                    else{ // if a value already exists with this hash code...
+                        if(this.overflow[hashCode] === undefined){ // ...add an array if it doesn't exist in overflow...
+                            this.overflow[hashCode] = [val];
+                        }
+                        else{
+                            this.overflow[hashcode].push(val); // ... or add to the array if it does exist
+                        }
+                    }
+                }
+                isEmpty(){
+                    return this.table.length === 0 && this.overflow.length === 0;
+                }
+                findKey(key){
+                    if(this.overflow[key] !== undefined){
+                        return [this.table[key]].concat(this.overflow[key]);
+                    }
+                    else{
+                        return [this.table[key]];
+                    }
+                }
+                remove(key){
+                    let keyValue = this.findKey(key);
+                    delete this.overflow[keyValue];
+                    delete this.table[keyValue];
+                    return keyValue;
+                }
+                loadFactor(){
+                    let buckets = 0;
+                    for(let i = 0; i < this.table.length; i++){
+                        if(this.table[i] !== undefined){
+                            buckets++;
+                        }
+                    }
+                    return buckets;
+                }
+                static mod(input, divide){
+                    return (input % divide + divide) % div;
+                }
 
+                // resume p. 146 grow and setSize
+            }
+
+            String.prototype.hashCode = function(){
+                let hash = 0;
+                if(this.length == 0){
+                    return hash;
+                }
+                for(let i = 0; i < this.length; i++){
+                    char = this.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char; // hash function shifts over 5, adds charcode at each iteration
+                    hash &= hash; // converts to 32 bit int
+                }
+                return hash;
+            }
+
+            function mod(input, divide){ // custom definition of %, to handle negatives
+                return (input % divide + divide) % div;
+            }
+            let myIdx = mod(myHashCode, arrSize);
         </script>
     </head>
     <body></body>
