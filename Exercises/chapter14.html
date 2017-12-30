@@ -9,50 +9,105 @@
                     this.overflow = []; // array of key:array to hold collisions
                 }
                 add(key, val){
-                    let hashCode = HashMap.mod(key.hashCode(), this.capacity).bind(this);
-                    if(this.table[hashCode] === undefined){
-                        this.table[hashCode] = val;
-                    }
-                    else{ // if a value already exists with this hash code...
-                        if(this.overflow[hashCode] === undefined){ // ...add an array if it doesn't exist in overflow...
-                            this.overflow[hashCode] = [val];
-                        }
-                        else{
-                            this.overflow[hashcode].push(val); // ... or add to the array if it does exist
-                        }
-                    }
-                }
-                isEmpty(){
-                    return this.table.length === 0 && this.overflow.length === 0;
-                }
-                findKey(key){
-                    if(this.overflow[key] !== undefined){
-                        return [this.table[key]].concat(this.overflow[key]);
+                    let hashKey = this.getHashKey(key);
+                    if(this.table[hashKey] === undefined){
+                        this.table[hashKey] = [val];
                     }
                     else{
-                        return [this.table[key]];
+                        this.table[hashKey].push(val);
                     }
+                    return this;
+                }
+                isEmpty(){
+                    return this.table.length === 0;
+                }
+                findKey(key){
+                    let hashKey = this.getHashKey(key);
+                    if(this.table[hashKey] === undefined){
+                        return null;
+                    }
+                    return this.table[hashKey];
                 }
                 remove(key){
+                    let hashKey = this.getHashKey(key);
                     let keyValue = this.findKey(key);
-                    delete this.overflow[keyValue];
-                    delete this.table[keyValue];
+                    delete this.table[hashKey];
                     return keyValue;
                 }
                 loadFactor(){
                     let buckets = 0;
-                    for(let i = 0; i < this.table.length; i++){
+                    for(let i = 0; i < this.capacity; i++){
                         if(this.table[i] !== undefined){
                             buckets++;
                         }
                     }
                     return buckets;
                 }
+                grow(){
+                    let oldCapacity = this.capacity;
+                    this.capacity *= 1.5;
+                    for(let hashKey = 0; hashKey < this.oldCapacity; hashKey++){
+                        let vals = this.remove(hashKey);
+                        if(vals !== undefined){
+                            for(let valIdx = 0; valIdx < vals.length; valIdx++){
+                                let originalKey = hashKey+oldCapacity; // undo the prior hash by adding the old capacity to the key
+                                this.add(originalKey, vals[valIdx]); 
+                            }
+                        }
+                    }
+                    return this;
+                }
+                setSize(newCap){
+                    newCap = Math.floor(newCap * 1);
+                    if(newCap < 1 || typeof newCap !== "number"){
+                        return this;
+                    }
+                    let oldCapacity = this.capacity;
+                    this.capacity = newCap;
+                    for(let hashKey = 0; hashKey < this.oldCapacity; hashKey++){
+                        let vals = this.remove(hashKey);
+                        if(vals !== undefined){
+                            for(let valIdx = 0; valIdx < vals.length; valIdx++){
+                                let originalKey = hashKey+oldCapacity; // reverse the hash by adding the old capacity to the key
+                                this.add(originalKey, vals[valIdx]); 
+                            }
+                        }
+                    }
+                    return this;
+                }
+                addMap(hashMap, shouldOverwrite=false){
+                    for(let hashKey = 0; hashKey < hashMap.capacity; hashKey++){
+                        let vals = hashMap.remove(hashKey);
+                        if(vals !== undefined){
+                            for(let valIdx = 0; valIdx < vals.length; valIdx++){
+                                if(shouldOverwrite){
+                                    this.remove(key);
+                                }
+                                let originalKey = hashKey+hashMap.capacity;
+                                this.add(originalKey, vals[valIdx]);
+                            }
+                        }
+                    }
+                    return this;
+                }
+                
+                selectKeys(keyArray){
+                    let newTable = [];
+                    for(let key of keyArray){
+                        let hashKey = this.getHashKey(key);
+                        newTable[hashKey] = this.table[hashKey];
+                    }
+                    this.table = newTable;
+                    return this;
+                }
+
+                getHashKey(key){
+                    return HashMap.mod(key.hashCode(), this.capacity).bind(this);
+                }
                 static mod(input, divide){
                     return (input % divide + divide) % div;
                 }
 
-                // resume p. 146 grow and setSize
             }
 
             String.prototype.hashCode = function(){
