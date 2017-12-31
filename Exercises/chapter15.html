@@ -2,7 +2,927 @@
     <head>
         <title>Chapter 15: Trees II</title>
         <script>
+            class BTNode{
+                constructor(value){
+                    this.value = value;
+                    this.left = null;
+                    this.right = null;
+                    this.parent = null;
+                }
+                nodeBefore(){
+                    if(!this.left){
+                        return this.parent;
+                    }
+                    else{
+                        let returnNode = this.left;
+                        while(returnNode.right){
+                            returnNode = returnNode.right;
+                        }
+                        return returnNode;
+                    }
+                }
+                nodeAfter(){
+                    if(this.right){
+                        return this.right;
+                    }
+                    else{
+                        let currentVal = this.value;
+                        let returnNode = this;
+                        while(true){
+                            if(!returnNode.parent){
+                                return null;
+                            }
+                            returnNode = returnNode.parent;
+                            if(returnNode.value > currentVal){
+                                return returnNode;
+                            }
+                        }
+                    }
+                }
+            }
 
+            class BST{
+                constructor(){
+                    this.root = null;
+                }
+
+
+                smallestDifference(){ // space complexity: O(n). time complexity: O(n)
+                    let sortedNums = [];
+                    binarySort(this.root);
+                    function inOrder(node){
+                        if(node){
+                            sortedNums.push(node.value);
+                            if(node.left){
+                                inOrder(node.left);
+                            }
+                            if(node.right){
+                                inOrder(node.right);
+                            }
+                        }
+                        if(sortedNums.length < 2){
+                            return undefined;
+                        }
+                        let smallestDifference = sortedNums[1] - sortedNums[0];
+                        for(let i = 2; i < sortedNums.length; i++){
+                            let difference = sortedNums[i] - sortedNums[i-1]
+                            if(difference < smallestDifference){
+                                smallestDifference = difference;
+                            }
+                        }
+                        return smallestDifference;
+                    }
+                } // with SLL: space complexity would by O(1)
+                repair(){ // also want to detect and remove loops
+                    if(this.isValid()){
+                        return false;
+                    }
+                    else{
+                        let valuesToReinsert = [];
+                        extractTrees(this.root);
+                        for(let val of valuesToReinsert){
+                            this.add(val); // reinsert, with the correct algo
+                        }
+                    }
+                    function extractTrees(node){
+                        if(!node){
+                            return;
+                        }
+                        if(node.left && node.left.value > node.value){
+                            let leftCopy = Object.assign({}, node.left);
+                            leftCopy.parent = null;
+                            node.left = null;
+                            extractValues(leftCopy);
+                        }
+                        if(node.right && node.right.value < node.value){
+                            let rightCopy = Object.assign({}, node.right);
+                            rightCopy.parent = null;
+                            node.right = null;
+                            extractValues(rightCopy);
+                        }
+                        if(node.left){
+                            extractTree(node.left);
+                        }
+                        if(node.right){
+                            extractTree(node.right);
+                        }
+                    }
+                    function extractValues(node){
+                        valuesToReinsert.push(node.value);
+                        if(node.left){
+                            extractValues(node.left);
+                        }
+                        if(node.right){
+                            extractValues(node.right);
+                        }
+                    }
+                    }
+
+                isComplete(){
+                    let leafDepths = [];
+                    rDepths(this.root, 0);
+                    let firstDepth = leafDepths[0];
+                    let decrementAllowed = true;
+                    for(let i = 1; i < leafDepths.length; i++){
+                        if(leafDepths[i] > leafDepths[i-1]){
+                            return false;
+                        }
+                        else if(!decrementAllowed && leafDepths[i] < leafDepths[i-1]){
+                            return false;
+                        }
+                        else if(decrementAllowed && (leafDepths[i]+1) === leafDepths[i-1]){
+                            decrementAllowed = false;
+                        }
+                    }
+                    return true;
+                    function rDepths(node, depth){
+                        if(!node){
+                            leafDepths.push(depth);
+                        }
+                        else if(!node.left && !node.right){
+                            leafDepths.push(depth+1);
+                        }
+                        else{
+                            if(node.left){
+                                rDepths(node.left, depth+1);
+                            }
+                            if(node.right){
+                                rDepths(node.right, depth+1);
+                            }
+                        }
+                    }
+                }
+
+                isFull(){
+                    let leafDepths = [];
+                    rDepths(this.root, 0);
+                    let firstDepth = leafDepths[0];
+                    for(let depth of leafDepths){
+                        if(depth !== firstDepth){
+                            return false; 
+                        }
+                    }
+                    return true;
+
+                    function rDepths(node, depth){
+                        if(!node){
+                            leafDepths.push(depth);
+                        }
+                        else if(!node.left && !node.right){
+                            leafDepths.push(depth+1);
+                        }
+                        else{
+                            if(node.left){
+                                rDepths(node.left, depth+1);
+                            }
+                            if(node.right){
+                                rDepths(node.right, depth+1);
+                            }
+                        }
+                    }
+                }
+                add(val){
+                    if(!this.root){
+                        this.root = new BTNode(val);
+                        //console.log("Added: " + val);
+                        return this;
+                    }
+                    else{
+                        return rAdd(this.root);
+                    }
+
+                    function rAdd(current){
+                        if(!current){
+                            return;
+                        }
+                        if(!current.left && val < current.value){
+                            //console.log("Added: " + val);
+                            current.left = new BTNode(val);
+                            current.left.parent = current;
+                            return this;
+                        }
+                        else if(!current.right && val >= current.value){
+                            //console.log("Added: " + val);
+                            current.right = new BTNode(val);
+                            current.right.parent = current;
+                            return this;
+                        }
+                        else if(current.value < val){
+                            rAdd(current.right);
+                        }
+                        else{ // current.value >= val
+                            rAdd(current.left);
+                        }
+                    }
+                }
+
+                    isEmpty(){
+                        return this.root === null;
+                    }
+
+                    size(){
+                        if(this.isEmpty()){
+                            return 0;
+                        }
+                        return rSize(this.root);
+
+                        function rSize(node){
+                            if(!node.left && !node.right){
+                                return 1;
+                            }
+                            else if(!node.left){
+                                return 1 + rSize(node.right);
+                            }
+                            else if(!node.right){
+                                return 1 + rSize(node.left);
+                            }
+                            else{
+                                return 1 + rSize(node.left) + rSize(node.right);
+                            }
+                        }
+                    }
+
+                    display(){
+                        rShow(this.root);
+                        function rShow(current){
+                            if(!current){
+                                return;
+                            }
+                            console.log(current.value);
+                            rShow(current.left);
+                            rShow(current.right);
+                        }
+                    }
+
+                    max(){
+                        let current = this.root;
+                        while(current.right){
+                            current = current.right;
+                        }
+                        return current.value;
+                    }
+
+                    min(){
+                        let current = this.root;
+                        while(current.left){
+                            current = current.left;
+                        }
+                        return current.value;
+                    }
+
+                    contains(val){
+                        return rContains(this.root);
+
+                        function rContains(current){
+                            if(current.value === val){
+                                return true;
+                            }
+                            else if(current.left && current.value > val){
+                                return rContains(current.left);
+                            }
+                            else if(current.right && current.value <= val){
+                                return rContains(current.right);
+                            }
+                            else{
+                                return false;
+                            }
+                        }
+                    }
+
+                    height(){
+                        if(!this.root){
+                            return 0;
+                        }
+                        return rHeight(this.root);
+
+                        function rHeight(current){
+                            if(!current){
+                                return 0;
+                            }
+                            let leftHeight = rHeight(current.left);
+                            let rightHeight = rHeight(current.right);
+                            if(!current.left && !current.right){
+                                return 1;
+                            }
+                            else if(current.right && current.left){
+                                return(leftHeight >= rightHeight ? 1 + leftHeight : 1 + rightHeight);
+                            }
+                            else if(current.right){
+                                return 1 + rightHeight;
+                            }
+                            else{ // current.left
+                                return 1 + leftHeight;
+                            }
+                        }
+                    }
+
+                    minHeight(){
+                        if(!this.root){
+                            return 0;
+                        }
+                        return rMinHeight(this.root);
+
+                        function rMinHeight(current){
+                            if(!current){
+                                return 0;
+                            }
+                            let leftHeight = rMinHeight(current.left);
+                            let rightHeight = rMinHeight(current.right);
+                            if(!current.left || ! current.right){
+                                return 1;
+                            }
+                            else{
+                                return(leftHeight >= rightHeight ? 1 + rightHeight : 1 + leftHeight);
+                            }
+                        }
+                    }
+
+                    isBalanced(){
+                        let heightFunc = this.height;
+                        if(!this.root){
+                            return true;
+                        }
+                        return rBalanced(this.root);
+
+                        function rBalanced(cur){
+                            if(!cur){
+                                return true;
+                            }
+                            return (Math.abs(heightFunc(cur.left) - heightFunc(cur.right)) < 2) && rBalanced(cur.left) && rBalanced(cur.right);
+                        }
+                    }
+
+                    preOrder(){
+                        preHelper(this.root);
+
+                        function preHelper(node){
+                            if(!node){
+                                return;
+                            }
+                            console.log(node.value);
+                            preHelper(node.left);
+                            preHelper(node.right);
+                        }
+                    }
+                    postOrder(){
+                        postHelper(this.root);
+
+                        function postHelper(node){
+                            if(!node){
+                                return;
+                            }
+                            postHelper(node.left);
+                            postHelper(node.right);
+                            console.log(node.value);
+                        }
+                    }
+                    reverseOrder(){
+                        reverseHelper(this.root);
+
+                        function reverseHelper(node){
+                            if(!node){
+                                return;
+                            }
+                            reverseHelper(node.right);
+                            console.log(node.value);
+                            reverseHelper(node.left);
+                        }
+                    }
+
+                    bst2Arr(){
+                        let arr = [];
+                        arrHelper(this.root);
+                        function arrHelper(node){
+                            if(!node){
+                                return;
+                            }
+                            arrHelper(node.left);
+                            arr.push(node.value);
+                            arrHelper(node.right);
+                        }
+                        return arr;
+                    }
+
+                    inOrderNonRecursive(){
+                        if(!this.root){
+                            return;
+                        }
+                        let start = this.root;
+                        let stack = [start];
+                        pushLeft(start);
+
+                        while(stack.length > 0){
+                            let removed = stack.pop(); // remove at end
+                            console.log(removed.value);
+                            if(removed.right){
+                                stack.push(removed.right);
+                                pushLeft(removed.right);
+                            }
+                        }
+
+                        function pushLeft(current){
+                            while(current && current.left){
+                                current = current.left;
+                                stack.push(current); // insert at start
+                            }
+                        }
+                    }
+                    preOrderNonRecursive(){
+                        let current = this.root;
+                        let stack = [];
+                            while (true) {
+                                // First print the root node and then add left node
+                                while (current != null) {
+                                    console.log(current.value);
+                                    stack.push(current);
+                                    current = current.left;
+                                }
+                                // check if Stack is emtpy, if yes, exit from everywhere
+                                if (stack.length === 0) {
+                                    return;
+                                }
+                                // pop the element from the stack and go right to the tree
+                                current = stack.pop();
+                                current = current.right;
+                            }
+                    }
+
+                    remove(value){
+                        if(!this.contains(value)){
+                            return false;
+                        }
+                        let current = this.root;
+                        let parent = this.root;
+                        while(true){
+                            if(current.value === value){
+                                removeForReal();
+                                return this.root;
+                            }
+                            else if(current.value > value){
+                                parent = current;
+                                current = current.left;
+                            }
+                            else{
+                                parent = current;
+                                current = current.right;
+                            }
+                        }
+                        function removeForReal(){ // change the pointers to remove the node
+                            if(!current.left && !current.right){
+                                if(current === parent){
+                                    this.root = null;
+                                    return;
+                                }
+                                if(current.value <= parent.value){
+                                    parent.left = null;
+                                }
+                                else{
+                                    parent.right = null;
+                                }
+                            }
+                            else if(current.left && !current.right){
+                                if(current.value <= parent.value){
+                                    parent.left = current.left;
+                                    parent.left.parent = parent;
+                                }
+                                else{
+                                    parent.right = current.left;
+                                    parent.right.parent = parent;
+                                }
+                            }
+                            else if(!current.left && current.right){
+                                if(current.value <= parent.value){
+                                    parent.left = current.right;
+                                    parent.left.parent = parent;
+                                }
+                                else{
+                                    parent.right = current.right;
+                                    parent.right.parent = parent;
+                                }
+                            }
+                            else{ // current.left && current.right. Swap value with that of min in right subtree. delete that leaf
+                                parent = current;
+                                let minRightNode = current.right;
+                                let removeRight = true;
+                                while(minRightNode.left){
+                                    parent = minRightNode;
+                                    minRightNode = minRightNode.left;
+                                    removeRight = false;
+                                }
+                                let temp = minRightNode.value;
+                                minRightNode.value = current.value;
+                                current.value = temp;
+                                if(removeRight){
+                                    parent.right = null;
+                                }
+                                else{
+                                    parent.left = null;
+                                }
+                            }
+                        }
+                    }
+
+                    removeAll(){
+                        this.root = null;
+                    }
+
+                    isValid(){
+                        if(!this.root){
+                            return true;
+                        }
+                        return rValid(this.root);
+
+                        function rValid(node){
+                            if(!node){
+                                return true;
+                            }
+                            if(node.left && node.left.value > node.value){
+                                return false;
+                            }
+                            if(node.right && node.right.value < node.value){
+                                return false;
+                            }
+                            return rValid(node.left) && rValid(node.right);
+                        }
+                    }
+
+                    addWithoutDupes(value){
+                        if(!this.root){
+                            this.root = new BTNode(value);
+                            return true;
+                        }
+                        return rAdd(this.root);
+
+                        function rAdd(node){
+                            if(!current){
+                                return;
+                            }
+                            else if(current.value === value){
+                                return false;
+                            }
+                            else if(!current.left && val < current.value){
+                                console.log("Added: " + val);
+                                current.left = new BTNode(val);
+                                current.left.parent = current;
+                                return true;
+                            }
+                            else if(!current.right && val > current.value){
+                                console.log("Added: " + val);
+                                current.right = new BTNode(val);
+                                current.right.parent = current;
+                                return true;
+                            }
+                            else if(current.value < val){
+                                rAdd(current.right);
+                            }
+                            else{ // current.value >= val
+                                rAdd(current.left);
+                            }
+                        }
+                    }
+
+                    valBefore(value){ 
+                        if(!this.root){
+                            return null;
+                        }
+                        let inOrderArr = [];
+                        rBefore(this.root);
+                        let validBefore = false;
+                        for(let i = 0; i < inOrderArr.length; i++){
+                            if(i > 0 && inOrderArr[i] === value || (inOrderArr[i] > value && inOrderArr[i-1] < value)){
+                                return inOrderArr[i-1];
+                            }
+                            if(inOrderArr[i] > value){
+                                return null;
+                            }
+                        }
+                        return false;
+
+                        function rBefore(node){
+                            if(!node){
+                                return null;
+                            }
+                            rBefore(node.left);
+                            inOrderArr.push(node.value);
+                            rBefore(node.right);
+                        }
+                    }
+
+                    valAfter(value){
+                        if(!this.root){
+                            return null;
+                        }
+                        let inOrderArr = [];
+                        rAfter(this.root);
+                        let validBefore = false;
+                        for(let i = 0; i < inOrderArr.length; i++){
+                            if(i < inOrderArr.length-1 && inOrderArr[i] === value || (inOrderArr[i] < value && inOrderArr[i+1] > value)){
+                                return inOrderArr[i-1];
+                            }
+                            if(inOrderArr[i] > value){
+                                return null;
+                            }
+                        }
+                        return false;
+
+                        function rAfter(node){
+                            if(!node){
+                                return null;
+                            }
+                            rBefore(node.left);
+                            inOrderArr.push(node.value);
+                            rBefore(node.right);
+                        }
+                    }
+
+                    /*closestValue(value){
+                        let values = [];
+                        rClosest(this.root);
+                        if(values.length === 0){
+                            return null;
+                        }
+                        let closest = values[0];
+                        for(let i = 0; i < values.length; i++){
+                            if(Math.abs(value-values[i]) < closest){
+                                closest = values[i];
+                            }
+                        }
+                        return closest;
+
+                        function rClosest(current){
+                            if(!this.root){
+                                return;
+                            }
+                            rClosest(current.left);
+                            values.push(current.value);
+                            rClosest(current.right);
+                        }
+                    }*/
+                    // more efficient: runs in O(log n) time instead of n time, with O(1) complexity
+                    closestValue(value){
+                        if(!this.root){
+                            return undefined;
+                        }
+                        let current = this.root;
+                        let closest = current.value;
+                        while(current){
+                            //console.log(current.value);
+                            if(current.value === value){
+                                return value;
+                            }
+                            else{
+                                if(Math.abs(value-current.value) < Math.abs(value-closest)){
+                                    closest = current.value;
+                                }
+                            }
+                            if(current.value > value){
+                                current = current.left;
+                            }
+                            else{ // if current.value < value
+                                current = current.right;
+                            }
+                        }
+                        return closest;
+                    } // in sorted array: O(log n) and O(1), starting at middle and changing index accordingly
+                    // in SLL or DLL: O(N), since you can't directly access by index
+
+                printLeft(){
+                    let leftMost = [];
+                    let depth = this.height();
+                    rLeft(this.root, 0);
+
+                    function rLeft(current, level){
+                        if(!current || leftMost.length >= depth){
+                            return;
+                        }
+                        if(current && !leftMost[level]){
+                            leftMost[level] = current.value;
+                        }
+                        rLeft(current.left, level+1);
+                        rLeft(current.right, level+1);
+                    }
+                    return leftMost;
+                }
+
+                partition(partitionValue){
+                    // goal: change this to the left tree, and return the right tree
+                    // step 1: create arrays, preordered, of values in tree. If THE value is found in traversal, do not add.
+                    // step 2: add all from preorderLeft to this, add all from preorderRight to rightTree
+                    let leftBST = new BST();
+                    let rightBST = new BST();
+                    rPreorder(this.root);
+                    this.root = leftBST.root;
+                    return rightBST;
+
+                    function rPreorder(node){
+                        if(!node){
+                            return;
+                        }
+                        if(node.value > partitionValue){
+                            rightBST.add(node.value);
+                        }
+                        else if(node.value < partitionValue){
+                            leftBST.add(node.value);
+                        }
+                        rPreorder(node.left);
+                        rPreorder(node.right);
+                    }
+                }
+
+                partitionEvenly(){
+                    // step 1: inorder traversal, append values to array
+                    // step 2: take each half of the array, make a tree with it
+                    // step 3: middle of each half-array is root
+                    // step 4: recursively repeat step 3
+                    // step 4A: middle of left half is root's left child
+                    // step 4B: middle of right half is root's right child
+                    let inOrder = [];
+                    rOrder(this.root);
+                    let leftArr = inOrder.slice(0, Math.floor(inOrder.length/2));
+                    let rightArr = inOrder.slice(Math.floor(inOrder.length/2));
+
+                    while(leftArr[leftArr.length-1] === rightArr[0]){ // enforce no overlap
+                        leftArr.push(rightArr.shift());
+                    }
+
+                    let leftTree = new BST();
+                    let rightTree = new BST();
+                    buildTree(leftTree, leftArr);
+                    buildTree(rightTree, rightArr);
+                    this.root = leftTree.root;
+                    return rightTree;
+
+                    function buildTree(tree, arr){
+                        if(arr && arr.length > 0){
+                            tree.add(arr[Math.floor(arr.length/2)]);
+                            if(arr.length > 1){
+                                buildTree(tree, arr.slice(0, Math.floor(arr.length/2)));
+                                buildTree(tree, arr.slice(Math.floor(arr.length/2)+1));
+                            }
+                        }
+                    }
+                    function rOrder(node){
+                        if(!node){
+                            return;
+                        }
+                        rOrder(node.left);
+                        inOrder.push(node.value);
+                        rOrder(node.right);
+                    }
+                }
+                reverse(){
+                    rReverse(this.root);
+                    return this;
+                    function rReverse(node){
+                        if(!node){
+                            return;
+                        }
+                        let temp = node.left;
+                        node.left = node.right;
+                        node.right = temp;
+                        rReverse(node.left);
+                        rReverse(node.right);
+                    }
+                }
+
+                kthLargest(k){
+                    let descending = [];
+                    rReverse(this.root);
+                    if(k > descending.length || k < 1){
+                        return undefined;
+                    }
+                    return descending[k-1];
+
+                    function rReverse(node){
+                        if(!node || descending.length >= k){
+                            return;
+                        }
+                        rReverse(node.right);
+                        descending.push(node.value);
+                        rReverse(node.left);
+                    }
+                }
+
+                dfs(val){
+                    return rDFS(this.root);
+
+                    function rDFS(node){
+                        if(!node){
+                            return false;
+                        }
+                        if(node.value === val){
+                            return true;
+                        }
+                        return rDFS(node.left) || rDFS(node.right);
+                    }
+                }
+                bfs(val){
+                    if(!this.root){
+                        return false;
+                    }
+                    let queue = [this.root];
+                    while(queue.length > 0){
+                        let node = queue.shift();
+                        if(node.value === val){
+                            return true;
+                        }
+                        if(node.left){
+                            queue.push(node.left);
+                        }
+                        if(node.right){
+                            queue.push(node.right);
+                        }
+                    }
+                    return false;
+                }
+
+                valuesForLayer(layer){
+                    let layerVals = [];
+                    rLayer(this.root, 0);
+                    return layerVals;
+
+                    function rLayer(node, depth){
+                        if(!node || depth > layer){
+                            return;
+                        }
+                        if(depth === layer){
+                            layerVals.push(node.value);
+                        }
+                        rLayer(node.left, depth+1);
+                        rLayer(node.right, depth+1);
+                    }
+                }
+
+                layerArrays(){
+                    let layers = [];
+                    rLayers(this.root, 0);
+                    return layers;
+
+                    function rLayers(node, depth){
+                        if(!node){
+                            return;
+                        }
+                        if(!layers[depth]){
+                            layers[depth] = [node.value];
+                        }
+                        else{
+                            layers[depth].push(node.value);
+                        }
+                        rLayers(node.left, depth+1);
+                        rLayers(node.right, depth+1);
+                    }
+                }
+            }
+            let bst = new BST();
+            bst.add(10);                   
+            bst.add(3);
+            bst.add(20);
+            bst.add(1);
+            bst.add(5);
+            bst.add(15);
+            bst.add(30);
+            //console.log(bst.isComplete()); // should be true
+            //console.log(bst.isFull()); // should be true
+            bst.add(0);
+            //console.log(bst.isComplete()); // should be true
+            bst.add(35);
+            /*console.log(bst.valuesForLayer(0)); // 10
+            console.log(bst.valuesForLayer(1)); // 3, 20
+            console.log(bst.valuesForLayer(2)) // 1, 5, 15, 30;
+            console.log(bst.valuesForLayer(3)); // 0, 35*/
+            console.log(bst.layerArrays());
+            /*console.log(bst.kthLargest(3)); // 20
+            console.log(bst.kthLargest(0)); // undefined
+            console.log(bst.kthLargest(9)); // 0
+            console.log(bst.kthLargest(10)); // undefined
+            console.log(bst.kthLargest(1)); // 35
+            console.log(bst.kthLargest(4)); // 15*/
+            //console.log("display normal");
+            //bst.display();
+            //bst.reverse();
+            //console.log("display reversed");
+            //bst.display();
+            //let right = bst.partition(20);
+            //right.display();
+            //bst.display();
+            //let right = bst.partitionEvenly();
+            //right.display();
+            //console.log(bst.isComplete()); // should be false
+            /*console.log(bst.closestValue(15)); // 15
+            console.log(bst.closestValue(0)); // 0
+            console.log(bst.closestValue(10)); // 10
+            console.log(bst.closestValue(35)); // 35
+            console.log(bst.closestValue(17)); // 15
+            console.log(bst.closestValue(21)); // 20
+            console.log(bst.closestValue(400)); // 35 */
+            /*console.log(bst.bfs(10));
+            console.log(bst.bfs(20));
+            console.log(bst.bfs(0));
+            console.log(bst.bfs(35));
+            console.log(bst.bfs(15));
+            console.log(bst.bfs(17));
+            console.log(bst.bfs(-5));*/
+            // resume p. 153 reverse BST, and p. 154 kth-biggest
         </script>
     </head>
     <body></body>

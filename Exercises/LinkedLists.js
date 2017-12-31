@@ -398,7 +398,8 @@ function SLL(){
         return false;
     }
 
-    this.breakLoop = function(){ // the difference between distance from head to intersection and the size of the loop = number of times to increment runner before setting next to undefined
+    this.breakLoop = function(){ 
+// the difference between distance from head to intersection and the size of the loop = number of times to increment runner before setting next to undefined
         let slowRunner = this.head;
         let fastRunner = this.head;
         while(fastRunner){
@@ -421,7 +422,7 @@ function SLL(){
                     thirdRunner = thirdRunner.next;
                 }
                 let diff = Math.abs(distToIntersection-loopSize);
-                while(diff){
+                while(diff > 0){
                     slowRunner = slowRunner.next;
                     diff--;
                 }
