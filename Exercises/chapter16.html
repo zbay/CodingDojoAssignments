@@ -1,8 +1,228 @@
 <html>
     <head>
-        <title>Chapter 16: Queues and Stacks</title>
+        <title>Chapter 16: Tries</title>
         <script>
+            class TrieNode{
+                constructor(value){
+                    this.value = value;
+                    this.pointers = {};
+                }
+            }
+            class TrieSet{
+                constructor(){
+                    this.root = null;
+                }
 
+                insert(str){
+                    if(str.length === 0){
+                        return false;
+                    }
+                    if(!this.root){
+                        this.root = new TrieNode(null);
+                    }
+                    return rInsert(this.root, 0);
+
+                    function rInsert(node, index){
+                        if(index === str.length-1){
+                            if(!node.value){
+                                node.value = str;
+                                return true;
+                            }
+                            else{
+                                return false;
+                            }
+                        }
+                        let insertChar = str.charAt(index);
+                        if(node.pointers[insertChar] === undefined){
+                            node.pointers[insertChar] = new TrieNode(null);
+                        }
+                        return rInsert(node.pointers[insertChar], substr.slice(1));
+                    }
+                }
+
+                contains(str){
+                    if(!this.root){
+                        return false;
+                    }
+                    return rContains(this.root, 0);
+
+                    function rContains(node, index){
+                        if(node.value === str){
+                            return true;
+                        }
+                        if(index >= str.length){
+                            return false;
+                        }
+                        let nextChar = str.charAt(index);
+                        if(node.pointers[nextChar] !== undefined){
+                            return rContains(node[nextChar], index+1);
+                        }
+                        else{
+                            return false;
+                        }
+                    }
+                }
+
+                first(){
+                    if(!this.root){
+                        return false;
+                    }
+
+                    return rFirst(this.root) || false;
+
+                    function rFirst(node){
+                        let keys = Object.keys(node.pointers).sort(TrieSet.charCompare);
+                        if(keys.length === 0){
+                            return node.value;
+                        }
+                        else{
+                            return rFirst(node.pointers[keys[0]]);
+                        }
+                    }
+                }
+
+                last(){
+                    if(!this.root){
+                        return false;
+                    }
+                    return rLast(this.root) || false;
+
+                    function rLast(node){
+                        let keys = Object.keys(node.pointers).sort(TrieSet.charCompare);
+                        if(keys.length === 0){
+                            return node.value;
+                        }
+                        else{
+                            return rLast(node.pointers[keys[keys.length-1]]);
+                        }
+                    }
+                }
+
+                remove(str){
+                    // step 1: find "leaf", saving all ancestors in array
+                    // step 2: delete leaf
+                    // step 3: starting from deepest ancestor, delete if ancestor has no children
+                    // step 4: once you find an ancestor with children, delete reference to the last deleted ancestor from its parent (if it has one)
+                    if(!this.contains(str)){
+                        return false;
+                    }
+                    let ancestors = [];
+                    rRemove(this.root, 0).bind(this);
+
+                    function rRemove(node, index){
+                        if(node.value === str){
+                            delete node;
+                            for(let i = ancestors.length-1; i >= 0; i--){
+                                let ancestorNode = ancestors[i];
+                                let keys = Object.keys(ancestorNode.pointers);
+                                if(keys.length === 0 || (keys.length === 1 && keys[0] === undefined && ancestor !== this.root)){
+                                    delete ancestorNode;
+                                }
+                                else{
+                                    for(let j = 0; j < keys.length; j++){
+                                        if(keys[j] === undefined){
+                                            delete keys[j];
+                                        }
+                                    }
+                                    return;
+                                }
+                            }
+                        }
+                        else{
+                            ancestors.push(node);
+                            rRemove(node.pointers[str.charAt(index)], index+1);
+                        }
+                    }
+                }
+
+                size(){
+                    if(!this.root){
+                        return 0;
+                    }
+                    let count = 0;
+                    let queue = [this.root];
+                    while(queue.length > 0){
+                        let node = queue.shift();
+                        if(node.value !== null){
+                            count++;
+                        }
+                        for(let pointer of queue.pointers){
+                            queue.push(pointer);
+                        }
+                    }
+                    return count;
+                }
+
+                next(str){
+                    if(!this.root){
+                        return null;
+                    }
+                    let queue = [this.root];
+    
+                    while(queue.length > 0){
+                        let node = queue.shift();
+                        if(node.value && node.value > str){ // return the first value greater than the input
+                            return node.value;
+                        }
+                        let keys = Object.keys(node.pointers).sort(TrieSet.charCompare);
+                        for(let i = 0; i < keys.length; i++){
+                            queue.push(keys[i]);
+                        }
+                    }
+                    return null;
+                }
+
+                autoComplete(str, maxResults){
+                    if(!this.root){
+                        return [];
+                    }
+                    let results = [];
+                    rComplete(this.root, 0);
+                    return results;
+
+                    function rComplete(node, index){
+                        if(node.value === str){
+                            return rResults(node, index);
+                        }
+                        else{
+                            let indexChar = str.charAt(index);
+                            if(node.pointers[indexChar] !== undefined){
+                                rComplete(node.pointers[indexChar], index+1);
+                            }
+                            else{
+                                return [];
+                            }
+                        }
+                    }
+                    function rResults(node, index){
+                        if(results.length === maxResults){
+                            return;
+                        }
+                        if(node.value){
+                            results.push(node.value);
+                        }
+                        let keys = Object.keys(node.pointers).sort(TrieSet.charCompare);
+                        for(let i = 0; i < keys.length; i++){
+                            rResults(node.pointers[keys[i]]);
+                        }
+                    }
+                }
+
+                static charCompare(a, b){
+                    let charCodeA = a.charCodeAt(0);
+                    let charCodeB = b.charCodeAt(0);
+                    if(charCodeA < charCodeB){
+                        return -1;
+                    }
+                    else if(charCodeA > charCodeB){
+                        return 1;
+                    }
+                    else{
+                        return 0;
+                    }
+                }
+
+            }
         </script>
     </head>
     <body></body>

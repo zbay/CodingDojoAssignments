@@ -2,7 +2,355 @@
     <head>
         <title>Chapter 17: Graphs</title>
         <script>
+            /*class GraphNode{
+                constructor(val){
+                    this.value = val;
+                }
+            }
+            class Graph{
+                constructor(){
+                    this.vertList = {}; // NB: vertList is an object!
+                    this.edgeList = [];
+                    this.id = 0;
+                }
+                addVertex(val){
+                    this.id++;
+                    this.vertList[id] =  new GraphNode(this.id, val);
+                }
+                removeVertex(vertId){
 
+                }
+            }*/
+            class GraphNode{
+                constructor(id, val){
+                    this.id = id;
+                    this.value = val;
+                }
+            }
+            class Edge{
+                constructor(id1, id2, value){
+                    this.id1 = id1;
+                    this.id2 = id2;
+                    this.value = value;
+                }
+            }
+            class ELGraph{
+                constructor(){
+                    this.edgeList = [];
+                    this.vertexList = {}; // NB: vertexList is an object!
+                    this.id = 0;
+                }
+                addVertex(value){
+                    this.id++;
+                    this.vertexList[this.id] = new GraphNode(this.id, value);
+                    return this.id;
+                }
+                removeVertex(vertID){
+                    this.removeEdges(vertID);
+                    if(this.vertexList[vertID] !== undefined){
+                        delete this.vertexList[vertID];
+                        return true;
+                    }
+                    return false;
+                }
+                getVertexValue(vertID){
+                    return this.vertexList[vertID];
+                }
+                setVertexValue(vertID, value){
+                    if(this.vertexList[vertID] !== undefined){
+                        this.vertexList[vertID] = value;
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                addEdge(vertID1, vertID2, value){
+                    if(this.vertexList[vertID1] === undefined || this.vertexList[vertID2] === undefined){
+                        return false;
+                    }
+                    this.edgeList.push(new Edge(vertID1, vertID2, value));
+                    return true;
+                }
+                removeEdges(vertID){
+                    for(let i = 0; i < this.edgeList.length; i++){
+                        if(this.edgeList[i].id1 === vertID || this.edgeList[i].id2 === vertID){
+                            this.edgeList.splice(i, 1);
+                        }
+                    }
+                    return this;
+                }
+                removeEdge(vertID1, vertID2){ 
+                    let removed = false;
+                    for(let i = 0; i < this.edgeList.length; i++){
+                        if(this.edgeList[i].id1 === vertID || this.edgeList[i].id2 === vertID){
+                            removed = true;
+                            this.edgeList.splice(i, 1);
+                        }
+                    }
+                    return removed;
+                }
+                getEdgeValue(vertID1, vertID2){
+                    for(let i = 0; i < this.edgeList.length; i++){
+                        if(this.edgeList[i].id1 === vertID1 && this.edgeList[i].id2 === vertID2){
+                            return this.edgeList[i].value;
+                        }
+                    }
+                    return false;
+                }
+                setEdgeValue(vertID1, vertID2, value){
+                    for(let i = 0; i < this.edgeList.length; i++){
+                        if(this.edgeList[i].id1 === vertID1 && this.edgeList[i].id2 === vertID2){
+                            this.edgeList[i].value = value;
+                            return true;
+                        }      
+                    }
+                    return false;
+                }
+                adjacent(vertID1, vertID2){
+                    for(let i = 0; i < this.edgeList.length; i++){
+                        if(this.edgeList[i].id1 === vertID1 && this.edgeList[i].id2 === vertID2){
+                            return true;
+                        }      
+                    }
+                    return false;
+                }
+                neighbors(vertID){
+                    let arrNeigbors = [];
+                    for(let i = 0; i < this.edgeList.length; i++){
+                        if(this.edgeList[i].id1 === vertID){
+                            arrNeigbors.push(this.edgeList[i].id2);
+                        }
+                        if(this.edgeList[i].id2 === vertID){
+                            arrNeigbors.push(this.edgeList[i].id1);
+                        }
+                    }
+                    return arrNeigbors;
+                }
+                /*vertexExists(val){
+                    for(let i = 0; i < this.edgeList.length; i++){
+                        if((this.edgeList[i][0] === val) || (this.edgeList[i][1] === val)){
+                            return true;
+                        }
+                    }
+                    return false;
+                }*/
+
+            }
+            class AdjMapGraphNode{
+                constructor(val, keys, id){
+                    this.value = val;
+                    this.adjacencies = {};
+                    for(let key of keys){
+                        this.adjacencies[key] = 0;
+                    }
+                    this.adjacencies[id] = 0;
+                }
+            }
+
+            class AMGraph{
+                constructor(){
+                    this.id = 0;
+                    this.size = 0;
+                    this.adjacencyMap = {};
+                }
+                addVertex(value){
+                    this.id++;
+                    this.size++;
+                    let newArrLength = this.adjacencyMap.length+1;
+                    let newVertex = new AdjMapGraphNode(value, Object.keys(this.adjacencyMap), this.id);
+                    this.adjacencyMap[this.d] = newVertex;
+                    for(let vertex of this.adjacencyMap){
+                        vertex.adjacencies[this.id] = 0;
+                    }
+                    return this.id;
+                }
+                removeVertex(vertID){
+                    if(!this.adjacencyMap[vertID]){
+                        return false;
+                    }
+                    delete this.adjacencyMap[vertID] // remove row
+                    for(let vertex of this.adjacencyMap){ //remove columns
+                        delete vertex[vertID];
+                    }
+                    return true;
+                }
+                getVertexValue(vertID){
+                    if(this.adjacencyMap[vertID]){
+                        return this.adjacencyMap[vertID].value;
+                    }
+                    return false;
+                }
+                setVertexValue(vertID, value){
+                    if(this.adjacencyMap[vertID]){
+                        this.adjacencyMap[vertID].value = value
+                        return true;
+                    }
+                    return false;
+                }
+                addEdge(vertID1, vertID2, value){
+                    if(!this.adjacencyMap[vertID1] || !this.adjacencyMap[vertID2]){
+                        return false;
+                    }
+                    this.adjacencyMap[vertID1].adjacencies[vertID2] = value;
+                    return true;
+                }
+                removeEdges(vertID){
+                    if(!this.adjacencyMap[vertID]){
+                        return false;
+                    }
+                    else{
+                        for(let key in this.adjacencyMap[vertID].adjacencies){
+                            this.adjacencyMap[vertID].adjacencies[key] = 0;
+                        }
+                        for(let key in this.adjacencyMap){
+                            this.adjacencyMap[key].adjacencies[vertID] = 0;
+                        }
+                    }
+                    return true;
+                }
+                removeEdge(vertID1, vertID2){ 
+                    if(!this.adjacencyMap[vertID1] || !this.adjacencyMap[vertID2]){
+                        return false;
+                    }
+                    this.adjacencyMap[vertID1].adjacencies[vertID2] = 0;
+                    return true;
+                }
+                getEdgeValue(vertID1, vertID2){
+                    if(!this.adjacencyMap[vertID1] || !this.adjacencyMap[vertID2]){
+                        return false;
+                    }
+                    return this.adjacencyMap[vertID1].adjacencies[vertID2];
+                }
+                setEdgeValue(vertID1, vertID2, value){
+                    if(!this.adjacencyMap[vertID1] || !this.adjacencyMap[vertID2]){
+                        return false;
+                    }
+                    this.adjacencyMap[vertID1].adjacencies[vertID2] = value;
+                    return true;
+                }
+                adjacent(vertID1, vertID2){
+                    return this.adjacencyMap[vertID1] && this.adjacencyMap[vertID2] && this.adjacencyMap[vertID1].adjacencies[vertID2] !== 0;
+                }
+                neighbors(vertID){
+                    if(!this.adjacencyMap[vertID]){
+                        return false;
+                    }
+                    return Object.keys(this.adjacencyMap[vertID].adjacencies).filter((key) => { 
+                       return this.adjacencyMap[vertID].adjacencies[key] > 0;
+                    });
+                }
+            }
+            class AdjListGraphNode{
+                constructor(val){
+                    this.value = val;
+                    this.adjacencies = {};
+                }
+            }
+            class ALGraph{
+                constructor(){
+                    this.id = 0;
+                    this.adjacencyList = {};
+                }
+                addVertex(value){
+                    this.id++;
+                    let newVertex = new AdjListGraphNode(value);
+                    this.adjacencyList[id] = newVertex;
+                    return this.id;
+                }
+                removeVertex(vertID){
+                    delete this.adjacencyList[vertID];
+                    for(let vertex of this.adjacencyList){
+                        delete vertex.adjacencies[vertID];
+                    }
+                }
+                getVertexValue(vertID){
+                    if(!this.adjacencyList[vertID]){
+                        return false;
+                    }
+                    return this.adjacencyList[vertID].value;
+                }
+                setVertexValue(vertID, value){
+                    if(!this.adjacencyList[vertID]){
+                        return false;
+                    }
+                    this.adjacencyList[vertID].value = value;
+                    return false;                
+                }
+                addEdge(vertID1, vertID2, value){
+                    if(!this.adjacencyList[vertID1] || !this.adjacencyList[vertID2]){
+                        return false;   
+                    }                
+                    this.adjacencyList[vertID1].adjacencies[vertID2] = value;
+                }
+                removeEdges(vertID){
+                    if(!this.adjacencyList[vertID]){
+                        return false;
+                    }
+                    for(let key in this.adjacencyList[vertID].adjacencies){
+                        delete this.adjacencyList[key].adjacencies[vertID];
+                    }
+                    this.adjacencyList[vertID].adjacencies = {};
+                    return true;
+                }
+                removeEdge(vertID1, vertID2){ 
+                    if(!this.adjacencyList[vertID1] || !this.adjacencyList[vertID1] || !this.adjacencyList[vertID1].adjacencies[vertID2]){
+                        return false;
+                    }
+                    delete this.adjacencyList[vertID1].adjacencies[vertID2];
+                    return true;
+                }
+                getEdgeValue(vertID1, vertID2){
+                    if(!this.adjacencyList[vertID1] || !this.adjacencyList[vertID2] || !this.adjacencyList[vertID1].adjacencies[vertID2]){
+                        return false;
+                    }
+                    return this.adjacencyList[vertID1].adjacencies[vertID2];
+                }
+                setEdgeValue(vertID1, vertID2, value){
+                    if(!this.adjacencyList[vertID1] || !this.adjacencyList[vertID2]){
+                        return false;
+                    }
+                    this.adjacencyList[vertID1].adjacencies[vertID2] = value;
+                    return true;
+                }
+                adjacent(vertID1, vertID2){
+                   return this.adjacencyList[vertID1] && this.adjacencyList[vertID2] && this.adjacencyList[vertID1].adjacencies[vertID2];
+                }
+                neighbors(vertID){
+                    if(!this.adjacencyList[vertID]){
+                        return false;
+                    }
+                    return Object.keys(this.adjacencyList[vertID].adjacencies);
+                }
+
+                depthFirstSearch(vertIdStart, vertIdTarget){
+                    let stack = [this.adjacencyList[vertIdStart]];
+                    while(stack.length > 0){
+                        let vertex = stack.pop();
+                        if(this.adjacencyList[vertIdTarget] === vertex){
+                            cleanupVisited();
+                            return true;
+                        }
+                        for(let key in vertex.adjacencies){
+                            let node = this.adjacencyList[key];
+                            if(!node.visited){
+                                node.visited = true;
+                                stack.push(node);
+                            }
+                        }
+                    }
+                    cleanupVisited();
+                    return false;
+                }
+                cleanupVisited(){
+                    for(vertex of this.adjacencyList){
+                        delete vertex.visited;
+                    }
+                }
+                allPaths(vertIdStart, vertIdTarget){
+
+                }
+            }
         </script>
     </head>
     <body></body>
