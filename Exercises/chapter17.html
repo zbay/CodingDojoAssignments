@@ -323,17 +323,21 @@
                     return Object.keys(this.adjacencyList[vertID].adjacencies);
                 }
 
-                depthFirstSearch(vertIdStart, vertIdTarget){
+                depthFirstSearch(vertIdStart, vertIdTarget){ // returns a path from point a to point b
+                    this.adjacencyList[vertIdStart].path = [vertIdStart];
                     let stack = [this.adjacencyList[vertIdStart]];
                     while(stack.length > 0){
                         let vertex = stack.pop();
                         if(this.adjacencyList[vertIdTarget] === vertex){
+                            let path = vertex.path.slice();
                             cleanupVisited();
-                            return true;
+                            return path;
                         }
                         for(let key in vertex.adjacencies){
                             let node = this.adjacencyList[key];
                             if(!node.visited){
+                                node.path = vertex.path.slice();
+                                node.path.push(key);
                                 node.visited = true;
                                 stack.push(node);
                             }
@@ -342,13 +346,135 @@
                     cleanupVisited();
                     return false;
                 }
+                breadthFirstSearch(vertIdStart, vertIdTarget){ // returns shortest path
+                    this.adjacencyList[vertIdStart].path = [vertIdStart];
+                    let queue = [];
+                    while(queue.length > 0){
+                        let vertex = queue.shift();
+                        if(this.adjacencyList[vertIdTarget] === vertex){
+                            let path = vertex.path.slice();
+                            cleanupVisited();
+                            return path;
+                        }
+                        for(let key in vertex.adjacencies){
+                            let node = this.adjacencyList[key];
+                            if(!node.visited){
+                                node.path = vertex.path.slice();
+                                node.path.push(key);
+                                node.visited = true;
+                                queue.push(node);
+                            }
+                        }
+                    }
+                    return [];
+                }
+                threeSteps(vertIdStart){ // get all IDs of nodes within three steps of the start
+                // path of four ids or less
+                    this.adjacencyList[vertIdStart].path = [vertIdStart];
+                    let queue = [];
+                    let closeNodes = [];
+                    while(queue.length > 0){
+                        let vertex = queue.shift();
+                        for(let key in vertex.adjacencies){
+                            let node = this.adjacencyList[key];
+                            if(!node.visited){
+                                node.path = vertex.path.slice();
+                                node.path.push(key);
+                                if(node.path.length < 5){ 
+                                    closeNodes.push(key);
+                                }
+                                else{
+                                    return closeNodes;
+                                }
+                                node.visited = true;
+                                queue.push(node);
+                            }
+                        }
+                    }    
+                    return closeNodes;
+                }
+                getHubs(){ // get all nodes with more incoming edges than outgoing
+                    let hubs = [];
+                    for(let key in this.adjacencyList){
+                        let outgoingEdges = Object.keys(this.adjacencyList[key].adjacencies).length;
+                        let incomingEdges = 0;
+                        for(let otherKey in this.adjacencyList){
+                            if(otherKey !== key && this.adjacencyList[otherKey].adjacencies[key]){
+                                incomingEdges++;
+                            }
+                        } 
+                        if(incomingEdges > outgoingEdges){
+                            hubs.push(key);
+                        }
+                    }
+                }
+                topologicalSort(){ 
+                // a linear ordering of its nodes in which each node comes before all nodes to which it has outbound edges
+                    let order = [];
+                    let stillAcyclic = true;
+                    let keysCopy = Object.keys(this.adjacencyList).slice();
+                    while(stillAcyclic && keysCopy.length > 0){
+                        for(let i = 0; i < keysCopy.length; i++){
+                            let inspectedKey = keysCopy[i];
+                            let dependedOn = false;
+                            for(j = 0; j < keysCopy.length; j++){
+                                if(j === i){
+                                    continue;
+                                }
+                                if(this.adjacencyList[inspectedKey].adjacencies[j]){ 
+                                    // if the inspected key depends on something still in the keys array
+                                    dependedOn = true;
+                                    break;
+                                }
+                            }
+                            if(!dependedOn){
+                                order.push(keysCopy[i]);
+                                keysCopy.slice(i,1);
+                            }
+                        }
+                    }
+                    if(order.length === Object.keys(this.adjacencyList).length){
+                        return order;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                isAcyclic(){ // basically, can this be topologically sorted?
+                    return !!this.topologicalSort();
+                }
+                allPaths(vertIdStart, vertIdTarget){ // returns a path from point a to point b
+                /* allPaths: like depthFirstSearch but...
+                    do not return when target is reached!
+                    maintain a paths variable. add to it every time the target node is reached
+                */
+                    let paths = [];
+                    this.adjacencyList[vertIdStart].path = [vertIdStart];
+                    let stack = [this.adjacencyList[vertIdStart]];
+                    while(stack.length > 0){
+                        let vertex = stack.pop();
+                        if(this.adjacencyList[vertIdTarget] === vertex){
+                            paths.push(vertex.path);
+                        }
+                        for(let key in vertex.adjacencies){
+                            let node = this.adjacencyList[key];
+                            if(!node.visited){
+                                node.path = vertex.path.slice();
+                                node.path.push(key);
+                                node.visited = true;
+                                stack.push(node);
+                            }
+                        }
+                    }
+                    cleanupVisited();
+                    return paths;
+                }
                 cleanupVisited(){
                     for(vertex of this.adjacencyList){
                         delete vertex.visited;
+                        delete vertex.path;
+                        delete vertex.distance;
                     }
-                }
-                allPaths(vertIdStart, vertIdTarget){
-
                 }
             }
         </script>
